@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { endpoints } from "../utils/constants";
+import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";

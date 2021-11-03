@@ -7,7 +7,7 @@ const PRIMARY_COMMON = "focus:ring focus:ring-indigo-200 focus:ring-opacity-50 b
 const OUTLINE_COMMON = "focus:ring-1 focus:ring-indigo-200 focus:ring-opacity-50 border-1 transition duration-200 ease-in-out"
 
 const variants = Object.freeze({
-  "primary": joinClassNames("bg-green-400 hover:bg-green-500 dark:bg-green-600 dark:hover:bg-green-500 dark:text-white",PRIMARY_COMMON),
+  "primary": joinClassNames("bg-purple-400 hover:bg-purple-500 dark:bg-purple-600 dark:hover:bg-purple-500 dark:text-white",PRIMARY_COMMON),
 
   "secondary": joinClassNames("bg-blue-400 hover:bg-blue-500 dark:bg-blue-900 dark:hover:bg-blue-800 dark:text-white",PRIMARY_COMMON),
 
@@ -22,7 +22,7 @@ const variants = Object.freeze({
   // "light": "",
   // "dark": "",
 
-  "outline-primary": joinClassNames("border-green-400 text-green-500 hover:bg-green-400 hover:text-white dark:border-green-700 text-green-600 dark:hover:bg-green-600 dark:hover:border-green-600",OUTLINE_COMMON),
+  "outline-primary": joinClassNames("border-purple-400 text-purple-500 hover:bg-purple-400 hover:text-white dark:border-purple-700 text-purple-600 dark:hover:bg-purple-600 dark:hover:border-purple-600",OUTLINE_COMMON),
 
   "outline-secondary":joinClassNames("border-blue-400 text-blue-500 hover:bg-blue-400 hover:text-white dark:border-blue-700 text-blue-600 dark:hover:bg-blue-600 dark:hover:border-blue-600",OUTLINE_COMMON),
 

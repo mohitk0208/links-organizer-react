@@ -97,12 +97,12 @@ function Signup() {
             </Form>
           </Formik>
 
-          <p className="w-full mt-7 text-sm text-center" >Already have an account ? <Link to={routes.LOGIN} className="text-blue-500 hover:text-blue-400" >Login</Link> </p>
+          <p className="w-full mt-7 text-sm text-center" >Already have an account ? <Link to={routes.LOGIN} className="text-purple-500 hover:text-purple-400" >Login</Link> </p>
 
         </div>
 
       </div>
-      <div className="min-h-[100vh] flex-grow hidden lg:block bg-blue-200 dark:bg-blue-900" ></div>
+      <div className="min-h-[100vh] flex-grow hidden lg:block bg-purple-200 dark:bg-purple-900" ></div>
 
       <ThemeChangeFAB />
 

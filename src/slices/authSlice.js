@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
-import { endpoints } from "../utils/constants"
+import endpoints from "../utils/endpoints"
 import { enqueueNotification } from './globalNotificationSlice'
 import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, tokenStates } from "../utils/functions"
 import { logoutResetUser } from './userSlice'

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 import TextError from "../TextError"
 import { CheckIcon, XIcon } from "@heroicons/react/solid"
 import LoadingSpinner from "../../utilComponents/LoadingSpinner"
-import { endpoints } from "../../../utils/constants"
+import endpoints from "../../../utils/endpoints"
 
 const classes = {
   INPUT: (error, touched) => {

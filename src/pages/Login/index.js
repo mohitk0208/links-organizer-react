@@ -26,7 +26,7 @@ function Login() {
   return (
     <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
 
-      <div className="min-h-[100vh] flex-grow hidden lg:block bg-green-300 dark:bg-green-600" />
+      <div className="min-h-[100vh] flex-grow hidden lg:block bg-purple-300 dark:bg-purple-600" />
       <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10" >
 
         <div className="w-10/12 md:w-8/12" >
@@ -48,11 +48,11 @@ function Login() {
 
               <InputField label="password" name="password" type="password" labelClassName="block mb-3" className="w-full mt-1" placeholder="Enter password" />
 
-              <p className="w-full mb-2 text-sm text-center" ><Link to={routes.SEND_RESET_TOKEN} className="text-green-600 hover:text-green-500" >Forgot Password ? </Link> </p>
+              <p className="w-full mb-2 text-sm text-center" ><Link to={routes.SEND_RESET_TOKEN} className="text-purple-600 hover:text-purple-500" >Forgot Password ? </Link> </p>
 
               <Button className="w-full py-3 text-lg" disabled={loading} loading={loading} type="submit" >Login</Button>
 
-              <p className="w-full mt-7 text-sm text-center" >Don't have an account ? <Link to={routes.SIGNUP} className="text-green-600 hover:text-green-500" >SignUp</Link> </p>
+              <p className="w-full mt-7 text-sm text-center" >Don't have an account ? <Link to={routes.SIGNUP} className="text-purple-600 hover:text-purple-500" >SignUp</Link> </p>
             </Form>
 
           </Formik>

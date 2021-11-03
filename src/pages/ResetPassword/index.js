@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from "react-router-dom"
 import { InputField } from '../../components/formComponents/Input'
 import Button from '../../components/utilComponents/Button'
-import { endpoints } from '../../utils/constants'
+import endpoints from '../../utils/endpoints'
 import { fetchWrapper } from '../../utils/fetchWrapper'
 import * as Yup from "yup"
 import { useDispatch } from 'react-redux'

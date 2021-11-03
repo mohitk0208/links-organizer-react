@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { InputField, TextAreaField } from '../../formComponents/Input'
 import { fetchWrapper } from '../../../utils/fetchWrapper'
-import { endpoints } from '../../../utils/constants'
+import endpoints from '../../../utils/endpoints'
 
 const validationSchema = Yup.object().shape({
   name: Yup

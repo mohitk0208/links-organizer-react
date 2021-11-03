@@ -5,7 +5,7 @@ import Button from "../../components/utilComponents/Button"
 import * as Yup from "yup"
 import { joinClassNames } from '../../utils/functions'
 import { fetchWrapper } from '../../utils/fetchWrapper'
-import { endpoints } from '../../utils/constants'
+import endpoints from '../../utils/endpoints'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email()
