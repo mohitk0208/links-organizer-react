@@ -15,6 +15,10 @@ const endpoints = {
 
   //user
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
+
+  // categories
+  GET_POST_CATEGORIES: `${endpointInitial}/categories`,
+  SINGLE_CATEGORY: (id) => `${endpointInitial}/categories/${id}`,
 }
 
 

@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import SendResetToken from '../pages/SendResetToken'
 import ResetPassword from '../pages/ResetPassword'
+import Home from '../pages/Home'
 
 
 
@@ -18,6 +19,7 @@ const RoutingComp = () => {
     <Switch>
       {/* private routes */}
       <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
+      <PrivateRoute exact path={routes.HOME} component={Home} />
 
       {/* landing page */}
       <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />
