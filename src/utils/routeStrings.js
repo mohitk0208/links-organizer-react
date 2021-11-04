@@ -6,4 +6,5 @@ export const routes = {
   RESET_PASSWORD: "/reset-password",
   HOME: '/',
   PROFILE: '/profile',
+  CATEGORY: (categoryId) => `/category/${categoryId ? categoryId : ":categoryId" }`,
 }
