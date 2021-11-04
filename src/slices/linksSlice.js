@@ -39,7 +39,7 @@ const linksSlice = createSlice({
   }
 })
 
-export const { setLoading, addToLinks, logoutResetMyIdeas, setLinks, setTotalCount } = linksSlice.actions
+export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount } = linksSlice.actions
 
 export const getLinksAsync = (category) => async (dispatch, getState) => {
 
@@ -48,6 +48,8 @@ export const getLinksAsync = (category) => async (dispatch, getState) => {
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
+
+  await dispatch(logoutResetLinks())
 
   dispatch(setLoading(true));
 
@@ -89,6 +91,8 @@ export const getNextLinksAsync = (category) => async (dispatch, getState) => {
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
+
+  await dispatch(logoutResetLinks())
 
   dispatch(setLoading(true));
 

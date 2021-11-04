@@ -39,15 +39,17 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setLoading, addToCategories, logoutResetMyIdeas, setCategories,setTotalCount } = categoriesSlice.actions
+export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount } = categoriesSlice.actions
 
-export const getCategoriesAsync = (parentCategory=null) => async (dispatch, getState) => {
+export const getCategoriesAsync = (parentCategory = null) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
+
+  await dispatch(logoutResetCategories())
 
   dispatch(setLoading(true));
 
@@ -78,17 +80,19 @@ export const getCategoriesAsync = (parentCategory=null) => async (dispatch, getS
 
 }
 
-export const getNextCategoriesAsync = (parentCategory) => async (dispatch,getState) => {
+export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getState) => {
 
-  const {value,totalCount} = getState().categories
+  const { value, totalCount } = getState().categories
 
-  if(value.length === totalCount) return
+  if (value.length === totalCount) return
 
   const queryParams = []
   queryParams.push(`offset=${value.length}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
+
+  await dispatch(logoutResetCategories())
 
   dispatch(setLoading(true));
 
