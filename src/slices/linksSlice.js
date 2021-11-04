@@ -10,19 +10,19 @@ const initialState = {
   value: []
 }
 
-const categoriesSlice = createSlice({
-  name: 'categories',
+const linksSlice = createSlice({
+  name: 'links',
   initialState: initialState,
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload
     },
 
-    setCategories: (state, action) => {
+    setLinks: (state, action) => {
       state.value = action.payload
     },
 
-    addToCategories: (state, action) => {
+    addToLinks: (state, action) => {
       state.value = [...state.value, ...action.payload]
     },
 
@@ -30,7 +30,7 @@ const categoriesSlice = createSlice({
       state.totalCount = action.payload
     },
 
-    logoutResetCategories: (state, action) => {
+    logoutResetLinks: (state, action) => {
       state.loading = false
       state.totalCount = 0
       state.value = []
@@ -39,27 +39,27 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setLoading, addToCategories, logoutResetMyIdeas, setCategories,setTotalCount } = categoriesSlice.actions
+export const { setLoading, addToLinks, logoutResetMyIdeas, setLinks, setTotalCount } = linksSlice.actions
 
-export const getCategoriesAsync = (parentCategory=null) => async (dispatch, getState) => {
+export const getLinksAsync = (category) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
-  queryParams.push(`parent_category=${parentCategory}`)
+  if (category) queryParams.push(`category=${category}`)
 
   dispatch(setLoading(true));
 
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_POST_CATEGORIES}?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_LINKS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
 
-      dispatch(setCategories(resData?.results))
+      dispatch(setLinks(resData?.results))
       dispatch(setTotalCount(resData?.count))
     }
 
@@ -67,7 +67,7 @@ export const getCategoriesAsync = (parentCategory=null) => async (dispatch, getS
   catch (err) {
     console.log(err)
     dispatch(enqueueNotification({
-      msg: "Failed to fetch categories",
+      msg: "Failed to fetch Links",
       type: "error",
       duration: 3000
     }))
@@ -78,29 +78,29 @@ export const getCategoriesAsync = (parentCategory=null) => async (dispatch, getS
 
 }
 
-export const getNextCategoriesAsync = (parentCategory) => async (dispatch,getState) => {
+export const getNextLinksAsync = (category) => async (dispatch, getState) => {
 
-  const {value,totalCount} = getState().categories
+  const { value, totalCount } = getState().categories
 
-  if(value.length === totalCount) return
+  if (value.length === totalCount) return
 
   const queryParams = []
   queryParams.push(`offset=${value.length}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
-  queryParams.push(`parent_category=${parentCategory}`)
+  if (category) queryParams.push(`category=${category}`)
 
   dispatch(setLoading(true));
 
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_POST_CATEGORIES}?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_LINKS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
 
-      dispatch(addToCategories(resData?.results))
+      dispatch(addToLinks(resData?.results))
 
     }
 
@@ -108,7 +108,7 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch,getSta
   catch (err) {
     console.log(err)
     dispatch(enqueueNotification({
-      msg: "Failed to fetch categories",
+      msg: "Failed to fetch links",
       type: "error",
       duration: 3000
     }))
@@ -119,7 +119,7 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch,getSta
 }
 
 
-export const selectCategories = state => state.categories.value
-export const selectLoading = state => state.categories.loading
+export const selectLinks = state => state.links.value
+export const selectLoading = state => state.links.loading
 
-export default categoriesSlice.reducer
+export default linksSlice.reducer

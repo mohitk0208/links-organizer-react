@@ -19,6 +19,10 @@ const endpoints = {
   // categories
   GET_POST_CATEGORIES: `${endpointInitial}/categories`,
   SINGLE_CATEGORY: (id) => `${endpointInitial}/categories/${id}`,
+
+  //links
+  GET_POST_LINKS: `${endpointInitial}/links`,
+  SINGLE_LINK: (id) => `${endpointInitial}/links/${id}`,
 }
 
 
