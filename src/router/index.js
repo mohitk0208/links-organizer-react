@@ -22,7 +22,7 @@ const RoutingComp = () => {
       {/* private routes */}
       <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
       <PrivateRoute exact path={routes.HOME} component={Home} />
-      <PrivateRoute exact path={routes.CATEGORY()} component={CategoryPage} />
+      {/* <PrivateRoute exact path={routes.CATEGORY()} component={CategoryPage} /> */}
       <PrivateRoute exact path={routes.ALL_LINKS} component={LinksPage} />
       <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} component={LinksPage} />
 

@@ -44,7 +44,7 @@ function Home() {
             if (index === categories.length - 1) {
               return (
                 <div ref={setRef} key={category.id} className="w-full"  >
-                  <Link to={routes.CATEGORY(category.id)} >
+                  <Link to={routes.LINKS_BY_CATEGORY(category.id)} >
                     <CategoryCard category={category} />
                   </Link>
                 </div>
@@ -52,7 +52,7 @@ function Home() {
             }
 
             return (
-              <Link to={routes.CATEGORY(category.id)} >
+              <Link to={routes.LINKS_BY_CATEGORY(category.id)} >
                 <CategoryCard category={category} key={category.id} />
               </Link>
             )
