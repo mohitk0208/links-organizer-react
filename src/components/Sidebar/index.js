@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { routes } from "../../utils/routeStrings"
 import { NavLink, useLocation } from 'react-router-dom'
-import {NewspaperIcon, UserIcon } from "@heroicons/react/outline"
+import { NewspaperIcon, UserIcon, LinkIcon, PlusIcon } from "@heroicons/react/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,15 +20,16 @@ function Sidebar() {
 
   useEffect(() => {
     dispatch(getUserAsync())
-  },[dispatch])
+  }, [dispatch])
 
 
   const navigation = useMemo(() => {
 
     return [
       { name: "Home", href: routes.HOME, icon: NewspaperIcon, current: location && location.pathname === routes.HOME },
-      // { name: "Post ", href: routes.POST_IDEA, icon: LightBulbIcon, current: location && location.pathname === routes.POST_IDEA },
-      { name: "Profile", href: routes.PROFILE, icon: UserIcon, current: location && location.pathname === routes.PROFILE }
+      { name: "Links", href: routes.ALL_LINKS,icon: LinkIcon, current: location && location.pathname === routes.ALL_LINKS },
+      { name: "Profile", href: routes.PROFILE, icon: UserIcon, current: location && location.pathname === routes.PROFILE },
+      { name: "Add Link", href: routes.ADD_LINK, icon: PlusIcon, current: location && location.pathname === routes.ADD_LINK }
     ]
 
   }, [location])

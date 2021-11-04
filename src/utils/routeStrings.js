@@ -7,4 +7,7 @@ export const routes = {
   HOME: '/',
   PROFILE: '/profile',
   CATEGORY: (categoryId) => `/category/${categoryId ? categoryId : ":categoryId" }`,
+  ALL_LINKS: '/links',
+  LINKS_BY_CATEGORY: (categoryId) => `/links/${categoryId ? categoryId : ":categoryId" }`,
+  ADD_LINK: '/link/add'
 }
