@@ -26,6 +26,11 @@ const linksSlice = createSlice({
       state.value = [...state.value, ...action.payload]
     },
 
+    addNewLink: (state, action) => {
+      state.value = [action.payload, ...state.value]
+      state.totalCount += 1
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -39,7 +44,7 @@ const linksSlice = createSlice({
   }
 })
 
-export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount } = linksSlice.actions
+export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount, addNewLink } = linksSlice.actions
 
 export const getLinksAsync = (category) => async (dispatch, getState) => {
 
@@ -113,6 +118,40 @@ export const getNextLinksAsync = (category) => async (dispatch, getState) => {
     console.log(err)
     dispatch(enqueueNotification({
       msg: "Failed to fetch links",
+      type: "error",
+      duration: 3000
+    }))
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
+}
+
+export const postLinkAsync = (data) => async (dispatch, getState) => {
+
+  dispatch(setLoading(true));
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.post(endpoints.GET_POST_LINKS, data, true)
+
+    if (res.ok) {
+      const resData = await res.json()
+
+      dispatch(addNewLink(resData))
+      dispatch(enqueueNotification({
+        msg: "Link added successfully",
+        type: "success",
+        duration: 3000
+      }))
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to add link",
       type: "error",
       duration: 3000
     }))

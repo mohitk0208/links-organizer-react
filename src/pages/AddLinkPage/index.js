@@ -7,6 +7,8 @@ import * as Yup from 'yup'
 import SelectCategory from './SelectCategory'
 import Button from '../../components/utilComponents/Button'
 import CreateCategoryModal from '../../components/CreateCategoryModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -18,6 +20,10 @@ function AddLinkPage() {
   const [category, setCategory] = useState(null)
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
+  const [tags, setTags] = useState([])
+
+  const isLoading = useSelector(selectLoading)
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
@@ -43,8 +49,9 @@ function AddLinkPage() {
               setCategoryError("Category is required.")
               return
             }
-            const data = { ...values, category: category }
+            const data = { ...values, category: category, tags: [] }
             console.log(data)
+            dispatch(postLinkAsync(data))
 
           }}
           onReset={() => {
@@ -68,7 +75,7 @@ function AddLinkPage() {
 
             <div className="flex space-x-2 mt-4 justify-end" >
               <Button variant="outline-danger" type="reset" >Reset</Button>
-              <Button variant="secondary" type="submit" >Add </Button>
+              <Button variant="secondary" type="submit" loading={isLoading} disabled={isLoading} >Add </Button>
             </div>
 
           </Form>
@@ -80,7 +87,7 @@ function AddLinkPage() {
       <NewsContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mr-2 bg-white min-h-screen " >
         <div className="flex justify-between mt-2 mb-4 pb-2 px-2 border-b">
           <h1 className="text-lg font-bold " > Select Category </h1>
-          <Button variant="outline-primary" type="button" onClick={() => setIsCreateCategoryModalOpen(true) }  >Create</Button>
+          <Button variant="outline-primary" type="button" onClick={() => setIsCreateCategoryModalOpen(true)}  >Create</Button>
         </div>
 
         <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} error={categoryError} />
