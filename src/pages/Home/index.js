@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
@@ -9,6 +9,8 @@ import useIsOnScreen from "../../hooks/useIsOnScreen"
 import CategoryCard from '../../components/CategoryCard'
 import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimmer'
 import { routes } from '../../utils/routeStrings'
+import CreateCategoryModal from '../../components/CreateCategoryModal'
+import Button from '../../components/utilComponents/Button'
 
 function Home() {
 
@@ -16,6 +18,7 @@ function Home() {
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
   const loadingRef = useRef()
+  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
 
@@ -37,7 +40,10 @@ function Home() {
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
       <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
 
-      <h1 className="px-2 text-xl font-bold mt-2 mb-4 pb-2 border-b " > Categories </h1>
+        <div className="flex justify-between items-center mt-2 mb-4 pb-2 border-b px-2" >
+          <h1 className="text-xl font-bold  " > Categories </h1>
+          <Button variant="outline-primary" classNam="" onClick={() => setIsCreateCategoryModalOpen(true)} >Create </Button>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2">
           {categories.map((category, index) => {
@@ -53,7 +59,7 @@ function Home() {
 
             return (
               <Link to={routes.LINKS_BY_CATEGORY(category.id)} key={category.id}>
-                <CategoryCard category={category}  />
+                <CategoryCard category={category} />
               </Link>
             )
 
@@ -73,6 +79,9 @@ function Home() {
         <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800">
         </div>
       </NewsContainer>
+
+      <CreateCategoryModal show={isCreateCategoryModalOpen} onClose={() => setIsCreateCategoryModalOpen(false)} />
+
     </div>
   )
 }
