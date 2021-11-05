@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
 import { Form, Formik } from 'formik'
@@ -15,11 +15,14 @@ const validationSchema = Yup.object().shape({
 function AddLinkPage() {
 
   const [category, setCategory] = useState(null)
+  const [categoryError, setCategoryError] = useState("")
 
-  const initialState = {
-    url: '',
-    description: '',
-  }
+
+  useEffect(() => {
+    setCategoryError("")
+  }, [category])
+
+
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
@@ -28,13 +31,26 @@ function AddLinkPage() {
         <h1 className="px-2 text-xl font-bold mt-2 mb-4 pb-2 border-b " > Add Link </h1>
 
         <Formik
-          initialValues={initialState}
+          initialValues={{
+            url: '',
+            description: '',
+          }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log(values)
-          }}
-          validateOnChange
+            if (!category) {
+              setCategoryError("Category is required.")
+              return
+            }
+            const data = { ...values, category: category }
+            console.log(data)
 
+          }}
+          onReset={() => {
+            setCategoryError("")
+            setCategory(null)
+          }}
+
+          validateOnChange
         >
           <Form >
 
@@ -59,10 +75,10 @@ function AddLinkPage() {
       </ContentContainer>
 
 
-      <NewsContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen " >
+      <NewsContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mr-2 bg-white min-h-screen " >
         <h1 className="px-2 text-lg font-bold mt-2 mb-4 pb-2 border-b " > Select Category </h1>
 
-        <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} />
+        <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} error={categoryError} />
       </NewsContainer>
     </div>
   )
