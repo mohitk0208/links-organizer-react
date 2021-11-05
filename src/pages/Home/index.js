@@ -49,12 +49,12 @@ function Home() {
             if (index === categories.length - 1) {
               return (
                 <div ref={setRef} key={category.id} className="w-full"  >
-                  <CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} />
+                  <CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} showControls />
                 </div>
               )
             }
 
-            return (<CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} key={category.id} />)
+            return (<CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} key={category.id} showControls />)
 
           })}
 

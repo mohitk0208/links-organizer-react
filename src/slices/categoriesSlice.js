@@ -164,7 +164,7 @@ export const deleteCategoryAsync = (id) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper._delete(`${endpoints.SINGLE_CATEGORY}/${id}`, true)
+    const res = await fetchWrapper._delete(`${endpoints.SINGLE_CATEGORY(id)}`, true)
 
     if (res.ok) {
       dispatch(removeCategory(id))
