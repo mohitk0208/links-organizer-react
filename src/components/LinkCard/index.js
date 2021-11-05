@@ -53,12 +53,12 @@ function LinkCard({ link, handleBookmarkClick }) {
           <PencilIcon className="w-4 h-4" />
         </button>
 
-        <button
+        {/* <button
           className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed rounded-full m-auto"
           onClick={() => handleBookmarkClick()}
         >
           <BookmarkIcon className={joinClassNames("w-4 h-4")} />
-        </button>
+        </button> */}
         <button className="flex-1 cursor-pointer" onClick={() => setIsShareModalOpen(true)} >
           <ShareIcon className="w-4 h-4" />
         </button>
