@@ -52,8 +52,8 @@ function Home() {
             }
 
             return (
-              <Link to={routes.LINKS_BY_CATEGORY(category.id)} >
-                <CategoryCard category={category} key={category.id} />
+              <Link to={routes.LINKS_BY_CATEGORY(category.id)} key={category.id}>
+                <CategoryCard category={category}  />
               </Link>
             )
 
