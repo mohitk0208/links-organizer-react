@@ -50,7 +50,7 @@ export const getCategoriesAsync = (parentCategory = null) => async (dispatch, ge
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
-  queryParams.push('ordering=-created_at')
+  queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
 
@@ -93,7 +93,7 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getSt
 
   const queryParams = []
   queryParams.push(`offset=${value.length}`)
-  queryParams.push('ordering=-created_at')
+  queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
 

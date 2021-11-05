@@ -50,7 +50,7 @@ export const getLinksAsync = (category) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
-  queryParams.push('ordering=-created_at')
+  queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
 
@@ -93,7 +93,7 @@ export const getNextLinksAsync = (category) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${value.length}`)
-  queryParams.push('ordering=-created_at')
+  queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
 
