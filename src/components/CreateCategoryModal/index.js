@@ -22,7 +22,7 @@ function CreateCategoryModal({ show, onClose, }) {
     <Modal
       show={show}
       onCancel={onClose}
-      headline="Create Implementation"
+      headline="Create Category"
       onSubmit={() => null}
     >
 
