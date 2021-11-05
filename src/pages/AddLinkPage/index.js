@@ -10,6 +10,7 @@ import CreateCategoryModal from '../../components/CreateCategoryModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
+import SelectTags from './SelectTags'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -51,7 +52,11 @@ function AddLinkPage() {
               setCategoryError("Category is required.")
               return
             }
-            const data = { ...values, category: category, tags: [] }
+            const data = {
+              ...values,
+              category: category,
+              tags: tags.map(tag => tag.id)
+            }
             console.log(data)
             dispatch(postLinkAsync(data))
 
@@ -69,14 +74,7 @@ function AddLinkPage() {
 
             <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows="4" />
 
-            <div className="flex justify-between">
-              <h2>Tags</h2>
-              <Button variant="outline-primary"
-              className="text-sm"
-              type="button"
-              onClick={() => setIsCreateTagModalOpen(true)} >Create Tag</Button>
-            </div>
-            {/* TODO make component to attach tags to the link */}
+            <SelectTags tags={tags} setTags={setTags} />
 
 
             <p className="text-xs text-gray-400">  Attach tags, they help us search better.</p>

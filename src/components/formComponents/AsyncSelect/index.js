@@ -23,7 +23,7 @@ function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
         setLoading(true)
 
         try {
-          const res = await fetchWrapper.get(`${endpoints.FAVOURITE_TAGS}?name=${query}&limit=10`, true)
+          const res = await fetchWrapper.get(`${endpoints.GET_POST_TAGS}?name=${query}&limit=10`, true)
 
           const resData = await res.json()
 
