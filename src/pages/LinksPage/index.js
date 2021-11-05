@@ -36,7 +36,7 @@ function LinksPage() {
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-      <ContentContainer className="flex flex-col space-y-2 overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
+      <ContentContainer className="flex flex-col space-y-2 overflow-y-auto keep-scrolling py-5 pb-20 mx-2 bg-white ">
 
         <h1 className="px-2 text-xl font-bold mt-2 mb-4 pb-2 border-b " > Links </h1>
 
