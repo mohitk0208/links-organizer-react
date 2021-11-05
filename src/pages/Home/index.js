@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom"
 import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
@@ -50,18 +49,12 @@ function Home() {
             if (index === categories.length - 1) {
               return (
                 <div ref={setRef} key={category.id} className="w-full"  >
-                  <Link to={routes.LINKS_BY_CATEGORY(category.id)} >
-                    <CategoryCard category={category} />
-                  </Link>
+                  <CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} />
                 </div>
               )
             }
 
-            return (
-              <Link to={routes.LINKS_BY_CATEGORY(category.id)} key={category.id}>
-                <CategoryCard category={category} />
-              </Link>
-            )
+            return (<CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} key={category.id} />)
 
           })}
 

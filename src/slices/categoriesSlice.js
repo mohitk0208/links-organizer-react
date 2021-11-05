@@ -31,6 +31,10 @@ const categoriesSlice = createSlice({
       state.totalCount += 1
     },
 
+    removeCategory: (state, action) => {
+      state.value = state.value.filter(category => category.id !== action.payload)
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -44,7 +48,7 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory } = categoriesSlice.actions
+export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory, removeCategory } = categoriesSlice.actions
 
 export const getCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
 
@@ -86,7 +90,7 @@ export const getCategoriesAsync = (query = "", parentCategory = null) => async (
 
 }
 
-export const getNextCategoriesAsync = (query = "",parentCategory=null) => async (dispatch, getState) => {
+export const getNextCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().categories
 
@@ -152,6 +156,33 @@ export const postCategoryAsync = (data) => async dispatch => {
     }))
   }
 
+
+}
+
+export const deleteCategoryAsync = (id) => async dispatch => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper._delete(`${endpoints.SINGLE_CATEGORY}/${id}`, true)
+
+    if (res.ok) {
+      dispatch(removeCategory(id))
+      dispatch(enqueueNotification({
+        msg: "Category deleted",
+        type: "success",
+        duration: 3000
+      }))
+    }
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Could not delete category",
+      type: "error",
+      duration: 3000
+    }))
+  }
 
 }
 
