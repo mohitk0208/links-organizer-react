@@ -26,6 +26,10 @@ const categoriesSlice = createSlice({
       state.value = [...state.value, ...action.payload]
     },
 
+    addNewCategory: (state, action) => {
+      state.value = [action.payload, ...state.value]
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -39,7 +43,7 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount } = categoriesSlice.actions
+export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory } = categoriesSlice.actions
 
 export const getCategoriesAsync = (parentCategory = null) => async (dispatch, getState) => {
 
@@ -122,6 +126,36 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getSt
   }
 }
 
+export const postCategoryAsync = (data) => async (dispatch, getState) => {
+
+  dispatch(setLoading(true));
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.post(`${endpoints.GET_POST_CATEGORIES}`, data, true)
+
+    const resData = await res.json()
+
+    if (res.ok) {
+      dispatch(addNewCategory(resData))
+
+    }
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Could not create category",
+      type: "error",
+      duration: 3000
+    }))
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
+
+
+}
 
 export const selectCategories = state => state.categories.value
 export const selectLoading = state => state.categories.loading
