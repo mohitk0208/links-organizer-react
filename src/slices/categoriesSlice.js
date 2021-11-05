@@ -33,6 +33,7 @@ const categoriesSlice = createSlice({
 
     removeCategory: (state, action) => {
       state.value = state.value.filter(category => category.id !== action.payload)
+      state.totalCount -= 1
     },
 
     setTotalCount: (state, action) => {

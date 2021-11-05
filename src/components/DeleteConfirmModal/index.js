@@ -15,7 +15,7 @@ function DeleteConfirmModal({ show, text, onClose, onDelete, loading }) {
       </p>
 
       <div className="flex justify-end gap-2" >
-        <Button variant="outline-danger" type="button" >
+        <Button variant="outline-danger" type="button" onClick={onClose} >
           Cancel
         </Button>
         <Button variant="danger" type="button" onClick={onDelete} loading={loading} disabled={loading} >

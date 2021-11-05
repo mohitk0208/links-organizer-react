@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
-import { BookmarkIcon, ShareIcon, PencilIcon } from "@heroicons/react/outline"
+import { BookmarkIcon, ShareIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline"
 // import { format, isToday, isYesterday } from 'date-fns'
 import { joinClassNames } from '../../utils/functions'
 import Modal from '../utilComponents/Modal'
+import DeleteConfirmModal from '../DeleteConfirmModal'
+import { useDispatch } from 'react-redux'
+import { deleteLinkAsync } from '../../slices/linksSlice'
 
 // function formatCreatedAt(date) {
 
@@ -20,8 +23,13 @@ import Modal from '../utilComponents/Modal'
 function LinkCard({ link, handleBookmarkClick }) {
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const dispatch = useDispatch()
 
   const {
+    id,
     url,
     description,
     // created_at,
@@ -54,6 +62,9 @@ function LinkCard({ link, handleBookmarkClick }) {
         <button className="flex-1 cursor-pointer" onClick={() => setIsShareModalOpen(true)} >
           <ShareIcon className="w-4 h-4" />
         </button>
+        <button className="flex-1 cursor-pointer" onClick={() => setIsDeleteModalOpen(true)} >
+          <TrashIcon className="w-4 h-4 text-red-400 hover:text-red-700" />
+        </button>
       </div>
 
 
@@ -73,6 +84,23 @@ function LinkCard({ link, handleBookmarkClick }) {
         })}
       </div>
 
+
+      <DeleteConfirmModal
+        show={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        loading={loading}
+        onDelete={async () => {
+          setLoading(true)
+          await dispatch(deleteLinkAsync(id))
+          setIsDeleteModalOpen(false)
+          setLoading(false)
+        }}
+        text={<>
+          <span>Are you sure you want to delete </span>
+          <span className="text-blue-400 text-sm ">{url}</span>
+          <span> ?</span>
+        </>}
+      />
 
 
       <Modal show={isShareModalOpen} onCancel={() => setIsShareModalOpen(false)}

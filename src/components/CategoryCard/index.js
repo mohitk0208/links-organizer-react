@@ -62,6 +62,7 @@ function CategoryCard({ category, onClick, showControls, navigateTo }) {
           setLoading(true)
           await dispatch(deleteCategoryAsync(id))
           setLoading(false)
+          setShowDeleteModal(false)
         }}
       />
 

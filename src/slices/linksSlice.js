@@ -31,6 +31,11 @@ const linksSlice = createSlice({
       state.totalCount += 1
     },
 
+    removeLink: (state, action) => {
+      state.value = state.value.filter(link => link.id !== action.payload)
+      state.totalCount -= 1
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -44,7 +49,7 @@ const linksSlice = createSlice({
   }
 })
 
-export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount, addNewLink } = linksSlice.actions
+export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount, addNewLink, removeLink } = linksSlice.actions
 
 export const getLinksAsync = (category) => async (dispatch, getState) => {
 
@@ -161,6 +166,32 @@ export const postLinkAsync = (data) => async (dispatch, getState) => {
   }
 }
 
+export const deleteLinkAsync = (id) => async (dispatch, getState) => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper._delete(`${endpoints.SINGLE_LINK(id)}`, true)
+
+    if (res.ok) {
+      dispatch(removeLink(id))
+      dispatch(enqueueNotification({
+        msg: "Link deleted successfully",
+        type: "success",
+        duration: 3000
+      }))
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to delete link",
+      type: "error",
+      duration: 3000
+    }))
+  }
+}
 
 export const selectLinks = state => state.links.value
 export const selectLoading = state => state.links.loading
