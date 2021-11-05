@@ -4,8 +4,8 @@ import { joinClassNames } from '../../../utils/functions'
 function Tag({ tag, faded, onClick }) {
   return (
     <p className={joinClassNames(
-      faded ? " bg-gray-300 opacity-60" : "bg-green-600/70",
-      "text-sm w-max px-2 py1 rounded-md text-white m-1 min-w-[100px] text-center cursor-pointer select-none"
+      faded ? " bg-gray-300 opacity-60" : "bg-purple-600/70",
+      "text-xs w-max px-2 pb-0.5 rounded-full text-white m-1 min-w-[100px] text-center cursor-pointer select-none"
     )}
       onClick={onClick}
     >

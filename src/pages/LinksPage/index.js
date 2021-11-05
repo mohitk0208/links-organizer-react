@@ -36,21 +36,21 @@ function LinksPage() {
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-      <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
+      <ContentContainer className="flex flex-col space-y-2 overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
 
         <h1 className="px-2 text-xl font-bold mt-2 mb-4 pb-2 border-b " > Links </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2">
+
           {links.map((link, index) => {
             if (index === links.length - 1) {
               return (
                 <div ref={setRef} key={link.id} className="w-full"  >
-                  <LinkCard category={link} />
+                  <LinkCard link={link} />
                 </div>
               )
             }
 
-            return <LinkCard category={link} key={link.id} />
+            return <LinkCard link={link} key={link.id} />
 
           })}
 
@@ -59,7 +59,6 @@ function LinksPage() {
               {[...Array(15)].map((_, index) => <LinkCardShimmer key={index} />)}
             </>
           )}
-        </div>
 
 
 
