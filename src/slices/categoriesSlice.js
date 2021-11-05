@@ -28,6 +28,7 @@ const categoriesSlice = createSlice({
 
     addNewCategory: (state, action) => {
       state.value = [action.payload, ...state.value]
+      state.totalCount += 1
     },
 
     setTotalCount: (state, action) => {
@@ -126,9 +127,7 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getSt
   }
 }
 
-export const postCategoryAsync = (data) => async (dispatch, getState) => {
-
-  dispatch(setLoading(true));
+export const postCategoryAsync = (data) => async dispatch => {
 
   try {
 
@@ -149,9 +148,6 @@ export const postCategoryAsync = (data) => async (dispatch, getState) => {
       type: "error",
       duration: 3000
     }))
-  }
-  finally {
-    dispatch(setLoading(false))
   }
 
 

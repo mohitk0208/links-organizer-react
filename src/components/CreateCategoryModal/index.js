@@ -1,11 +1,11 @@
 import { Formik, Form } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { InputField, TextAreaField } from '../formComponents/Input'
 import Button from '../utilComponents/Button'
 import Modal from "../utilComponents/Modal"
 import * as Yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
-import { postCategoryAsync, selectLoading } from '../../slices/categoriesSlice'
+import { useDispatch } from 'react-redux'
+import { postCategoryAsync } from '../../slices/categoriesSlice'
 
 
 const validationSchema = Yup.object().shape({
@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
 
 function CreateCategoryModal({ show, onClose, }) {
 
-  const isLoading = useSelector(selectLoading)
+  const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
 
   return (
@@ -34,7 +34,9 @@ function CreateCategoryModal({ show, onClose, }) {
         validationSchema={validationSchema}
         onSubmit={async (values) => {
           console.log(values)
+          setIsLoading(true)
           await dispatch(postCategoryAsync(values))
+          setIsLoading(false)
           onClose()
         }}
         validateOnChange
