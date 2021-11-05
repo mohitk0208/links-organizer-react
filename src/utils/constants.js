@@ -1,4 +1,4 @@
-export const host = "http://127.0.0.1:8000/"
+export const host = "https://links-organizer-api.herokuapp.com/"
 
 export const breakpoints = {
   sm: '(min-width: 640px)',
