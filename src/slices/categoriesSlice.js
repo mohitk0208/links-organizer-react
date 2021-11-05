@@ -46,13 +46,14 @@ const categoriesSlice = createSlice({
 
 export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory } = categoriesSlice.actions
 
-export const getCategoriesAsync = (parentCategory = null) => async (dispatch, getState) => {
+export const getCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
+  if (query) queryParams.push(`search=${query}`)
 
   await dispatch(logoutResetCategories())
 
@@ -85,7 +86,7 @@ export const getCategoriesAsync = (parentCategory = null) => async (dispatch, ge
 
 }
 
-export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getState) => {
+export const getNextCategoriesAsync = (query = "",parentCategory=null) => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().categories
 
@@ -96,6 +97,7 @@ export const getNextCategoriesAsync = (parentCategory) => async (dispatch, getSt
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   queryParams.push(`parent_category=${parentCategory}`)
+  if (query) queryParams.push(`search=${query}`)
 
   await dispatch(logoutResetCategories())
 
