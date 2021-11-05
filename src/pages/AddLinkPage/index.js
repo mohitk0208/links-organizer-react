@@ -9,6 +9,7 @@ import Button from '../../components/utilComponents/Button'
 import CreateCategoryModal from '../../components/CreateCategoryModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
+import CreateTagModal from '../../components/CreateTagModal'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -21,6 +22,7 @@ function AddLinkPage() {
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
   const [tags, setTags] = useState([])
+  const [isCreateTagModalOpen, setIsCreateTagModalOpen] = useState(false)
 
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
@@ -67,7 +69,13 @@ function AddLinkPage() {
 
             <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows="4" />
 
-            <h2>Tags</h2>
+            <div className="flex justify-between">
+              <h2>Tags</h2>
+              <Button variant="outline-primary"
+              className="text-sm"
+              type="button"
+              onClick={() => setIsCreateTagModalOpen(true)} >Create Tag</Button>
+            </div>
             {/* TODO make component to attach tags to the link */}
 
 
@@ -96,6 +104,12 @@ function AddLinkPage() {
       <CreateCategoryModal
         show={isCreateCategoryModalOpen}
         onClose={() => setIsCreateCategoryModalOpen(false)}
+        onSubmit={() => null}
+      />
+
+      <CreateTagModal
+        show={isCreateTagModalOpen}
+        onClose={() => setIsCreateTagModalOpen(false)}
         onSubmit={() => null}
       />
     </div>

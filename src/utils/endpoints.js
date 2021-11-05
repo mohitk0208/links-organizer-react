@@ -23,6 +23,10 @@ const endpoints = {
   //links
   GET_POST_LINKS: `${endpointInitial}/links`,
   SINGLE_LINK: (id) => `${endpointInitial}/links/${id}`,
+
+  //tags
+  GET_POST_TAGS: `${endpointInitial}/tags`,
+  SINGLE_TAG: (id) => `${endpointInitial}/tags/${id}`,
 }
 
 
