@@ -6,7 +6,7 @@ import { InputField, TextAreaField } from '../../components/formComponents/Input
 import * as Yup from 'yup'
 import SelectCategory from './SelectCategory'
 import Button from '../../components/utilComponents/Button'
-import CreateCategoryModal from '../../components/CreateCategoryModal'
+import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
@@ -99,7 +99,7 @@ function AddLinkPage() {
         <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} error={categoryError} />
       </NewsContainer>
 
-      <CreateCategoryModal
+      <CreateEditCategoryModal
         show={isCreateCategoryModalOpen}
         onClose={() => setIsCreateCategoryModalOpen(false)}
         onSubmit={() => null}

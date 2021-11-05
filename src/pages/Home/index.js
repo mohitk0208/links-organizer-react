@@ -8,7 +8,7 @@ import useIsOnScreen from "../../hooks/useIsOnScreen"
 import CategoryCard from '../../components/CategoryCard'
 import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimmer'
 import { routes } from '../../utils/routeStrings'
-import CreateCategoryModal from '../../components/CreateCategoryModal'
+import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import Button from '../../components/utilComponents/Button'
 
 function Home() {
@@ -73,7 +73,7 @@ function Home() {
         </div>
       </NewsContainer>
 
-      <CreateCategoryModal show={isCreateCategoryModalOpen} onClose={() => setIsCreateCategoryModalOpen(false)} />
+      <CreateEditCategoryModal show={isCreateCategoryModalOpen} onClose={() => setIsCreateCategoryModalOpen(false)} />
 
     </div>
   )

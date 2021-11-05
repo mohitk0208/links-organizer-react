@@ -36,6 +36,17 @@ const categoriesSlice = createSlice({
       state.totalCount -= 1
     },
 
+    updateCategory: (state, action) => {
+
+      state.value = state.value.map(category => {
+        if (category.id === action.payload.id) {
+          return action.payload
+        }
+        return category
+      })
+
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -49,7 +60,7 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory, removeCategory } = categoriesSlice.actions
+export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory, removeCategory, updateCategory } = categoriesSlice.actions
 
 export const getCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
 
@@ -180,6 +191,35 @@ export const deleteCategoryAsync = (id) => async dispatch => {
     console.log(err)
     dispatch(enqueueNotification({
       msg: "Could not delete category",
+      type: "error",
+      duration: 3000
+    }))
+  }
+
+}
+
+export const updateCategoryAsync = (id, data) => async dispatch => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.put(`${endpoints.SINGLE_CATEGORY(id)}`, data, true)
+
+    const resData = await res.json()
+
+    if (res.ok) {
+      dispatch(updateCategory(resData))
+      dispatch(enqueueNotification({
+        msg: "Category updated",
+        type: "success",
+        duration: 3000
+      }))
+    }
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Could not update category",
       type: "error",
       duration: 3000
     }))

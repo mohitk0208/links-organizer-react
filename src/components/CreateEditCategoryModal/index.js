@@ -5,7 +5,7 @@ import Button from '../utilComponents/Button'
 import Modal from "../utilComponents/Modal"
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
-import { postCategoryAsync } from '../../slices/categoriesSlice'
+import { postCategoryAsync, updateCategoryAsync } from '../../slices/categoriesSlice'
 
 
 const validationSchema = Yup.object().shape({
@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
   description: Yup.string()
 })
 
-function CreateCategoryModal({ show, onClose, }) {
+function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
 
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
@@ -22,20 +22,26 @@ function CreateCategoryModal({ show, onClose, }) {
     <Modal
       show={show}
       onCancel={onClose}
-      headline="Create Category"
+      headline={isEdit ? 'Edit Category' : 'Create Category'}
       onSubmit={() => null}
     >
 
       <Formik
         initialValues={{
-          name: '',
-          description: ''
+          name: category?.name ? category.name : '',
+          description: category?.description ? category.description : ''
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
           console.log(values)
           setIsLoading(true)
-          await dispatch(postCategoryAsync(values))
+
+          if (isEdit) {
+            await dispatch(updateCategoryAsync(category.id, values))
+          } else {
+            await dispatch(postCategoryAsync(values))
+          }
+
           setIsLoading(false)
           onClose()
         }}
@@ -70,7 +76,7 @@ function CreateCategoryModal({ show, onClose, }) {
               Cancel
             </Button>
             <Button variant="primary" type="submit" loading={isLoading} disabled={isLoading} >
-              Create
+              {isEdit ? 'Update' : 'Create'}
             </Button>
           </div>
 
@@ -82,4 +88,4 @@ function CreateCategoryModal({ show, onClose, }) {
   )
 }
 
-export default CreateCategoryModal
+export default CreateEditCategoryModal

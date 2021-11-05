@@ -4,12 +4,14 @@ import DeleteConfirmModal from '../DeleteConfirmModal'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCategoryAsync } from '../../slices/categoriesSlice'
+import CreateEditCategoryModal from '../CreateEditCategoryModal'
 
 function CategoryCard({ category, onClick, showControls, navigateTo }) {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
+  const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false)
 
   const {
     id,
@@ -21,7 +23,7 @@ function CategoryCard({ category, onClick, showControls, navigateTo }) {
     <div className="w-full group h-32 border border-purple-500 rounded-lg flex bg-purple-100/50 relative hover:shadow-md" onClick={onClick ? onClick : () => null} >
       {showControls && (
         <div className="group-hover:opacity-100 flex opacity-0 transition duration-200 ease-in-out absolute right-0 top-0 pr-2 pt-1 " >
-          <PencilIcon className="h-6 w-6 text-purple-400 m-1 hover:text-purple-700 hover:scale-110 transition-transform duration-150 ease-in-out" />
+          <PencilIcon className="h-6 w-6 text-purple-400 m-1 hover:text-purple-700 hover:scale-110 transition-transform duration-150 ease-in-out" onClick={() => setIsEditCategoryModalOpen(true)} />
           <TrashIcon className="h-6 w-6 text-red-400 m-1 hover:text-red-600 hover:scale-110 transition-transform duration-150 ease-in-out" onClick={() => setShowDeleteModal(true)} />
         </div>
       )}
@@ -44,6 +46,14 @@ function CategoryCard({ category, onClick, showControls, navigateTo }) {
           </p>
         )
       }
+
+
+      <CreateEditCategoryModal
+        show={isEditCategoryModalOpen}
+        onClose={() => setIsEditCategoryModalOpen(false)}
+        category={category}
+        isEdit={true}
+      />
 
 
 
