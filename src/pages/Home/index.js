@@ -41,7 +41,7 @@ function Home() {
 
         <div className="flex justify-between items-center mt-2 mb-4 pb-2 border-b px-2" >
           <h1 className="text-xl font-bold  " > Categories </h1>
-          <Button variant="outline-primary" classNam="" onClick={() => setIsCreateCategoryModalOpen(true)} >Create </Button>
+          <Button variant="outline-primary" className="" onClick={() => setIsCreateCategoryModalOpen(true)} >Create </Button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2">

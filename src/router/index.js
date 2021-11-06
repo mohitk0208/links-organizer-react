@@ -10,9 +10,10 @@ import PublicRoute from './PublicRoute'
 import SendResetToken from '../pages/SendResetToken'
 import ResetPassword from '../pages/ResetPassword'
 import Home from '../pages/Home'
-import CategoryPage from '../pages/CategoryPage'
+// import CategoryPage from '../pages/CategoryPage'
 import LinksPage from '../pages/LinksPage'
 import AddLinkPage from '../pages/AddLinkPage'
+import EditLinkPage from '../pages/EditLinkPage'
 
 
 
@@ -27,6 +28,7 @@ const RoutingComp = () => {
       <PrivateRoute exact path={routes.ALL_LINKS} component={LinksPage} />
       <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} component={LinksPage} />
       <PrivateRoute exact path={routes.ADD_LINK} component={AddLinkPage} />
+      <PrivateRoute exact path={routes.EDIT_LINK()} component={EditLinkPage} />
 
         {/* landing page */}
       <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />

@@ -7,7 +7,8 @@ import { enqueueNotification } from "./globalNotificationSlice";
 const initialState = {
   loading: false,
   totalCount: 0,
-  value: []
+  value: [],
+  currentLink: {}
 }
 
 const linksSlice = createSlice({
@@ -36,6 +37,23 @@ const linksSlice = createSlice({
       state.totalCount -= 1
     },
 
+    setCurrentLink: (state, action) => {
+      state.currentLink = action.payload
+    },
+
+    updateLink: (state, action) => {
+      state.value = state.value.map(link => {
+        if (link.id === action.payload.id) {
+          return action.payload
+        }
+        return link
+      })
+
+      if(state.currentLink && state.currentLink.id === action.payload.id) {
+        state.currentLink = action.payload
+      }
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -49,7 +67,17 @@ const linksSlice = createSlice({
   }
 })
 
-export const { setLoading, addToLinks, logoutResetLinks, setLinks, setTotalCount, addNewLink, removeLink } = linksSlice.actions
+export const {
+  setLoading,
+  addToLinks,
+  logoutResetLinks,
+  setLinks,
+  setTotalCount,
+  addNewLink,
+  removeLink,
+  setCurrentLink,
+  updateLink
+} = linksSlice.actions
 
 export const getLinksAsync = (category) => async (dispatch, getState) => {
 
@@ -193,7 +221,66 @@ export const deleteLinkAsync = (id) => async (dispatch, getState) => {
   }
 }
 
+export const getSingleLinkAsync = (id) => async (dispatch, getState) => {
+
+  dispatch(setLoading(true));
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.get(`${endpoints.SINGLE_LINK(id)}`, true)
+
+    if (res.ok) {
+      const resData = await res.json()
+
+      dispatch(setCurrentLink(resData))
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to fetch link",
+      type: "error",
+      duration: 3000
+    }))
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
+}
+
+export const updateSingleLinkAsync = (id, data) => async (dispatch, getState) => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.put(`${endpoints.SINGLE_LINK(id)}`, data, true)
+
+    if (res.ok) {
+      const resData = await res.json()
+
+      dispatch(updateLink(resData))
+      dispatch(enqueueNotification({
+        msg: "Link updated successfully",
+        type: "success",
+        duration: 3000
+      }))
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to update link",
+      type: "error",
+      duration: 3000
+    }))
+  }
+}
+
 export const selectLinks = state => state.links.value
 export const selectLoading = state => state.links.loading
+export const selectCurrentLink = state => state.links.currentLink
 
 export default linksSlice.reducer

@@ -9,5 +9,6 @@ export const routes = {
   CATEGORY: (categoryId) => `/category/${categoryId ? categoryId : ":categoryId" }`,
   ALL_LINKS: '/links',
   LINKS_BY_CATEGORY: (categoryId) => `/links/${categoryId ? categoryId : ":categoryId" }`,
-  ADD_LINK: '/link/add'
+  ADD_LINK: '/link/add',
+  EDIT_LINK: (linkId) => `/link/${linkId ? linkId : ":linkId" }/edit`,
 }

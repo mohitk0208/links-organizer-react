@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
-import {  ShareIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline"
+import { ShareIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline"
 // import { format, isToday, isYesterday } from 'date-fns'
 import Modal from '../utilComponents/Modal'
 import DeleteConfirmModal from '../DeleteConfirmModal'
 import { useDispatch } from 'react-redux'
 import { deleteLinkAsync } from '../../slices/linksSlice'
+import { Link } from 'react-router-dom'
+import { routes } from '../../utils/routeStrings'
 
 // function formatCreatedAt(date) {
 
@@ -46,11 +48,12 @@ function LinkCard({ link, handleBookmarkClick }) {
       </div>
 
       <div className="col-start-11 col-end-13 flex gap-2 text-center justify-around " >
-        <button
+        <Link
+          to={routes.EDIT_LINK(id)}
           className="flex-1 cursor-pointer"
         >
           <PencilIcon className="w-4 h-4" />
-        </button>
+        </Link>
 
         {/* <button
           className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed rounded-full m-auto"
