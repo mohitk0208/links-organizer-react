@@ -20,7 +20,7 @@ function CategoryCard({ category, onClick, showControls, navigateTo }) {
   } = category
 
   return (
-    <div className="w-full group h-32 border border-purple-500 rounded-lg flex bg-purple-100/50 relative hover:shadow-md" onClick={onClick ? onClick : () => null} >
+    <div className="w-full group h-32 border border-purple-500 rounded-lg flex bg-purple-100/50 relative hover:shadow-md overflow-hidden" onClick={onClick ? onClick : () => null} >
       {showControls && (
         <div className="group-hover:opacity-100 flex opacity-0 transition duration-200 ease-in-out absolute right-0 top-0 pr-2 pt-1 " >
           <PencilIcon className="h-6 w-6 text-purple-400 m-1 hover:text-purple-700 hover:scale-110 transition-transform duration-150 ease-in-out" onClick={() => setIsEditCategoryModalOpen(true)} />
