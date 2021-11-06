@@ -35,7 +35,11 @@ function SelectTags({ tags, setTags }) {
 
               }
 
-              return <Tag key={tag.id} tag={tag} faded={false} onClick={onTagClick} />
+              const onTagDelete = () => {
+                setTags(prev => prev.filter(t => t.id !== tag.id))
+              }
+
+              return <Tag key={tag.id} tag={tag} faded={false} onClick={onTagClick} editMode={true} onDelete={onTagDelete} />
 
             })}
           </>
