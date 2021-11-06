@@ -49,7 +49,7 @@ const linksSlice = createSlice({
         return link
       })
 
-      if(state.currentLink && state.currentLink.id === action.payload.id) {
+      if (state.currentLink && state.currentLink.id === action.payload.id) {
         state.currentLink = action.payload
       }
     },
@@ -79,13 +79,14 @@ export const {
   updateLink
 } = linksSlice.actions
 
-export const getLinksAsync = (category) => async (dispatch, getState) => {
+export const getLinksAsync = (searchQuery, category) => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
+  if(searchQuery) queryParams.push(`search=${searchQuery}`)
 
   await dispatch(logoutResetLinks())
 

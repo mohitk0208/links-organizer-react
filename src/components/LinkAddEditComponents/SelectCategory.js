@@ -15,6 +15,7 @@ function SelectCategory({ selectedCategory, setSelectedCategory, error }) {
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
   const loadingRef = useRef()
+  const queryRef = useRef("")
   const [query, setQuery] = useState("")
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
@@ -31,14 +32,18 @@ useEffect(() => {
 }, [isLoading])
 
 useEffect(() => {
-  dispatch(getCategoriesAsync())
+  queryRef.current = query
+},[query])
+
+useEffect(() => {
+  dispatch(getCategoriesAsync(queryRef.current))
 }, [dispatch])
 
 useUpdateEffect(() => {
   if (!loadingRef.current && isVisible) {
-    dispatch(getNextCategoriesAsync())
+    dispatch(getNextCategoriesAsync(queryRef.current))
   }
-}, [])
+}, [dispatch, isVisible])
 
 return (
   <>
