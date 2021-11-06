@@ -37,7 +37,7 @@ function Home() {
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-      <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
+      <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white dark:bg-gray-800 min-h-screen ">
 
         <div className="flex justify-between items-center mt-2 mb-4 pb-2 border-b px-2" >
           <h1 className="text-xl font-bold  " > Categories </h1>

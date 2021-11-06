@@ -55,7 +55,7 @@ function Sidebar() {
                   key={item.name}
                   to={item.href}
                   className={joinClassNames(
-                    item.current ? " bg-purple-200/30 text-purple-700" : "hover:bg-purple-200/20 bg-purple-200/5 text-purple-600/90  ",
+                    item.current ? " bg-purple-200/30 text-purple-700 dark:bg-purple-50/10" : "dark:hover:bg-purple-50/5 hover:bg-purple-200/20 dark:bg-transparent bg-purple-200/5 text-purple-600/90  ",
                     "flex items-center px-5 py-2 text-md lg:text-lg font-medium rounded-sm uppercase relative"
                   )}
                 >
