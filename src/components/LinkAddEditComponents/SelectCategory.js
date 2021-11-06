@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
 import useUpdateEffect from "../../hooks/useUpdateEffect"
 import useIsOnScreen from "../../hooks/useIsOnScreen"
-import CategoryCard from '../../components/CategoryCard'
-import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimmer'
+import CategoryCard from '../CategoryCard'
+import CategoryCardShimmer from '../CategoryCard/CategoryCardShimmer'
 import { joinClassNames } from '../../utils/functions'
 import { InformationCircleIcon } from "@heroicons/react/outline"
 import useDebounceTimeout from "../../hooks/useDebounceTimeout"

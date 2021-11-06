@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Tag from "../../components/utilComponents/Tag"
-import AsyncSelect from '../../components/formComponents/AsyncSelect'
-import Button from '../../components/utilComponents/Button'
-import CreateTagModal from '../../components/CreateTagModal'
+import Tag from "../utilComponents/Tag"
+import AsyncSelect from '../formComponents/AsyncSelect'
+import Button from '../utilComponents/Button'
+import CreateTagModal from '../CreateTagModal'
 
 function SelectTags({ tags, setTags }) {
 

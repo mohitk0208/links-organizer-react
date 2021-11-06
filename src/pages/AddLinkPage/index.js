@@ -4,13 +4,13 @@ import NewsContainer from '../../components/utilComponents/NewsContainer'
 import { Form, Formik } from 'formik'
 import { InputField, TextAreaField } from '../../components/formComponents/Input'
 import * as Yup from 'yup'
-import SelectCategory from './SelectCategory'
+import SelectCategory from '../../components/LinkAddEditComponents/SelectCategory'
 import Button from '../../components/utilComponents/Button'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
-import SelectTags from './SelectTags'
+import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
