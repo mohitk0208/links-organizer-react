@@ -70,7 +70,7 @@ function SendResetToken() {
               </p>
               <InputField label="email" name="email" type="email" labelClassName=" block mt-3 mb-1" className="w-full mt-1" placeholder="Enter Registered Email" />
 
-              <Button variant="primary" className="" type="submit" >Submit</Button>
+              <Button variant="primary" className="" type="submit" loading={loading} disabled={loading} >Submit</Button>
 
             </Form>
           </Formik>

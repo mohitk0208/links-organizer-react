@@ -106,7 +106,7 @@ function ResetPassword() {
                   }
 
                   const res = await fetchWrapper.post(endpoints.RESET_NEW_PASSWORD(uidb64, token), resetPasswordData)
-                  const resData = await res.json()
+                  // const resData = await res.json()
 
                   if (res.ok) {
                     // either set the access and refresh token and redirect to home
