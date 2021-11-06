@@ -55,13 +55,13 @@ function Sidebar() {
                   key={item.name}
                   to={item.href}
                   className={joinClassNames(
-                    item.current ? " bg-blue-200/30 " : "hover:bg-blue-200/20 bg-blue-200/5 ",
+                    item.current ? " bg-purple-200/30 text-purple-700" : "hover:bg-purple-200/20 bg-purple-200/5 text-purple-600/90  ",
                     "flex items-center px-5 py-2 text-md lg:text-lg font-medium rounded-sm uppercase relative"
                   )}
                 >
-                  {item.current && <span className="absolute -left-2 h-full w-2 block bg-blue-500" />}
+                  {item.current && <span className="absolute -left-1 h-full w-1 block bg-purple-500" />}
                   <item.icon className={joinClassNames(
-                    item.current ? "" : "opacity-50",
+                    item.current ? "text-purple-700 " : "opacity-50",
                     "w-6 h-6 mr-2"
                   )} />
                   {item.name}
@@ -101,13 +101,13 @@ function Sidebar() {
                 key={item.name}
                 to={item.href}
                 className={joinClassNames(
-                  item.current ? "" : "hover:bg-blue-200/20",
+                  item.current ? "" : "hover:bg-purple-200/20",
                   "flex items-center px-5 py-2 font-medium rounded-sm uppercase relative"
                 )}
               >
-                {item.current && <span className="absolute -left-2 h-full w-2 block bg-blue-500" />}
+                {item.current && <span className="absolute -left-2 h-full w-2 block bg-purple-500" />}
                 <item.icon className={joinClassNames(
-                  item.current ? " text-blue-500 " : "opacity-50",
+                  item.current ? " text-purple-500 " : "opacity-50",
                   "w-8 h-8"
                 )} />
               </NavLink>
