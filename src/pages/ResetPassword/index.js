@@ -9,7 +9,6 @@ import * as Yup from "yup"
 import { useDispatch } from 'react-redux'
 import { enqueueNotification } from "../../slices/globalNotificationSlice"
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
-import bahutTezImg from "../../assets/bahut-tez.gif"
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required("This field is Required."),
@@ -155,7 +154,6 @@ function ResetPassword() {
           <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-5  font-bold" >
             BAHUT TEZ HO RHE HO, Hnnn....
           </h1>
-          <img src={bahutTezImg} alt="bahut tez ho rhe ho" />
         </div>
       )}
     </div>
