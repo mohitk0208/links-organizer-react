@@ -8,7 +8,7 @@
     "@heroicons/react": "^1.0.5",
     "@reduxjs/toolkit": "^1.6.2",
     "@tailwindcss/forms": "^0.3.4",
-    "date-fns": "^2.25.0",
+    "date-fns": "^2.27.0",
     "formik": "^2.2.9",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
