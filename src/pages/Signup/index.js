@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
     .matches(/^[a-z0-9_]+$/, "should contain only lowercase characters.")
     .matches(/^[^_].*$/, "should not start with underscore _.")
     .matches(/^.*[^_]$/, "should not end with underscore _.")
-    .matches(/^([^_]+_?[^_]+)+$/, "should not contain consecutive underscore _.")
+    .matches(/^[a-z0-9]*_?[^_][a-z0-9]*$/, "should not contain consecutive underscore _.")
   ,
   password: Yup.string()
     .required("This field is required."),
