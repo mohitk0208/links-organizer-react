@@ -38,7 +38,7 @@ function App() {
       />
 
       {isLoggedIn ? (
-        <div className="flex bg-gray-100 dark:bg-gray-900 transition duration-500" >
+        <div className="flex bg-gray-100 dark:bg-gray-900 transition duration-500 dark:text-white" >
           <Sidebar />
 
 

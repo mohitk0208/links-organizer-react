@@ -22,3 +22,7 @@ export function chooseSystemMode() {
   localStorage.removeItem('theme')
   applyTheme()
 }
+
+export function getCurrentTheme() {
+  return localStorage.theme ? localStorage.theme : 'system'
+}
