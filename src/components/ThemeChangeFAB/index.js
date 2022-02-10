@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { chooseDarkMode, chooseLightMode, chooseSystemMode } from "./themeFunctions"
+import { chooseDarkMode, chooseLightMode, chooseSystemMode } from "../../utils/themeFunctions"
 
 function ThemeChangeFAB() {
 
