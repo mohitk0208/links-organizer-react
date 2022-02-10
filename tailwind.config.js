@@ -3,6 +3,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
+  darkMode: "class",
   safelist: ['min-h-[100vh]', 'flex-grow', 'hidden', 'lg:block', 'bg-purple-300', 'dark:bg-purple-600'],
   theme: {
     extend: {
