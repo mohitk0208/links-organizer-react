@@ -2,8 +2,23 @@ import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 import Button from '../Button'
 import PropTypes from "prop-types"
+import { XIcon } from '@heroicons/react/solid'
 
-function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, className }) {
+/**
+ *
+ * @param {{size:"sm" | "md" | "lg" | "xl"}} param0
+ * @returns
+ */
+function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, className, size = "md" }) {
+
+  const MODAL_WIDTH = {
+    "sm": "max-w-md",
+    "md": "max-w-lg",
+    "lg": "max-w-xl",
+    "xl": "max-w-2xl",
+    "2xl": "max-w-3xl"
+  }
+
 
   return (
     <Transition show={show} as={Fragment} >
@@ -40,10 +55,13 @@ function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, c
             leaveFrom="opacity-100 translate-y-0 scale-100"
             leaveTo="opacity-0 -translate-y-8 sm-translate-y-0 sm:scale-95"
           >
-            <div className="inline-block w-full max-w-md p-4 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div className={`inline-block w-full ${MODAL_WIDTH[size]} p-4 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg`}>
               <div>
-                <Dialog.Title as="h3" className="text-lg leading-3 font-medium py-2 text-gray-900">
-                  {headline}
+                <Dialog.Title as="h3" className="text-lg leading-3 font-medium py-2 text-gray-900 flex justify-between items-center">
+                  <span>
+                    {headline}
+                  </span>
+                  <XIcon className='w-7 h-7 opacity-70 hover:opacity-100 cursor-pointer transition-colors ease-in-out duration-200' onClick={() => onCancel()} />
                 </Dialog.Title>
 
                 <div className={className}>
