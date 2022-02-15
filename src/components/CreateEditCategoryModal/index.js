@@ -6,16 +6,19 @@ import Modal from "../utilComponents/Modal"
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { postCategoryAsync, updateCategoryAsync } from '../../slices/categoriesSlice'
+import SearchImageModal from '../SearchImageModal'
 
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Category Name is required'),
-  description: Yup.string()
+  description: Yup.string(),
+  background_url: Yup.string().url('Invalid URL')
 })
 
 function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isSearchImageModalOpen, setIsSearchImageModalOpen] = useState(false)
   const dispatch = useDispatch()
 
   return (
@@ -24,12 +27,13 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
       onCancel={onClose}
       headline={isEdit ? 'Edit Category' : 'Create Category'}
       onSubmit={() => null}
+      size="xl"
     >
-
       <Formik
         initialValues={{
           name: category?.name ? category.name : '',
-          description: category?.description ? category.description : ''
+          description: category?.description ? category.description : '',
+          background_url: category?.background_url ? category.background_url : ''
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
@@ -47,44 +51,66 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
         }}
         validateOnChange
       >
+        {({ setFieldValue }) => (
+          <Form>
 
-        <Form>
+            <InputField
+              label="name"
+              name="name"
+              type="text"
+              labelClassName="block mb-2 w-full"
+              className="block w-full text-sm"
+              placeholder="Category Name"
+            />
 
-          <InputField
-            label="name"
-            name="name"
-            type="text"
-            labelClassName="block mb-2 w-full"
-            className="block w-full text-sm"
-            placeholder="Category Name"
-          />
+            <TextAreaField
+              label="description"
+              name="description"
+              labelClassName="block"
+              className="w-full resize-none"
+              labelSpanClassName=""
+              placeholder="Brief description about the URL..."
+              rows="4"
+            />
 
-          <TextAreaField
-            label="description"
-            name="description"
-            labelClassName="block"
-            className="w-full resize-none"
-            labelSpanClassName=""
-            placeholder="Brief description about the URL..."
-            rows="4"
-          />
+            <div className='flex items-center gap-1 ' >
+              <InputField
+                label="background URL"
+                name="background_url"
+                type="text"
+                labelClassName="block mb-2 w-full"
+                className="block w-full text-sm"
+                placeholder="https://picsum.photos/400"
+              />
+              <p className='mb-2' >OR</p>
+              <Button variant='secondary' type="button" className="block mb-2" onClick={() => setIsSearchImageModalOpen(true)} >
+                Search
+              </Button>
+            </div>
 
 
 
-          <div className="flex justify-end items-center gap-3" >
-            <Button variant="outline-danger" type="button" onClick={onClose} >
-              Cancel
-            </Button>
-            <Button variant="primary" type="submit" loading={isLoading} disabled={isLoading} >
-              {isEdit ? 'Update' : 'Create'}
-            </Button>
-          </div>
 
-        </Form>
+            <div className="flex justify-end items-center gap-3" >
+              <Button variant="outline-danger" type="button" onClick={onClose} >
+                Cancel
+              </Button>
+              <Button variant="primary" type="submit" loading={isLoading} disabled={isLoading} >
+                {isEdit ? 'Update' : 'Create'}
+              </Button>
+            </div>
+
+            <SearchImageModal isOpen={isSearchImageModalOpen} onClose={() => setIsSearchImageModalOpen(false)} setFieldValue={setFieldValue} />
+          </Form>
+        )}
+
+
 
       </Formik>
 
+
     </Modal>
+
   )
 }
 
