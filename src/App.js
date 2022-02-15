@@ -8,6 +8,7 @@ import Header from './components/Header';
 import { BrowserRouter as Router } from "react-router-dom"
 import { dequeueNotification, selectCurrentObject } from "./slices/globalNotificationSlice"
 import Alert from "./components/utilComponents/Alert"
+import { applyTheme } from "./utils/themeFunctions"
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
   const alertCurrentObject = useSelector(selectCurrentObject)
 
   useEffect(() => {
-
+    applyTheme()
     dispatch(manageLoginAsync())
 
   }, [dispatch])

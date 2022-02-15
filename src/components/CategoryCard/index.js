@@ -20,7 +20,7 @@ function CategoryCard({ category, onClick, showControls, navigateTo }) {
   } = category
 
   return (
-    <div className="w-full aspect-[2/1.5] group border border-purple-500 rounded-lg flex bg-center relative hover:shadow-md overflow-hidden" onClick={onClick ? onClick : () => null}
+    <div className="w-full aspect-[2/1.5] group border border-purple-500 rounded-lg flex bg-center bg-no-repeat bg-cover relative hover:shadow-md overflow-hidden" onClick={onClick ? onClick : () => null}
       style={{
         backgroundImage: `url(${background_url})`,
       }}
