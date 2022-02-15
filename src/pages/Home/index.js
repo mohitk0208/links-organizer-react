@@ -44,7 +44,7 @@ function Home() {
           <Button variant="outline-primary" className="" onClick={() => setIsCreateCategoryModalOpen(true)} >Create </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 pb-36">
           {categories.map((category, index) => {
             if (index === categories.length - 1) {
               return (
