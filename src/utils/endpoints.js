@@ -1,4 +1,4 @@
-import {host} from "./constants"
+import { host, imageScrapperHost} from "./constants"
 
 const endpointInitial = `${host}api/v1`
 
@@ -27,6 +27,9 @@ const endpoints = {
   //tags
   GET_POST_TAGS: `${endpointInitial}/tags`,
   SINGLE_TAG: (id) => `${endpointInitial}/tags/${id}`,
+
+  //images from yahoo
+  GET_IMAGES: (query) => `${imageScrapperHost}api/getimage/${query}`,
 }
 
 
