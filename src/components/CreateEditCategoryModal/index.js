@@ -100,7 +100,9 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
               </Button>
             </div>
 
-            <SearchImageModal isOpen={isSearchImageModalOpen} onClose={() => setIsSearchImageModalOpen(false)} setFieldValue={setFieldValue} />
+            <SearchImageModal isOpen={isSearchImageModalOpen} onClose={() => setIsSearchImageModalOpen(false)} onSubmit={(url) => {
+              setFieldValue('background_url', url)
+            }} />
           </Form>
         )}
 

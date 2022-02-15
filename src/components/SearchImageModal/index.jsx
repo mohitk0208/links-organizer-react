@@ -2,10 +2,11 @@ import { useState } from "react";
 import useDebounceTimeout from "../../hooks/useDebounceTimeout";
 import endpoints from "../../utils/endpoints";
 import { fetchWrapper } from "../../utils/fetchWrapper";
+import Button from "../utilComponents/Button";
 
 import Modal from "../utilComponents/Modal";
 
-function SearchImageModal({ isOpen, onClose, setFieldValue }) {
+function SearchImageModal({ isOpen, onClose, onSubmit }) {
 
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
@@ -41,6 +42,10 @@ function SearchImageModal({ isOpen, onClose, setFieldValue }) {
   }, 1000, [query]);
 
 
+  const imageSelectHandler = (image) => {
+    setSelectedImage(image.preview);
+  }
+
 
   return (
     <Modal
@@ -52,13 +57,23 @@ function SearchImageModal({ isOpen, onClose, setFieldValue }) {
       className="min-h-[500px] border-t pt-2 flex flex-col gap-2"
     >
 
-      <div className="flex justify-center text-center" >
+      <div className="flex justify-between gap-2 px-2 text-center" >
         <input
-          className="w-full max-w-md p-1 px-2 border-b-2 focus:outline-none text-center"
+          className="w-full p-1 px-2 border-b-2 focus:outline-none text-center"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for images"
         />
+
+        <div >
+          <Button type="button" disabled={!selectedImage} onClick={() => {
+            onSubmit(selectedImage)
+            onClose()
+          }}>
+            Done
+          </Button>
+        </div>
+
       </div>
 
 
@@ -70,7 +85,7 @@ function SearchImageModal({ isOpen, onClose, setFieldValue }) {
         ) : (
 
           images.map((image) => (
-            <div className="w-full h-full aspect-[2/1.5] shadow cursor-pointer overflow-hidden" >
+            <div className={`w-full h-full aspect-[2/1.5] shadow cursor-pointer overflow-hidden ${selectedImage === image.preview && "border-4 border-fuchsia-500"} `} onClick={() => imageSelectHandler(image)} >
               <img src={image.preview} alt={image.name} className=" w-full h-full object-cover hover:scale-110 transition-transform ease-in-out duration-200" />
             </div>
           ))
