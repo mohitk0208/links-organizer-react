@@ -24,7 +24,7 @@ function SearchImageModal({ isOpen, onClose, onSubmit }) {
 
         if (res.status === 200) {
           const resData = await res.json();
-          setImages(resData.result);
+          setImages(resData.results);
         }
 
       }
@@ -85,7 +85,7 @@ function SearchImageModal({ isOpen, onClose, onSubmit }) {
         ) : (
 
           images.map((image) => (
-            <div className={`w-full h-full aspect-[2/1.5] shadow cursor-pointer overflow-hidden ${selectedImage === image.preview && "border-4 border-fuchsia-500"} `} onClick={() => imageSelectHandler(image)} >
+            <div className={`w-full h-full aspect-[2/1.5] shadow cursor-pointer overflow-hidden ${selectedImage === image.preview && "border-4 border-fuchsia-500"} `} onClick={() => imageSelectHandler(image)} key={image.preview} >
               <img src={image.preview} alt={image.name} className=" w-full h-full object-cover hover:scale-110 transition-transform ease-in-out duration-200" />
             </div>
           ))

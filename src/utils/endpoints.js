@@ -29,7 +29,7 @@ const endpoints = {
   SINGLE_TAG: (id) => `${endpointInitial}/tags/${id}`,
 
   //images from yahoo
-  GET_IMAGES: (query) => `${imageScrapperHost}api/getimage/${query}`,
+  GET_IMAGES: (query) => `${imageScrapperHost}api/images/yahoo/${query}`,
 }
 
 
