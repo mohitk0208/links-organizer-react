@@ -10,6 +10,7 @@ import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimm
 import { routes } from '../../utils/routeStrings'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import Button from '../../components/utilComponents/Button'
+import useDebounceTimeout from '../../hooks/useDebounceTimeout'
 
 function Home() {
 
@@ -18,20 +19,26 @@ function Home() {
   const dispatch = useDispatch()
   const loadingRef = useRef()
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const queryRef = useRef('')
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
+
+  useDebounceTimeout(() => {
+    dispatch(getCategoriesAsync(queryRef.current))
+  }, 1000, [query])
 
   useEffect(() => {
     loadingRef.current = isLoading
   }, [isLoading])
 
   useEffect(() => {
-    dispatch(getCategoriesAsync())
+    dispatch(getCategoriesAsync(queryRef.current))
   }, [dispatch])
 
   useUpdateEffect(() => {
     if (!loadingRef.current && isVisible) {
-      dispatch(getNextCategoriesAsync())
+      dispatch(getNextCategoriesAsync(queryRef.current))
     }
   }, [dispatch, isVisible])
 
@@ -42,6 +49,19 @@ function Home() {
         <div className="flex justify-between items-center mt-2 mb-4 pb-2 border-b px-2" >
           <h1 className="text-xl font-bold  " > Categories </h1>
           <Button variant="outline-primary" className="" onClick={() => setIsCreateCategoryModalOpen(true)} >Create </Button>
+        </div>
+
+        <div className="pb-4">
+          <input
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              queryRef.current = e.target.value
+            }}
+            className="w-full text-gray-500 focus:ring-2 focus:ring-purple-400 rounded "
+            type="text"
+            placeholder="Search"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 pb-36">
