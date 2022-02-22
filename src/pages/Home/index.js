@@ -33,7 +33,7 @@ function Home() {
     if (!loadingRef.current && isVisible) {
       dispatch(getNextCategoriesAsync())
     }
-  }, [])
+  }, [dispatch, isVisible])
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >

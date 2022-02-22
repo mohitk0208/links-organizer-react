@@ -67,7 +67,7 @@ export const getCategoriesAsync = (query = "", parentCategory = null) => async (
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-updated_at')
-  queryParams.push(`limit=${10}`)
+  queryParams.push(`limit=${15}`)
   queryParams.push(`parent_category=${parentCategory}`)
   if (query) queryParams.push(`search=${query}`)
 
@@ -111,11 +111,11 @@ export const getNextCategoriesAsync = (query = "", parentCategory = null) => asy
   const queryParams = []
   queryParams.push(`offset=${value.length}`)
   queryParams.push('ordering=-updated_at')
-  queryParams.push(`limit=${10}`)
+  queryParams.push(`limit=${15}`)
   queryParams.push(`parent_category=${parentCategory}`)
   if (query) queryParams.push(`search=${query}`)
 
-  await dispatch(logoutResetCategories())
+  // await dispatch(logoutResetCategories())
 
   dispatch(setLoading(true));
 
