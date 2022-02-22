@@ -33,6 +33,7 @@ function LinkCard({ link, handleBookmarkClick }) {
     id,
     url,
     description,
+    category__background_url,
     // created_at,
     // updated_at,
     tags
@@ -71,7 +72,7 @@ function LinkCard({ link, handleBookmarkClick }) {
 
 
       <div className="col-start-1 col-end-2 flex flex-col gap-3 justify-around text-center" >
-        <img src="https://picsum.photos/200" alt="" className="rounded" style={{ aspectRatio: 1 }} />
+        <img src={category__background_url} alt="" className="rounded h-full w-full object-cover" style={{ aspectRatio: 1 }} />
       </div>
 
       <div className="col-start-2 col-end-13 p-2 bg-purple-300/20 rounded h-16 " >
