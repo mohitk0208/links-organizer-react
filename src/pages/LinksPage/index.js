@@ -34,10 +34,6 @@ function LinksPage() {
   }, [isLoading])
 
   useEffect(() => {
-    queryRef.current = query
-  }, [query])
-
-  useEffect(() => {
     dispatch(getLinksAsync(queryRef.current, categoryId))
   }, [categoryId, dispatch])
 
@@ -56,7 +52,10 @@ function LinksPage() {
         <div className="pb-4">
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              queryRef.current = e.target.value
+            }}
             className="w-full text-gray-500 focus:ring-2 focus:ring-purple-400 rounded "
             type="text"
             placeholder="Search"
