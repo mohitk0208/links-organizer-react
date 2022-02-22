@@ -69,7 +69,7 @@ return (
 
 
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-2 pb-16">
       {categories.map((category, index) => {
         if (index === categories.length - 1) {
           return (
