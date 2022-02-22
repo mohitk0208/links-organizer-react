@@ -121,7 +121,7 @@ export const getLinksAsync = (searchQuery, category) => async (dispatch, getStat
 
 export const getNextLinksAsync = (category) => async (dispatch, getState) => {
 
-  const { value, totalCount } = getState().categories
+  const { value, totalCount } = getState().links
 
   if (value.length === totalCount) return
 
@@ -130,8 +130,6 @@ export const getNextLinksAsync = (category) => async (dispatch, getState) => {
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
-
-  await dispatch(logoutResetLinks())
 
   dispatch(setLoading(true));
 
