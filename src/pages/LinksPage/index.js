@@ -10,6 +10,7 @@ import useIsOnScreen from "../../hooks/useIsOnScreen"
 import LinkCard from '../../components/LinkCard'
 import LinkCardShimmer from '../../components/LinkCard/LinkCardShimmer'
 import useDebounceTimeout from '../../hooks/useDebounceTimeout'
+import FilterTags from '../../components/FilterTags'
 
 function LinksPage() {
 
@@ -62,7 +63,7 @@ function LinksPage() {
           />
         </div>
 
-
+        <FilterTags />
 
         {links.map((link, index) => {
           if (index === links.length - 1) {
