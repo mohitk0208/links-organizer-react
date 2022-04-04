@@ -6,7 +6,7 @@ const VARIANTS = {
   "error": "bg-red-500/90",
   "success": "bg-success-green-500/90",
   "warning": "bg-yellow-400/90"
-}
+} as const
 
 const CORNER_SHAPE = {
   "sharp": "rounded-none",
@@ -15,7 +15,7 @@ const CORNER_SHAPE = {
   "heavy-curve": "rounded-lg",
   "very-heavy-curve": "rounded-xl",
   "almost-circular": "rounded-2xl"
-}
+} as const
 
 const PLACEMENT = {
   "top-middle": {
@@ -63,27 +63,26 @@ const PLACEMENT = {
     from: "translate-x-full",
     to: "translate-x-0"
   }
+} as const
+
+
+interface AlertProps {
+  message: string,
+  onClose: () => void,
+  autoClose: boolean,
+  duration: number,
+  variant: keyof typeof VARIANTS,
+  corners: keyof typeof CORNER_SHAPE,
+  placement: keyof typeof PLACEMENT,
+
 }
 
-
-
-/**
- * @param {{
- * message:string,
- * onClose: function,
- * autoClose: boolean,
- * duration:number,
- * variant:"error" | "success" | "warning",
- * corners:"sharp" | "very-light-curve" | "light-curve" | "heavy-curve" | "very-heavy-curve" | "almost-circular",
- * placement:"top-middle" | "top-start" | "top-end" | "left-start" | "left-middle" | "left-end" | "right-start" | "right-middle" | "right-end",
- *  }}
- */
-
-function Alert({ message, onClose, autoClose, duration, variant = "error", corners = "light-curve", placement = "top-middle" }) {
+function Alert({ variant = "error", corners = "light-curve", placement = "top-middle", ...props }: AlertProps) {
 
   const [show, setShow] = useState(false)
-  const timerRef = useRef(undefined)
-  const autoCloseTimerRef = useRef(undefined)
+  const timerRef = useRef<undefined | number>(undefined)
+  const autoCloseTimerRef = useRef<undefined | number>(undefined)
+  const { onClose, message, autoClose, duration } = props
 
 
   const handleOnClose = useCallback(() => {
