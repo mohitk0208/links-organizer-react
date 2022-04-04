@@ -1,33 +1,38 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 import Button from '../Button'
-import PropTypes from "prop-types"
 import { XIcon } from '@heroicons/react/solid'
 
-/**
- *
- * @param {{size:"sm" | "md" | "lg" | "xl"}} param0
- * @returns
- */
-function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, className, size = "md" }) {
+const MODAL_WIDTH = {
+  "sm": "max-w-md",
+  "md": "max-w-lg",
+  "lg": "max-w-xl",
+  "xl": "max-w-2xl",
+  "2xl": "max-w-3xl"
+} as const
 
-  const MODAL_WIDTH = {
-    "sm": "max-w-md",
-    "md": "max-w-lg",
-    "lg": "max-w-xl",
-    "xl": "max-w-2xl",
-    "2xl": "max-w-3xl"
-  }
+interface ModalProps {
+  show: boolean,
+  onCancel: () => void,
+  children: React.ReactNode
+  headline: string,
+  btn: string | React.ReactNode,
+  onSubmit: () => void,
+  cancelBtn: string | React.ReactNode,
+  className: string,
+  size: keyof typeof MODAL_WIDTH,
+}
 
+function Modal({ className = "", size = "md", ...props }: ModalProps) {
 
   return (
-    <Transition show={show} as={Fragment} >
+    <Transition show={props.show} as={Fragment} >
       <Dialog
         as="div"
         static
         className="fixed z-10 inset-0 overflow-y-auto"
-        open={show}
-        onClose={onCancel}
+        open={props.show}
+        onClose={props.onCancel}
       >
         <div className="min-h-screen text-center">
           <Transition.Child
@@ -59,29 +64,29 @@ function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, c
               <div>
                 <Dialog.Title as="h3" className="text-lg leading-3 font-medium py-2 text-gray-900 flex justify-between items-center">
                   <span>
-                    {headline}
+                    {props.headline}
                   </span>
-                  <XIcon className='w-7 h-7 opacity-70 hover:opacity-100 cursor-pointer transition-colors ease-in-out duration-200' onClick={() => onCancel()} />
+                  <XIcon className='w-7 h-7 opacity-70 hover:opacity-100 cursor-pointer transition-colors ease-in-out duration-200' onClick={() => props.onCancel()} />
                 </Dialog.Title>
 
                 <div className={className}>
-                  {children}
+                  {props.children}
                 </div>
               </div>
 
-              {(btn || cancelBtn) && (
+              {(props.btn || props.cancelBtn) && (
                 <div className="flex py-2 items-center justify-end gap-3">
 
-                  {cancelBtn && (
-                    typeof (cancelBtn) === "string" ? (
-                      <Button className="my-1 " variant="outline-danger" type="button" onClick={onCancel} >{cancelBtn}</Button>
-                    ) : cancelBtn
+                  {props.cancelBtn && (
+                    typeof (props.cancelBtn) === "string" ? (
+                      <Button className="my-1 " variant="outline-danger" type="button" onClick={props.onCancel} >{props.cancelBtn}</Button>
+                    ) : props.cancelBtn
                   )}
 
-                  {btn && (
-                    typeof (btn) === "string" ? (
-                      <Button className="my-1" variant="success" type="button" onClick={onSubmit}  >{btn}</Button>
-                    ) : btn
+                  {props.btn && (
+                    typeof (props.btn) === "string" ? (
+                      <Button className="my-1" variant="success" type="button" onClick={props.onSubmit}  >{props.btn}</Button>
+                    ) : props.btn
 
                   )}
 
@@ -96,18 +101,6 @@ function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, c
       </Dialog>
     </Transition>
   )
-}
-
-Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  headline: PropTypes.string,
-  btn: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  onSubmit: PropTypes.func,
-  cancelBtn: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  className: PropTypes.string
-
 }
 
 export default Modal

@@ -1,3 +1,4 @@
+import React from 'react'
 import { joinClassNames } from '../../utils/functions'
 
 export default function LoadingSpinner({ className = "" }: { className?: string }) {
