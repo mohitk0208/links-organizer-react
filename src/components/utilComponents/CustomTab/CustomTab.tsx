@@ -1,11 +1,14 @@
 import React from "react"
-import {Tab} from "@headlessui/react"
+import { Tab } from "@headlessui/react"
 import { joinClassNames } from "../../../utils/functions"
 
-const CustomTab = ({ children }) => {
+interface CustomTabProps {
+  children: React.ReactNode
+}
+
+const CustomTab = ({ children }: CustomTabProps) => {
   return (
     <Tab
-
       className={({ selected }) =>
         joinClassNames(
           'w-full py-2 capitalize leading-5 focus:outline-none select-none transition-colors duration-150 ease-in-out',
