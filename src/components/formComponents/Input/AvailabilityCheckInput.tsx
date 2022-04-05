@@ -1,56 +1,35 @@
 import { useField } from "formik"
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import TextError from "../TextError"
+import TextError from "../TextError/TextError"
 import { CheckIcon, XIcon } from "@heroicons/react/solid"
 import LoadingSpinner from "../../utilComponents/LoadingSpinner"
 import endpoints from "../../../utils/endpoints"
+import { classes } from "./index"
 
-const classes = {
-  INPUT: (error, touched) => {
-    const common = "block shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:focus:bg-gray-600"
 
-    if (error && touched) {
-      return `border-2 border-red-500/50 ${common} `
-    }
-    else {
-      return `${common} border-2 border-gray-300 dark:border-gray-600/80 `
-    }
-  }
+
+
+enum INPUT_STATES { 'CHECKING', 'AVAILABLE', 'UNAVAILABLE', 'WAITING' }
+
+interface AvailabilityCheckInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string,
+  labelClassName?: string,
+  labelSpanClassName?: string,
+  className?: string,
+  name: string,
 }
 
 
-export const InputField = ({ label, labelClassName,labelSpanClassName, className, ...props }) => {
+export default function AvailabilityCheckInput({ label, labelClassName, labelSpanClassName, className, ...props }: AvailabilityCheckInputProps) {
 
-  const [field, meta] = useField(props)
-
-  return (
-    <label htmlFor={props.name} className={labelClassName} >
-      <span className={`capitalize ${labelSpanClassName}`}>{label}</span>
-      <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
-      <TextError touched={meta.touched} error={meta.error} />
-    </label>
-  )
-}
-
-
-const INPUT_STATES = {
-  CHECKING: 'checking',
-  AVAILABLE: 'available',
-  UNAVAILABLE: 'unavailable',
-  WAITING: 'waiting'
-}
-
-
-export const AvailabilityCheckInput = ({ label, labelClassName,labelSpanClassName, className, ...props }) => {
-
-  const [field, meta, helpers] = useField(props)
+  const [field, meta, helpers] = useField(props.name)
   const [currentInputState, setCurrentInputState] = useState(INPUT_STATES.WAITING)
-  const checkTimerRef = useRef(undefined)
-  const controllerRef = useRef(undefined)
+  const checkTimerRef = useRef<number | undefined>(undefined)
+  const controllerRef = useRef<AbortController | undefined>(undefined)
 
   const errMsg = useMemo(() => `This ${props.name} is already taken.`, [props.name])
 
-  function changeHandler(e) {
+  function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
 
     const currentValue = e.target.value
     helpers.setValue(currentValue)
@@ -132,17 +111,4 @@ export const AvailabilityCheckInput = ({ label, labelClassName,labelSpanClassNam
     </label>
   )
 
-}
-
-export const TextAreaField = ({ label, labelClassName, labelSpanClassName, className, ...props }) => {
-
-  const [field, meta] = useField(props)
-
-  return (
-    <label htmlFor={props.name} className={labelClassName} >
-      <span className={`capitalize ${labelSpanClassName}`} > {label} </span>
-      <textarea {...field} {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
-      <TextError touched={meta.touched} error={meta.error} />
-    </label>
-  )
 }

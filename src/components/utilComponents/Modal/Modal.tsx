@@ -19,8 +19,8 @@ interface ModalProps {
   btn?: string | React.ReactNode,
   onSubmit: () => void,
   cancelBtn?: string | React.ReactNode,
-  className: string,
-  size: keyof typeof MODAL_WIDTH,
+  className?: string,
+  size?: keyof typeof MODAL_WIDTH,
 }
 
 function Modal({ className = "", size = "md", ...props }: ModalProps) {

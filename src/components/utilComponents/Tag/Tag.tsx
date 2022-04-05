@@ -7,11 +7,11 @@ interface TagProps {
   tag: tag
   faded?: boolean,
   onClick?: () => void,
-  editMode: boolean,
-  onDelete: () => void,
+  editMode?: boolean,
+  onDelete?: () => void,
 }
 
-function Tag({ tag, faded, onClick, editMode, onDelete }: TagProps) {
+function Tag({ tag, faded, onClick, editMode = false, onDelete = () => null }: TagProps) {
   return (
     <p className={joinClassNames(
       faded ? " bg-gray-300 opacity-60" : "bg-purple-600/70",

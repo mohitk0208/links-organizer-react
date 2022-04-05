@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import ContentContainer from "../../components/utilComponents/ContentContainer"
 import NewsContainer from "../../components/utilComponents/NewsContainer"
-import Profile from "../../components/profilePageComponents/profile"
-// import TabsContainer from '../../components/profilePageComponents/TabsContainer'
+import Profile from "../../components/profilePageComponents/Profile"
 import { useDispatch } from 'react-redux'
 import { getUserAsync } from '../../slices/userSlice'
 

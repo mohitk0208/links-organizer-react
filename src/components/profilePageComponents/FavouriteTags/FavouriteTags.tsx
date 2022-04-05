@@ -5,18 +5,30 @@ import Tag from "../../utilComponents/Tag"
 import AsyncSelect from '../../formComponents/AsyncSelect'
 import Button from '../../utilComponents/Button'
 import CreateTagModal from './CreateTagModal'
+import { tag } from '../../../types/tag'
 
-function FavouriteTags({ activeTags, setActiveTags }) {
+interface tagWithActive extends tag {
+  active: boolean
+}
+
+
+interface FavouriteTagsProps {
+  activeTags: tagWithActive[],
+  setActiveTags: React.Dispatch<React.SetStateAction<tagWithActive[]>>
+}
+
+
+function FavouriteTags({ activeTags, setActiveTags }: FavouriteTagsProps) {
 
   const isEditMode = useSelector(selectIsEditMode)
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
 
-  function handleSubmit(tag) {
+  function handleSubmit(tag: tag) {
     setActiveTags(prev => ([...prev, { ...tag, active: true }]))
   }
 
-  function handleFilter(results) {
+  function handleFilter(results: tag[]) {
 
     const activeTagsSet = new Set(activeTags.map(t => t.id))
 
@@ -50,14 +62,14 @@ function FavouriteTags({ activeTags, setActiveTags }) {
               })
             }
 
-            return <Tag key={tag.id} tag={tag} faded={!tag.active} onClick={onTagClick} />
+            return <Tag key={tag.id} tag={tag as tag} faded={!tag.active} onClick={onTagClick} />
           })}
 
           {isEditMode && <AsyncSelect onSubmit={handleSubmit} resultFilter={handleFilter} disabled={!isEditMode} />}
 
         </div>
       </div>
-      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}  />
+      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
     </>
   )
 }

@@ -19,18 +19,26 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().max(300)
 })
 
+interface values {
+  name: string,
+  description: string
+}
 
+interface CreateTagModalProps {
+  show: boolean,
+  onClose: () => void,
+}
 
-function CreateTagModal({ show, onClose }) {
+function CreateTagModal({ show, onClose }: CreateTagModalProps) {
 
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: values) => {
 
     setLoading(true)
 
     try {
-      const res = await fetchWrapper.post(endpoints.FAVOURITE_TAGS, values, true)
+      const res = await fetchWrapper.post(endpoints.GET_POST_TAGS, values, true)
 
       const resData = await res.json()
 
@@ -51,6 +59,11 @@ function CreateTagModal({ show, onClose }) {
 
   }
 
+  const initialValues: values = {
+    name: "",
+    description: ""
+  }
+
 
   return (
     <Modal
@@ -61,10 +74,7 @@ function CreateTagModal({ show, onClose }) {
     >
 
       <Formik
-        initialValues={{
-          name: "",
-          description: ""
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
         validateOnChange
@@ -78,7 +88,7 @@ function CreateTagModal({ show, onClose }) {
             type="text"
             labelClassName="block mb-2 w-full"
             className="block w-full"
-            placeholder="Enter Name" s
+            placeholder="Enter Name"
           />
 
           <TextAreaField

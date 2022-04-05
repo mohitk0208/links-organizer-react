@@ -1,7 +1,13 @@
 import React from 'react'
 import { InformationCircleIcon } from "@heroicons/react/outline"
 
-function index({ touched, error }) {
+interface TextErrorProps {
+  touched: boolean,
+  error?: string
+}
+
+
+function TextError({ touched, error }: TextErrorProps) {
   return (
     <span className="text-xs text-red-500 px-2 align-middle">
       {touched && error && (<>
@@ -18,4 +24,4 @@ function index({ touched, error }) {
   )
 }
 
-export default index
+export default TextError

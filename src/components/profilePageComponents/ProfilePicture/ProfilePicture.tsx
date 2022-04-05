@@ -23,17 +23,22 @@ const sprites = [
   "personas",
   "pixel-art",
   "pixel-art-neutral"
-]
+] as const
 
-function getSeed(imgUrl) {
+function getSeed(imgUrl: string) {
   return imgUrl.match(/\/(?<seed>[^/]*)\.svg/)?.groups?.seed
 }
 
-function getSprite(imgUrl) {
+function getSprite(imgUrl: string) {
   return imgUrl.match(/\/(?<sprite>[^/]*)\/[^/]*\.svg/)?.groups?.sprite
 }
 
-function ProfilePicture({ avatar, setAvatar }) {
+interface ProfilePictureProps {
+  avatar: string,
+  setAvatar: (avatar: string) => void
+}
+
+function ProfilePicture({ avatar, setAvatar }: ProfilePictureProps) {
   const isEditMode = useSelector(selectIsEditMode)
   const [isOpen, setIsOpen] = useState(false)
   const [dicebearSeed, setDicebearSeed] = useState(getSeed(avatar) || "")
