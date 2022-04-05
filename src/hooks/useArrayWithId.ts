@@ -2,18 +2,18 @@ import { useCallback, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 
-export default function useArrayWithId(initialValue) {
+export default function useArrayWithId<T>(initialValue: T[] = []) {
 
   const [arr, setArr] = useState(initialValue.map(v => ({ id: uuidv4(), value: v })) || [])
 
 
-  const handleChange = useCallback((e, id) => {
+  const handleChange = useCallback((newValue: T, id: string) => {
 
     setArr(prev => {
 
       return [...prev].map(v => {
         if (v.id === id) {
-          return { ...v, value: e.target.value }
+          return { ...v, value: newValue }
         }
         return v
       })
@@ -21,16 +21,16 @@ export default function useArrayWithId(initialValue) {
   }, [])
 
 
-  const push = useCallback((value) => {
+  const push = useCallback((value: T) => {
     setArr(prev => ([...prev, { id: uuidv4(), value: value }]))
   }, [])
 
-  const filter = useCallback((callback) => {
+  const filter = useCallback((callback: () => void) => {
     setArr(prev => ([...prev].filter(callback)))
   }, [])
 
 
-  const set = useCallback((values) => {
+  const set = useCallback((values: T[]) => {
     setArr(values.map(v => ({ id: uuidv4(), value: v })))
   }, [])
 
@@ -40,19 +40,19 @@ export default function useArrayWithId(initialValue) {
   }, [])
 
   const removeByIndex = useCallback((index) => {
-    setArr(prev => [...prev].filter((v,i) => i !== index))
+    setArr(prev => [...prev].filter((v, i) => i !== index))
   }, [])
 
-  const insert = useCallback((index, value) => {
+  const insert = useCallback((index: number, value: T) => {
     setArr(prev => {
       const n = [...prev]
-      n.splice(index,0,{id: uuidv4(), value: value})
+      n.splice(index, 0, { id: uuidv4(), value: value })
       return n
     })
   }, [])
 
 
-  const handlePositionChange = useCallback((sourceIndex, destinationIndex) => {
+  const handlePositionChange = useCallback((sourceIndex: number, destinationIndex: number) => {
     setArr(prev => {
 
       prev.splice(destinationIndex, 0, prev.splice(sourceIndex, 1)[0])
