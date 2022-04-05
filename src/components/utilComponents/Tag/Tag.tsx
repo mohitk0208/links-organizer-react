@@ -1,15 +1,24 @@
 import React from 'react'
 import { joinClassNames } from '../../../utils/functions'
 import { XCircleIcon } from "@heroicons/react/solid"
+import { tag } from '../../../types/tag'
 
-function Tag({ tag, faded, onClick,editMode, onDelete }) {
+interface TagProps {
+  tag: tag
+  faded?: boolean,
+  onClick?: () => void,
+  editMode: boolean,
+  onDelete: () => void,
+}
+
+function Tag({ tag, faded, onClick, editMode, onDelete }: TagProps) {
   return (
     <p className={joinClassNames(
       faded ? " bg-gray-300 opacity-60" : "bg-purple-600/70",
       "text-xs w-max rounded-full text-white m-1 min-w-[100px] text-center select-none",
-      editMode ? "flex justify-between items-center": ""
+      editMode ? "flex justify-between items-center" : ""
     )}
-      onClick={onClick ? onClick : null}
+      onClick={onClick ? onClick : undefined}
     >
       <span className={editMode ? "pl-3 pr-2 " : "pb-0.5"} >
         {tag.name}
