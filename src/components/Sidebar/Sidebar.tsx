@@ -7,7 +7,7 @@ import { breakpoints } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserAsync, selectAvatar, selectFullName } from '../../slices/userSlice'
 
-function joinClassNames(...classes) {
+function joinClassNames(...classes: string[]): string {
   return classes.join(" ")
 }
 
@@ -27,7 +27,7 @@ function Sidebar() {
 
     return [
       { name: "Home", href: routes.HOME, icon: NewspaperIcon, current: location && location.pathname === routes.HOME },
-      { name: "Links", href: routes.ALL_LINKS,icon: LinkIcon, current: location && location.pathname === routes.ALL_LINKS },
+      { name: "Links", href: routes.ALL_LINKS, icon: LinkIcon, current: location && location.pathname === routes.ALL_LINKS },
       { name: "Profile", href: routes.PROFILE, icon: UserIcon, current: location && location.pathname === routes.PROFILE },
       { name: "Add Link", href: routes.ADD_LINK, icon: PlusIcon, current: location && location.pathname === routes.ADD_LINK }
     ]

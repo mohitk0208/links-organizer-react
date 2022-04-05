@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-function useUpdateEffect(callback, dependencies) {
+function useUpdateEffect(callback: () => void, dependencies: React.DependencyList = []) {
 
   const firstRenderRef = useRef(true)
 
 
-/* eslint-disable react-hooks/exhaustive-deps */
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false

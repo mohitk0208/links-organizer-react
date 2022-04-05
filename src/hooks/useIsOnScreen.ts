@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useIsOnScreen(options) {
+export default function useIsOnScreen(options: IntersectionObserverInit | undefined) {
 
   const [ref, setRef] = useState(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -15,11 +15,10 @@ export default function useIsOnScreen(options) {
 
     }, options)
 
-    if(ref) observer.observe(ref)
+    if (ref) observer.observe(ref)
 
     return () => {
-      if(ref) observer.unobserve(ref)
-      console.log("code ran");
+      if (ref) observer.unobserve(ref)
     }
 
   }, [ref, options])
