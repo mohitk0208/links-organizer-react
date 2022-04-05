@@ -3,7 +3,7 @@
  * @param {string} url endpoint
  * @param {boolean} isPrivate true if api requires token default is false
  */
-function get(url, isPrivate = false) {
+function get(url: string, isPrivate = false) {
   const requestOptions = {
     method: 'GET',
     headers: setHeaders(isPrivate),
@@ -21,7 +21,7 @@ function get(url, isPrivate = false) {
  * @param {Object} body data to be sent
  * @param {boolean} isPrivate
  */
-function post(url, body, isPrivate = false) {
+function post<T>(url: string, body: T, isPrivate = false) {
   const requestOptions = {
     method: 'POST',
     headers: setHeaders(isPrivate),
@@ -40,7 +40,7 @@ function post(url, body, isPrivate = false) {
  * @param {Object} body data to be sent
  * @param {boolean} isPrivate
  */
-function put(url, body, isPrivate = false) {
+function put<T>(url: string, body: T, isPrivate = false) {
 
   const requestOptions = {
     method: 'PUT',
@@ -57,7 +57,7 @@ function put(url, body, isPrivate = false) {
  * @param {Object} body data to be sent
  * @param {boolean} isPrivate
  */
- function patch(url, body, isPrivate = false) {
+function patch<T>(url: string, body: T, isPrivate = false) {
 
   const requestOptions = {
     method: 'PATCH',
@@ -75,7 +75,7 @@ function put(url, body, isPrivate = false) {
  * @param {boolean} isPrivate
  * @returns
  */
-function _delete(url, isPrivate = false) {
+function _delete(url: string, isPrivate = false) {
 
   const requestOptions = {
     method: 'DELETE',
@@ -93,7 +93,7 @@ function _delete(url, isPrivate = false) {
  * @param {boolean} isPrivate
  * @returns headers object
  */
-function setHeaders(isPrivate) {
+function setHeaders(isPrivate: boolean) {
 
   const HEADERS = {
     "Accept": "application/json",

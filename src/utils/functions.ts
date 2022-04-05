@@ -1,4 +1,11 @@
-export function joinClassNames(...classes) {
+interface tokenObjectType {
+  exp: number,
+  jti: string,
+  token_type: string,
+  user_id: number
+}
+
+export function joinClassNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -35,7 +42,7 @@ export const checkTokenState = () => {
 
 }
 
-function isTokenExpired(tokenObject) {
+function isTokenExpired(tokenObject: tokenObjectType) {
   return tokenObject.exp < getCurrentTimeInSeconds()
 }
 
@@ -44,7 +51,7 @@ function isTokenExpired(tokenObject) {
  * @param {string} token a base64 encoded jwt token
  * @returns {{exp:number,jti:string,token_type:string,user_id:number}}
  */
-export function getTokenDetails(token) {
+export function getTokenDetails(token: string): tokenObjectType {
 
   const detailsPart = token.split(".")[1]
 
