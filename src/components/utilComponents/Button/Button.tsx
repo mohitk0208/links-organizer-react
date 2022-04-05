@@ -39,7 +39,7 @@ const variants = {
 
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: keyof typeof variants,
+  variant?: keyof typeof variants,
   className?: string,
   loading?: boolean
 }

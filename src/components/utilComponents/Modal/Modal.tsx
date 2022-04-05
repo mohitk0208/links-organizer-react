@@ -16,9 +16,9 @@ interface ModalProps {
   onCancel: () => void,
   children: React.ReactNode
   headline: string,
-  btn: string | React.ReactNode,
+  btn?: string | React.ReactNode,
   onSubmit: () => void,
-  cancelBtn: string | React.ReactNode,
+  cancelBtn?: string | React.ReactNode,
   className: string,
   size: keyof typeof MODAL_WIDTH,
 }

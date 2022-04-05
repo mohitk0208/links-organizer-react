@@ -6,12 +6,29 @@ import Button from "../utilComponents/Button";
 
 import Modal from "../utilComponents/Modal";
 
-function SearchImageModal({ isOpen, onClose, onSubmit }) {
+
+interface SearchImageModalProps {
+  isOpen: boolean,
+  onClose: () => void,
+  onSubmit: (image: string) => void
+}
+
+interface ImageType {
+  imgurl: string,
+  rurl: string,
+  height: string,
+  width: string,
+  size: string,
+  name: string,
+  preview: string
+}
+
+function SearchImageModal({ isOpen, onClose, onSubmit }: SearchImageModalProps) {
 
   const [query, setQuery] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<ImageType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useDebounceTimeout(() => {
 
@@ -23,7 +40,10 @@ function SearchImageModal({ isOpen, onClose, onSubmit }) {
         const res = await fetchWrapper.get(endpoints.GET_IMAGES(query));
 
         if (res.status === 200) {
-          const resData = await res.json();
+          const resData: {
+            query: string,
+            results: ImageType[],
+          } = await res.json();
           setImages(resData.results);
         }
 
@@ -42,7 +62,7 @@ function SearchImageModal({ isOpen, onClose, onSubmit }) {
   }, 1000, [query]);
 
 
-  const imageSelectHandler = (image) => {
+  const imageSelectHandler = (image: ImageType) => {
     setSelectedImage(image.preview);
   }
 
@@ -67,7 +87,7 @@ function SearchImageModal({ isOpen, onClose, onSubmit }) {
 
         <div >
           <Button type="button" disabled={!selectedImage} onClick={() => {
-            onSubmit(selectedImage)
+            if (selectedImage !== null) onSubmit(selectedImage)
             onClose()
           }}>
             Done
