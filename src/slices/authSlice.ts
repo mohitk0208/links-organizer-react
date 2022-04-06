@@ -4,8 +4,10 @@ import endpoints from "../utils/endpoints"
 import { enqueueNotification } from './globalNotificationSlice'
 import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, tokenStates } from "../utils/functions"
 import { logoutResetUser } from './userSlice'
+import { authSliceType, loginAsyncData, signupAsyncData } from '../types/authSliceTypes'
+import { AppDispatch, RootState } from '../app/store'
 
-const initialState = {
+const initialState: authSliceType = {
   isLoggedIn: checkTokenState() === tokenStates.VALID,
   loading: false,
   errors: {
@@ -19,23 +21,23 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    setIsLoggedIn: (state, action) => {
+    setIsLoggedIn: (state, action: { payload: boolean, type: string }) => {
       state.isLoggedIn = action.payload
     },
 
-    setLoginError: (state, action) => {
+    setLoginError: (state, action: { payload: string, type: string }) => {
       state.errors.loginError = action.payload
     },
 
-    setSignupError: (state, action) => {
+    setSignupError: (state, action: { payload: string, type: string }) => {
       state.errors.signupError = action.payload
     },
 
-    setLoading: (state, action) => {
+    setLoading: (state, action: { payload: boolean, type: string }) => {
       state.loading = action.payload
     },
 
-    logoutResetAuth: (state, action) => {
+    logoutResetAuth: (state) => {
       state.isLoggedIn = false
       state.loading = false
       state.errors.loginError = ""
@@ -52,7 +54,7 @@ export const { setIsLoggedIn, setLoginError, setSignupError, setLoading, logoutR
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const loginAsync = (data) => async dispatch => {
+export const loginAsync = (data: loginAsyncData) => async (dispatch: AppDispatch) => {
 
   dispatch(setLoading(true))
 
@@ -90,7 +92,7 @@ export const loginAsync = (data) => async dispatch => {
 
 }
 
-export const manageLoginAsync = () => async dispatch => {
+export const manageLoginAsync = () => async (dispatch: AppDispatch) => {
 
   if (checkTokenState() === tokenStates.PARTIAL) {
 
@@ -132,7 +134,7 @@ export const manageLoginAsync = () => async dispatch => {
   }
 }
 
-export const signupAsync = (data) => async dispatch => {
+export const signupAsync = (data: signupAsyncData) => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true))
 
   try {
@@ -164,7 +166,7 @@ export const signupAsync = (data) => async dispatch => {
 
 }
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch: AppDispatch) => {
   localStorage.removeItem("access_token")
   localStorage.removeItem("refresh_token")
 
@@ -183,9 +185,9 @@ export const logout = () => dispatch => {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.login.value)`
 // export const selectUserData = state => state.login.userDetails;
-export const selectIsLoggedIn = state => state.auth.isLoggedIn
-export const selectLoginError = state => state.auth.errors.loginError
-export const selectSignupError = state => state.auth.errors.signupError
-export const selectLoading = state => state.auth.loading
+export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn
+export const selectLoginError = (state: RootState) => state.auth.errors.loginError
+export const selectSignupError = (state: RootState) => state.auth.errors.signupError
+export const selectLoading = (state: RootState) => state.auth.loading
 
 export default authSlice.reducer

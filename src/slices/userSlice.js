@@ -40,7 +40,7 @@ export const userSlice = createSlice({
       state.loading = action.payload
     },
 
-    logoutResetUser: (state, action) => {
+    logoutResetUser: (state) => {
       state.isEditMode = false
       state.loading = false
       state.id = null
@@ -55,7 +55,7 @@ export const userSlice = createSlice({
 
 
 
-export const { setUserState, setLoading, setIsEditMode,logoutResetUser } = userSlice.actions
+export const { setUserState, setLoading, setIsEditMode, logoutResetUser } = userSlice.actions
 
 
 

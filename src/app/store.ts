@@ -4,8 +4,9 @@ import userReducer from '../slices/userSlice'
 import notificationReducer from '../slices/globalNotificationSlice'
 import categoriesReducer from '../slices/categoriesSlice'
 import linksReducer from '../slices/linksSlice'
+import { useDispatch } from 'react-redux';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     notification: notificationReducer,
     auth: authReducer,
@@ -14,3 +15,10 @@ export const store = configureStore({
     links: linksReducer
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+
+
+export default store
