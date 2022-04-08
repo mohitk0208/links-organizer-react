@@ -9,7 +9,10 @@ import endpoints from '../../utils/endpoints'
 import { useDispatch } from 'react-redux'
 import { enqueueNotification } from '../../slices/globalNotificationSlice'
 
-
+interface initialValueType {
+  name: string,
+  description: string
+}
 
 const validationSchema = Yup.object().shape({
   name: Yup
@@ -23,14 +26,19 @@ const validationSchema = Yup.object().shape({
   description: Yup.string()
 })
 
-function CreateTagModal({ show, onClose, }) {
+
+interface CreateTagModalProps {
+  show: boolean,
+  onClose: () => void,
+}
+
+function CreateTagModal({ show, onClose }: CreateTagModalProps) {
 
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: initialValueType) => {
 
-    console.log(values)
     setIsLoading(true)
 
     try {
@@ -39,7 +47,7 @@ function CreateTagModal({ show, onClose, }) {
       // const resData = await res.json()
 
       if (res.ok) {
-         await dispatch(enqueueNotification({
+        await dispatch(enqueueNotification({
           msg: "Tag Created Successfully.",
           type: "success",
           duration: 3000
@@ -105,7 +113,7 @@ function CreateTagModal({ show, onClose, }) {
             className="w-full resize-none"
             labelSpanClassName=""
             placeholder="Brief description about the Tag..."
-            rows="4"
+            rows={4}
           />
 
 

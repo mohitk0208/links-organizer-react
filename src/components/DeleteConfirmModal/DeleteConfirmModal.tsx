@@ -2,7 +2,16 @@ import React from 'react'
 import Button from '../utilComponents/Button'
 import Modal from "../utilComponents/Modal"
 
-function DeleteConfirmModal({ show, text, onClose, onDelete, loading }) {
+
+interface DeleteConfirmModalProps {
+  show: boolean,
+  text: string,
+  onClose: () => void,
+  onDelete: () => void,
+  loading: boolean
+}
+
+function DeleteConfirmModal({ show, text, onClose, onDelete, loading }: DeleteConfirmModalProps) {
   return (
     <Modal
       show={show}

@@ -3,9 +3,15 @@ import React, { Fragment, useEffect, useState } from 'react'
 import useDebounceTimeout from '../../../hooks/useDebounceTimeout'
 import { fetchWrapper } from "../../../utils/fetchWrapper"
 import endpoints from "../../../utils/endpoints"
+import { tag } from '../../../types/tag'
 
+interface AsyncSelectProps {
+  onSubmit: (tag: tag) => void,
+  resultFilter: (results: tag[]) => tag[],
+  disabled?: boolean
+}
 
-function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
+function AsyncSelect({ onSubmit, resultFilter, disabled = false }: AsyncSelectProps) {
 
   const [query, setQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false)
@@ -74,7 +80,7 @@ function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
     setResults([])
   }
 
-  function handleSubmit(value) {
+  function handleSubmit(value: tag) {
     reset()
     onSubmit(value)
 
@@ -116,10 +122,17 @@ function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
 
   )
 
+};
+
+
+interface InnerElementProps {
+  loading: boolean,
+  query: string,
+  results: tag[],
+  onSubmit: (tag: tag) => void
 }
 
-
-const InnerElement = ({ loading, query, results, onSubmit }) => {
+const InnerElement = ({ loading, query, results, onSubmit }: InnerElementProps) => {
 
   if (loading) {
     return (
@@ -130,9 +143,13 @@ const InnerElement = ({ loading, query, results, onSubmit }) => {
 
   } else if (results.length !== 0) {
     return (
-      results.map(tag => (
-        <li key={tag.id} className="cursor-pointer" onClick={() => onSubmit(tag)} > {tag.name} </li>
-      ))
+      <>
+        {
+          results.map(tag => (
+            <li key={tag.id} className="cursor-pointer" onClick={() => onSubmit(tag)} > {tag.name} </li>
+          ))
+        }
+      </>
     )
   } else if (query !== "") {
     return (
@@ -142,9 +159,7 @@ const InnerElement = ({ loading, query, results, onSubmit }) => {
     )
   }
 
-  return null
-
-
+  return <></>
 }
 
 

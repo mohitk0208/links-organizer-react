@@ -5,9 +5,10 @@ import { InputField, TextAreaField } from '../formComponents/Input'
 import Button from '../utilComponents/Button'
 import Modal from "../utilComponents/Modal"
 import * as Yup from 'yup'
-import { useDispatch } from 'react-redux'
 import { postCategoryAsync, updateCategoryAsync } from '../../slices/categoriesSlice'
 import SearchImageModal from '../SearchImageModal'
+import { CategoryType } from "../../types/categoriesSliceTypes"
+import { useAppDispatch } from "../../app/store"
 
 
 const validationSchema = Yup.object().shape({
@@ -16,11 +17,19 @@ const validationSchema = Yup.object().shape({
   background_url: Yup.string().url('Invalid URL')
 })
 
-function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
+
+interface CreateEditCategoryModalProps {
+  show: boolean,
+  onClose: () => void,
+  isEdit: boolean,
+  category: CategoryType
+}
+
+function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEditCategoryModalProps) {
 
   const [isLoading, setIsLoading] = useState(false)
   const [isSearchImageModalOpen, setIsSearchImageModalOpen] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   return (
     <Modal
@@ -71,7 +80,7 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }) {
               className="w-full resize-none"
               labelSpanClassName=""
               placeholder="Brief description about the URL..."
-              rows="4"
+              rows={4}
             />
 
             <div className='flex items-center gap-1 ' >

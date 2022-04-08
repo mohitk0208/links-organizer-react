@@ -17,7 +17,7 @@ interface ModalProps {
   children: React.ReactNode
   headline: string,
   btn?: string | React.ReactNode,
-  onSubmit: () => void,
+  onSubmit?: () => void,
   cancelBtn?: string | React.ReactNode,
   className?: string,
   size?: keyof typeof MODAL_WIDTH,
