@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from '../slices/authSlice'
 import userReducer from '../slices/userSlice'
 import notificationReducer from '../slices/globalNotificationSlice'
@@ -19,6 +19,6 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 
 export default store

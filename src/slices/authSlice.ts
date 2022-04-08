@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
 import endpoints from "../utils/endpoints"
 import { enqueueNotification } from './globalNotificationSlice'
 import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, tokenStates } from "../utils/functions"
 import { logoutResetUser } from './userSlice'
 import { authSliceType, loginAsyncData, signupAsyncData } from '../types/authSliceTypes'
-import { AppDispatch, RootState } from '../app/store'
+import { AppThunk, RootState } from '../app/store'
 
 const initialState: authSliceType = {
   isLoggedIn: checkTokenState() === tokenStates.VALID,
@@ -21,19 +21,19 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    setIsLoggedIn: (state, action: { payload: boolean, type: string }) => {
+    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload
     },
 
-    setLoginError: (state, action: { payload: string, type: string }) => {
+    setLoginError: (state, action: PayloadAction<string>) => {
       state.errors.loginError = action.payload
     },
 
-    setSignupError: (state, action: { payload: string, type: string }) => {
+    setSignupError: (state, action: PayloadAction<string>) => {
       state.errors.signupError = action.payload
     },
 
-    setLoading: (state, action: { payload: boolean, type: string }) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload
     },
 
@@ -54,7 +54,7 @@ export const { setIsLoggedIn, setLoginError, setSignupError, setLoading, logoutR
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const loginAsync = (data: loginAsyncData) => async (dispatch: AppDispatch) => {
+export const loginAsync = (data: loginAsyncData): AppThunk => async (dispatch) => {
 
   dispatch(setLoading(true))
 
@@ -92,7 +92,7 @@ export const loginAsync = (data: loginAsyncData) => async (dispatch: AppDispatch
 
 }
 
-export const manageLoginAsync = () => async (dispatch: AppDispatch) => {
+export const manageLoginAsync = (): AppThunk => async (dispatch) => {
 
   if (checkTokenState() === tokenStates.PARTIAL) {
 
@@ -134,7 +134,7 @@ export const manageLoginAsync = () => async (dispatch: AppDispatch) => {
   }
 }
 
-export const signupAsync = (data: signupAsyncData) => async (dispatch: AppDispatch) => {
+export const signupAsync = (data: signupAsyncData): AppThunk => async (dispatch) => {
   dispatch(setLoading(true))
 
   try {
@@ -166,7 +166,7 @@ export const signupAsync = (data: signupAsyncData) => async (dispatch: AppDispat
 
 }
 
-export const logout = () => (dispatch: AppDispatch) => {
+export const logout = (): AppThunk => (dispatch) => {
   localStorage.removeItem("access_token")
   localStorage.removeItem("refresh_token")
 

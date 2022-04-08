@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { AppThunk, RootState } from "../app/store";
+import { setUserStateAction, updateUserAsyncData, userSliceType } from "../types/useSliceTypes";
 import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";
 
-const initialState = {
+const initialState: userSliceType = {
   isEditMode: false,
   loading: false,
   id: null,
@@ -21,7 +23,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setUserState: (state, action) => {
+    setUserState: (state, action: setUserStateAction) => {
       const { id, username, email, first_name, last_name, avatar } = action.payload;
 
       state.id = id
@@ -32,11 +34,11 @@ export const userSlice = createSlice({
       state.avatar = avatar
     },
 
-    setIsEditMode: (state, action) => {
+    setIsEditMode: (state, action: { payload: boolean, type: string }) => {
       state.isEditMode = action.payload;
     },
 
-    setLoading: (state, action) => {
+    setLoading: (state, action: { payload: boolean, type: string }) => {
       state.loading = action.payload
     },
 
@@ -60,7 +62,7 @@ export const { setUserState, setLoading, setIsEditMode, logoutResetUser } = user
 
 
 
-export const getUserAsync = () => async dispatch => {
+export const getUserAsync = (): AppThunk => async (dispatch) => {
 
   dispatch(setLoading(true));
 
@@ -86,7 +88,7 @@ export const getUserAsync = () => async dispatch => {
 }
 
 
-export const updateUserAsync = (profile) => async dispatch => {
+export const updateUserAsync = (profile: updateUserAsyncData): AppThunk => async dispatch => {
 
   dispatch(setLoading(true))
   try {
@@ -119,16 +121,16 @@ export const updateUserAsync = (profile) => async dispatch => {
 }
 
 
-export const selectIsEditMode = state => state.user.isEditMode
-export const selectLoading = state => state.user.loading
-export const selectUserId = state => state.user.id
-export const selectUserName = state => state.user.username
-export const selectFirstName = state => state.user.firstName
-export const selectLastName = state => state.user.lastName
-export const selectFullName = state => `${state.user.firstName} ${state.user.lastName}`
-export const selectEmail = state => state.user.email
-export const selectAvatar = state => state.user.avatar
-export const selectUser = state => {
+export const selectIsEditMode = (state: RootState) => state.user.isEditMode
+export const selectLoading = (state: RootState) => state.user.loading
+export const selectUserId = (state: RootState) => state.user.id
+export const selectUserName = (state: RootState) => state.user.username
+export const selectFirstName = (state: RootState) => state.user.firstName
+export const selectLastName = (state: RootState) => state.user.lastName
+export const selectFullName = (state: RootState) => `${state.user.firstName} ${state.user.lastName}`
+export const selectEmail = (state: RootState) => state.user.email
+export const selectAvatar = (state: RootState) => state.user.avatar
+export const selectUser = (state: RootState) => {
   const { loading, ...u } = state.user
 
   return u
