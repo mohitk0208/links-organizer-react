@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from "react-router-dom"
 import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
@@ -9,14 +8,19 @@ import useIsOnScreen from "../../hooks/useIsOnScreen"
 import CategoryCard from '../../components/CategoryCard'
 import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimmer'
 import { routes } from '../../utils/routeStrings'
+import { useAppDispatch, useAppSelector } from '../../app/store'
+
+interface ParamTypes {
+  categoryId: string
+}
 
 function CategoryPage() {
 
-  const subCategories = useSelector(selectCategories)
-  const isLoading = useSelector(selectLoading)
-  const dispatch = useDispatch()
-  const loadingRef = useRef()
-  const { categoryId } = useParams()
+  const subCategories = useAppSelector(selectCategories)
+  const isLoading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
+  const loadingRef = useRef<boolean>()
+  const { categoryId } = useParams<ParamTypes>()
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
 
@@ -44,7 +48,7 @@ function CategoryPage() {
           {subCategories.map((category, index) => {
             if (index === subCategories.length - 1) {
               return (
-                <div ref={setRef} key={category.id} className="w-full"  >
+                <div ref={setRef as any} key={category.id} className="w-full"  >
                   <Link to={routes.LINKS_BY_CATEGORY(category.id)} >
                     <CategoryCard category={category} />
                   </Link>

@@ -7,31 +7,41 @@ import * as Yup from 'yup'
 import SelectCategory from '../../components/LinkAddEditComponents/SelectCategory'
 import Button from '../../components/utilComponents/Button'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
-import { useDispatch, useSelector } from 'react-redux'
 import { getSingleLinkAsync, selectCurrentLink, selectLoading, updateSingleLinkAsync } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
 import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
 import { useParams } from 'react-router'
+import { useAppDispatch, useAppSelector } from '../../app/store'
+import { tag } from '../../types/tag'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
   description: Yup.string().max(300, "Description must be less than 300 characters."),
 })
 
+interface initialStateType {
+  url: string,
+  description: string,
+}
+
+interface paramsType {
+  linkId: string
+}
+
 function AddLinkPage() {
 
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState<number | null>(null)
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState<tag[]>([])
   const [isCreateTagModalOpen, setIsCreateTagModalOpen] = useState(false)
 
-  const isLoading = useSelector(selectLoading)
+  const isLoading = useAppSelector(selectLoading)
   const [isUpdating, setIsUpdating] = useState(false)
-  const dispatch = useDispatch()
-  const { linkId } = useParams()
-  const currentLink = useSelector(selectCurrentLink)
+  const dispatch = useAppDispatch()
+  const { linkId } = useParams<paramsType>()
+  const currentLink = useAppSelector(selectCurrentLink)
 
 
   useEffect(() => {
@@ -41,7 +51,7 @@ function AddLinkPage() {
   useEffect(() => {
     async function fetchData() {
       if (linkId) {
-        await dispatch(getSingleLinkAsync(linkId))
+        await dispatch(getSingleLinkAsync(Number(linkId)))
       }
     }
 
@@ -55,6 +65,12 @@ function AddLinkPage() {
       setTags(currentLink.tags)
     }
   }, [currentLink])
+
+
+  const initialState: initialStateType = {
+    url: currentLink ? currentLink.url : "",
+    description: currentLink ? currentLink.description : "",
+  }
 
 
 
@@ -71,10 +87,7 @@ function AddLinkPage() {
         ) : (
           <Formik
             enableReinitialize
-            initialValues={{
-              url: currentLink ? currentLink.url : "",
-              description: currentLink ? currentLink.description : "",
-            }}
+            initialValues={initialState}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
               if (!category) {
@@ -88,7 +101,7 @@ function AddLinkPage() {
               }
               console.log(data)
               setIsUpdating(true)
-              await dispatch(updateSingleLinkAsync(linkId, data))
+              await dispatch(updateSingleLinkAsync(Number(linkId), data))
               setIsUpdating(false)
 
             }}
@@ -98,7 +111,7 @@ function AddLinkPage() {
 
               <InputField label="url" name="url" labelClassName="block mb-3" className="w-full mt-1 p-2 text-sm" placeholder="Enter URL" />
 
-              <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows="4" />
+              <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows={4} />
 
               <SelectTags tags={tags} setTags={setTags} />
 
@@ -127,13 +140,12 @@ function AddLinkPage() {
       <CreateEditCategoryModal
         show={isCreateCategoryModalOpen}
         onClose={() => setIsCreateCategoryModalOpen(false)}
-        onSubmit={() => null}
+        isEdit={false}
       />
 
       <CreateTagModal
         show={isCreateTagModalOpen}
         onClose={() => setIsCreateTagModalOpen(false)}
-        onSubmit={() => null}
       />
     </div>
   )

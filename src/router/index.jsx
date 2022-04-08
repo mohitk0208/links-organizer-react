@@ -30,7 +30,7 @@ const RoutingComp = () => {
       <PrivateRoute exact path={routes.ADD_LINK} component={AddLinkPage} />
       <PrivateRoute exact path={routes.EDIT_LINK()} component={EditLinkPage} />
 
-        {/* landing page */}
+      {/* landing page */}
       <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />
 
       {/* authentication routes */}

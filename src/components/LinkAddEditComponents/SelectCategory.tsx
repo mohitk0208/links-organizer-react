@@ -10,8 +10,8 @@ import useDebounceTimeout from "../../hooks/useDebounceTimeout"
 import { useAppDispatch, useAppSelector } from '../../app/store'
 
 interface SelectCategoryProps {
-  selectedCategory: number,
-  setSelectedCategory: React.Dispatch<React.SetStateAction<number>>,
+  selectedCategory: number | null,
+  setSelectedCategory: React.Dispatch<React.SetStateAction<number | null>>,
   error: string
 }
 

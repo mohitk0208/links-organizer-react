@@ -22,7 +22,7 @@ interface CreateEditCategoryModalProps {
   show: boolean,
   onClose: () => void,
   isEdit: boolean,
-  category: CategoryType
+  category?: CategoryType
 }
 
 function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEditCategoryModalProps) {
@@ -50,7 +50,7 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEdit
           console.log(values)
           setIsLoading(true)
 
-          if (isEdit) {
+          if (isEdit && category) {
             await dispatch(updateCategoryAsync(category.id, values))
           } else {
             await dispatch(postCategoryAsync(values))
@@ -121,7 +121,7 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEdit
       </Formik>
 
 
-    </Modal>
+    </Modal >
 
   )
 }
