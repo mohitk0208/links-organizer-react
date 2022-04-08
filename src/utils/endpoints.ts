@@ -18,15 +18,15 @@ const endpoints = {
 
   // categories
   GET_POST_CATEGORIES: `${endpointInitial}/categories`,
-  SINGLE_CATEGORY: (id: string) => `${endpointInitial}/categories/${id}`,
+  SINGLE_CATEGORY: (id: string | number) => `${endpointInitial}/categories/${id}`,
 
   //links
   GET_POST_LINKS: `${endpointInitial}/links`,
-  SINGLE_LINK: (id: string) => `${endpointInitial}/links/${id}`,
+  SINGLE_LINK: (id: number | string) => `${endpointInitial}/links/${id}`,
 
   //tags
   GET_POST_TAGS: `${endpointInitial}/tags`,
-  SINGLE_TAG: (id: string) => `${endpointInitial}/tags/${id}`,
+  SINGLE_TAG: (id: number | string) => `${endpointInitial}/tags/${id}`,
 
   //images from yahoo
   GET_IMAGES: (query: string) => `${imageScrapperHost}api/images/yahoo/${query}`,

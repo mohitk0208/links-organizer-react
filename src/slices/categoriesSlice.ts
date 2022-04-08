@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { AppThunk, RootState } from "../app/store";
+import { categoriesSliceType, CategoryType, postCategoryAsyncData } from "../types/categoriesSliceTypes";
 import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";
 
-const initialState = {
+const initialState: categoriesSliceType = {
   loading: false,
   totalCount: 0,
   value: []
@@ -14,29 +16,29 @@ const categoriesSlice = createSlice({
   name: 'categories',
   initialState: initialState,
   reducers: {
-    setLoading: (state, action) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload
     },
 
-    setCategories: (state, action) => {
+    setCategories: (state, action: PayloadAction<CategoryType[]>) => {
       state.value = action.payload
     },
 
-    addToCategories: (state, action) => {
+    addToCategories: (state, action: PayloadAction<CategoryType[]>) => {
       state.value = [...state.value, ...action.payload]
     },
 
-    addNewCategory: (state, action) => {
+    addNewCategory: (state, action: PayloadAction<CategoryType>) => {
       state.value = [action.payload, ...state.value]
       state.totalCount += 1
     },
 
-    removeCategory: (state, action) => {
+    removeCategory: (state, action: PayloadAction<number>) => {
       state.value = state.value.filter(category => category.id !== action.payload)
       state.totalCount -= 1
     },
 
-    updateCategory: (state, action) => {
+    updateCategory: (state, action: PayloadAction<CategoryType>) => {
 
       state.value = state.value.map(category => {
         if (category.id === action.payload.id) {
@@ -47,11 +49,11 @@ const categoriesSlice = createSlice({
 
     },
 
-    setTotalCount: (state, action) => {
+    setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload
     },
 
-    logoutResetCategories: (state, action) => {
+    logoutResetCategories: (state) => {
       state.loading = false
       state.totalCount = 0
       state.value = []
@@ -62,7 +64,7 @@ const categoriesSlice = createSlice({
 
 export const { setLoading, addToCategories, logoutResetCategories, setCategories, setTotalCount, addNewCategory, removeCategory, updateCategory } = categoriesSlice.actions
 
-export const getCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
+export const getCategoriesAsync = (query = "", parentCategory = null): AppThunk => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
@@ -102,7 +104,7 @@ export const getCategoriesAsync = (query = "", parentCategory = null) => async (
 
 }
 
-export const getNextCategoriesAsync = (query = "", parentCategory = null) => async (dispatch, getState) => {
+export const getNextCategoriesAsync = (query = "", parentCategory = null): AppThunk => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().categories
 
@@ -145,7 +147,7 @@ export const getNextCategoriesAsync = (query = "", parentCategory = null) => asy
   }
 }
 
-export const postCategoryAsync = (data) => async dispatch => {
+export const postCategoryAsync = (data: postCategoryAsyncData): AppThunk => async dispatch => {
 
   try {
 
@@ -171,7 +173,7 @@ export const postCategoryAsync = (data) => async dispatch => {
 
 }
 
-export const deleteCategoryAsync = (id) => async dispatch => {
+export const deleteCategoryAsync = (id: number): AppThunk => async dispatch => {
 
   try {
 
@@ -198,7 +200,7 @@ export const deleteCategoryAsync = (id) => async dispatch => {
 
 }
 
-export const updateCategoryAsync = (id, data) => async dispatch => {
+export const updateCategoryAsync = (id: number, data: postCategoryAsyncData): AppThunk => async dispatch => {
 
   try {
 
@@ -227,7 +229,7 @@ export const updateCategoryAsync = (id, data) => async dispatch => {
 
 }
 
-export const selectCategories = state => state.categories.value
-export const selectLoading = state => state.categories.loading
+export const selectCategories = (state: RootState) => state.categories.value
+export const selectLoading = (state: RootState) => state.categories.loading
 
 export default categoriesSlice.reducer

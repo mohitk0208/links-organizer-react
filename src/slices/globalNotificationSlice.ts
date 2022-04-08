@@ -1,6 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { RootState } from "../app/store"
 
-const initialState = {
+interface Notification {
+  msg: string,
+  type: "success" | "error" | "warning",
+  duration: number
+}
+
+
+const initialState: {
+  current: Notification | null,
+  queue: Notification[]
+} = {
   current: null,
   queue: []
 }
@@ -9,7 +20,7 @@ const notificationSlice = createSlice({
   name: 'notification',
   initialState: initialState,
   reducers: {
-    setCurrentMessage: (state, action) => {
+    setCurrentMessage: (state, action: PayloadAction<Notification>) => {
       state.current = action.payload
     },
 
@@ -18,7 +29,7 @@ const notificationSlice = createSlice({
      * @param {*} state
      * @param {{payload:{msg:string,type:"success"|"error"|"warning",duration:number}}} action
      */
-    enqueueNotification: (state, action) => {
+    enqueueNotification: (state, action: PayloadAction<Notification>) => {
       if (state.current === null) {
         state.current = action.payload
       }
@@ -27,16 +38,16 @@ const notificationSlice = createSlice({
       }
     },
 
-    dequeueNotification: (state, action) => {
+    dequeueNotification: (state) => {
       if (state.queue.length === 0) {
         state.current = null
       } else {
-        state.current = state.queue.shift()
+        state.current = state.queue.shift() || null
       }
 
     },
 
-    clearNotificationQueue: (state, action) => {
+    clearNotificationQueue: (state) => {
       state.queue = []
     }
 
@@ -49,6 +60,6 @@ export const { setCurrentMessage, enqueueNotification, dequeueNotification, clea
 // export const selectCurrentMessage = state => state.notification.current.msg
 // export const selectCurrentDuration = state => state.notification.current.duration
 // export const selectCurrentAlertVariant = state => state.notification.current.type
-export const selectCurrentObject = state => state.notification.current
+export const selectCurrentObject = (state: RootState) => state.notification.current
 
 export default notificationSlice.reducer

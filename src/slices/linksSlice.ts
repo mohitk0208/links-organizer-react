@@ -1,47 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { AppThunk, RootState } from "../app/store";
+import { linksSliceType, LinkType, postLinkAsyncData } from "../types/linksSliceType";
 import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";
 
-const initialState = {
+const initialState: linksSliceType = {
   loading: false,
   totalCount: 0,
   value: [],
-  currentLink: {}
+  currentLink: null
 }
 
 const linksSlice = createSlice({
   name: 'links',
   initialState: initialState,
   reducers: {
-    setLoading: (state, action) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload
     },
 
-    setLinks: (state, action) => {
+    setLinks: (state, action: PayloadAction<LinkType[]>) => {
       state.value = action.payload
     },
 
-    addToLinks: (state, action) => {
+    addToLinks: (state, action: PayloadAction<LinkType[]>) => {
       state.value = [...state.value, ...action.payload]
     },
 
-    addNewLink: (state, action) => {
+    addNewLink: (state, action: PayloadAction<LinkType>) => {
       state.value = [action.payload, ...state.value]
       state.totalCount += 1
     },
 
-    removeLink: (state, action) => {
+    removeLink: (state, action: PayloadAction<number>) => {
       state.value = state.value.filter(link => link.id !== action.payload)
       state.totalCount -= 1
     },
 
-    setCurrentLink: (state, action) => {
+    setCurrentLink: (state, action: PayloadAction<LinkType>) => {
       state.currentLink = action.payload
     },
 
-    updateLink: (state, action) => {
+    updateLink: (state, action: PayloadAction<LinkType>) => {
       state.value = state.value.map(link => {
         if (link.id === action.payload.id) {
           return action.payload
@@ -54,11 +56,11 @@ const linksSlice = createSlice({
       }
     },
 
-    setTotalCount: (state, action) => {
+    setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload
     },
 
-    logoutResetLinks: (state, action) => {
+    logoutResetLinks: (state) => {
       state.loading = false
       state.totalCount = 0
       state.value = []
@@ -79,14 +81,14 @@ export const {
   updateLink
 } = linksSlice.actions
 
-export const getLinksAsync = (searchQuery, category) => async (dispatch, getState) => {
+export const getLinksAsync = (searchQuery: string, category: string | number): AppThunk => async (dispatch) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
-  if(searchQuery) queryParams.push(`search=${searchQuery}`)
+  if (searchQuery) queryParams.push(`search=${searchQuery}`)
 
   await dispatch(logoutResetLinks())
 
@@ -119,7 +121,7 @@ export const getLinksAsync = (searchQuery, category) => async (dispatch, getStat
 
 }
 
-export const getNextLinksAsync = (category) => async (dispatch, getState) => {
+export const getNextLinksAsync = (category: number): AppThunk => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().links
 
@@ -159,7 +161,7 @@ export const getNextLinksAsync = (category) => async (dispatch, getState) => {
   }
 }
 
-export const postLinkAsync = (data) => async (dispatch, getState) => {
+export const postLinkAsync = (data: postLinkAsyncData): AppThunk => async (dispatch, getState) => {
 
   dispatch(setLoading(true));
 
@@ -193,7 +195,7 @@ export const postLinkAsync = (data) => async (dispatch, getState) => {
   }
 }
 
-export const deleteLinkAsync = (id) => async (dispatch, getState) => {
+export const deleteLinkAsync = (id: number): AppThunk => async (dispatch) => {
 
   try {
 
@@ -220,7 +222,7 @@ export const deleteLinkAsync = (id) => async (dispatch, getState) => {
   }
 }
 
-export const getSingleLinkAsync = (id) => async (dispatch, getState) => {
+export const getSingleLinkAsync = (id: number): AppThunk => async (dispatch) => {
 
   dispatch(setLoading(true));
 
@@ -249,7 +251,7 @@ export const getSingleLinkAsync = (id) => async (dispatch, getState) => {
   }
 }
 
-export const updateSingleLinkAsync = (id, data) => async (dispatch, getState) => {
+export const updateSingleLinkAsync = (id: number, data: postLinkAsyncData): AppThunk => async (dispatch) => {
 
   try {
 
@@ -278,8 +280,8 @@ export const updateSingleLinkAsync = (id, data) => async (dispatch, getState) =>
   }
 }
 
-export const selectLinks = state => state.links.value
-export const selectLoading = state => state.links.loading
-export const selectCurrentLink = state => state.links.currentLink
+export const selectLinks = (state: RootState) => state.links.value
+export const selectLoading = (state: RootState) => state.links.loading
+export const selectCurrentLink = (state: RootState) => state.links.currentLink
 
 export default linksSlice.reducer
