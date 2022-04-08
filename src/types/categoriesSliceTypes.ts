@@ -2,6 +2,7 @@ export interface CategoryType {
   id: number,
   name: string,
   description: string,
+  background_url: string,
   created_at: string,
   updated_at: string
 }

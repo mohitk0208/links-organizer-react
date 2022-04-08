@@ -5,8 +5,18 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCategoryAsync } from '../../slices/categoriesSlice'
 import CreateEditCategoryModal from '../CreateEditCategoryModal'
+import { CategoryType } from '../../types/categoriesSliceTypes'
 
-function CategoryCard({ category, onClick, showControls, navigateTo }) {
+
+interface CategoryCardProps {
+  category: CategoryType,
+  onClick?: () => void,
+  showControls?: boolean,
+  navigateTo?: string
+}
+
+
+function CategoryCard({ category, onClick, showControls, navigateTo }: CategoryCardProps) {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [loading, setLoading] = useState(false)

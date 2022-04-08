@@ -3,16 +3,22 @@ import Tag from "../utilComponents/Tag"
 import AsyncSelect from '../formComponents/AsyncSelect'
 import Button from '../utilComponents/Button'
 import CreateTagModal from '../CreateTagModal'
+import { tag } from '../../types/tag'
 
-function SelectTags({ tags, setTags }) {
+interface SelectTagsProps {
+  tags: tag[],
+  setTags: React.Dispatch<React.SetStateAction<tag[]>>
+}
+
+function SelectTags({ tags, setTags }: SelectTagsProps) {
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
-  const handleSubmit = (tag) => {
+  const handleSubmit = (tag: tag) => {
     setTags(prev => ([...prev, tag]))
   }
 
-  const handleFilter = (results) => {
+  const handleFilter = (results: tag[]) => {
 
     const currentTags = new Set(tags.map(t => t.id))
 

@@ -19,7 +19,7 @@ function LinkCardShimmer() {
 
 
       <div className="col-start-1 col-end-2 rounded bg-purple-100" >
-        <img src="https://picsum.photos/200" alt="" className="rounded " style={{ aspectRatio: 1 }} />
+        <img src="https://picsum.photos/200" alt="" className="rounded " style={{ aspectRatio: "1" }} />
       </div>
 
       <div className="col-start-2 col-end-13 p-2 bg-purple-300/20 rounded h-16 " >

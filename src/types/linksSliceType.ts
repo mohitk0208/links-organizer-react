@@ -9,7 +9,7 @@ export interface LinkType {
   owner: number,
   owner__username: string,
   owner__avatar: string,
-  tags: tag,
+  tags: tag[],
   created_at: string,
   updated_at: string
 }

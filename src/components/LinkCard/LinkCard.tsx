@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { deleteLinkAsync } from '../../slices/linksSlice'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
+import { LinkType } from '../../types/linksSliceType'
 
 // function formatCreatedAt(date) {
 
@@ -21,7 +22,12 @@ import { routes } from '../../utils/routeStrings'
 
 // }
 
-function LinkCard({ link, handleBookmarkClick }) {
+interface LinkCardProps {
+  link: LinkType,
+  // handleBookmarkClick: (link: LinkType) => void,
+}
+
+function LinkCard({ link }: LinkCardProps) {
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -72,7 +78,7 @@ function LinkCard({ link, handleBookmarkClick }) {
 
 
       <div className="col-start-1 col-end-2 flex flex-col gap-3 justify-around text-center" >
-        <img src={category__background_url} alt="" className="rounded h-full w-full object-cover" style={{ aspectRatio: 1 }} />
+        <img src={category__background_url} alt="" className="rounded h-full w-full object-cover" style={{ aspectRatio: "1" }} />
       </div>
 
       <div className="col-start-2 col-end-13 p-2 bg-purple-300/20 rounded h-16 " >
