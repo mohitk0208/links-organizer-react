@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
@@ -11,13 +10,14 @@ import { routes } from '../../utils/routeStrings'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import Button from '../../components/utilComponents/Button'
 import useDebounceTimeout from '../../hooks/useDebounceTimeout'
+import { useAppDispatch, useAppSelector } from '../../app/store'
 
 function Home() {
 
-  const categories = useSelector(selectCategories)
-  const isLoading = useSelector(selectLoading)
-  const dispatch = useDispatch()
-  const loadingRef = useRef()
+  const categories = useAppSelector(selectCategories)
+  const isLoading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
+  const loadingRef = useRef<boolean | undefined>()
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
   const [query, setQuery] = useState('')
   const queryRef = useRef('')
@@ -68,7 +68,7 @@ function Home() {
           {categories.map((category, index) => {
             if (index === categories.length - 1) {
               return (
-                <div ref={setRef} key={category.id} className="w-full"  >
+                <div ref={setRef as any} key={category.id} className="w-full"  >
                   <CategoryCard category={category} navigateTo={routes.LINKS_BY_CATEGORY(category.id)} showControls />
                 </div>
               )
@@ -93,7 +93,7 @@ function Home() {
         </div>
       </NewsContainer>
 
-      <CreateEditCategoryModal show={isCreateCategoryModalOpen} onClose={() => setIsCreateCategoryModalOpen(false)} />
+      <CreateEditCategoryModal show={isCreateCategoryModalOpen} onClose={() => setIsCreateCategoryModalOpen(false)} isEdit={false} />
 
     </div>
   )

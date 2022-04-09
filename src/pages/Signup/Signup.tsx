@@ -10,7 +10,17 @@ import { selectLoading, selectSignupError, setSignupError, signupAsync } from '.
 import Alert from '../../components/utilComponents/Alert'
 import Button from '../../components/utilComponents/Button'
 
-const initialValues = {
+
+interface initialValuesType {
+  first_name: string,
+  last_name: string,
+  email: string,
+  username: string,
+  password: string,
+  confirm_password: string
+}
+
+const initialValues: initialValuesType = {
   first_name: "",
   last_name: "",
   email: "",

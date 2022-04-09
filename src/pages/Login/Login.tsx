@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import ThemeChangeFAB from '../../components/ThemeChangeFAB'
-import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync, selectLoading, selectLoginError, setLoginError } from "../../slices/authSlice"
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { InputField } from '../../components/formComponents/Input'
 import Alert from '../../components/utilComponents/Alert'
 import Button from '../../components/utilComponents/Button'
+import { useAppDispatch, useAppSelector } from '../../app/store'
 
 
 const validationSchema = Yup.object().shape({
@@ -19,9 +19,9 @@ const validationSchema = Yup.object().shape({
 
 function Login() {
 
-  const loginError = useSelector(selectLoginError)
-  const loading = useSelector(selectLoading)
-  const dispatch = useDispatch()
+  const loginError = useAppSelector(selectLoginError)
+  const loading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
 
   return (
     <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
@@ -31,7 +31,7 @@ function Login() {
 
         <div className="w-10/12 md:w-8/12" >
 
-        <Alert message={loginError} onClose={() => dispatch(setLoginError(""))} />
+          <Alert message={loginError} onClose={() => dispatch(setLoginError(""))} />
 
           <h2 className="text-4xl mb-10" >
             Login

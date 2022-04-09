@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import ContentContainer from "../../components/utilComponents/ContentContainer"
 import NewsContainer from "../../components/utilComponents/NewsContainer"
 import Profile from "../../components/profilePageComponents/Profile"
-import { useDispatch } from 'react-redux'
 import { getUserAsync } from '../../slices/userSlice'
+import { useAppDispatch } from '../../app/store'
 
 function ProfilePage() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getUserAsync())

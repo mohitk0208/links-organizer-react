@@ -121,7 +121,7 @@ export const getLinksAsync = (searchQuery: string, category: string | number): A
 
 }
 
-export const getNextLinksAsync = (category: number): AppThunk => async (dispatch, getState) => {
+export const getNextLinksAsync = (searchQuery: string, category: number): AppThunk => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().links
 
@@ -132,6 +132,7 @@ export const getNextLinksAsync = (category: number): AppThunk => async (dispatch
   queryParams.push('ordering=-updated_at')
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
+  if (searchQuery) queryParams.push(`search=${searchQuery}`)
 
   dispatch(setLoading(true));
 

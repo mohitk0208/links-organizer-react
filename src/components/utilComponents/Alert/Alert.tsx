@@ -69,11 +69,11 @@ const PLACEMENT = {
 interface AlertProps {
   message: string,
   onClose: () => void,
-  autoClose: boolean,
-  duration: number,
-  variant: keyof typeof VARIANTS,
-  corners: keyof typeof CORNER_SHAPE,
-  placement: keyof typeof PLACEMENT,
+  autoClose?: boolean,
+  duration?: number,
+  variant?: keyof typeof VARIANTS,
+  corners?: keyof typeof CORNER_SHAPE,
+  placement?: keyof typeof PLACEMENT,
 
 }
 

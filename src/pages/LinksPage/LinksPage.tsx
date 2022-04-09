@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom"
 import { getLinksAsync, getNextLinksAsync, selectLinks, selectLoading } from '../../slices/linksSlice'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
@@ -11,14 +10,19 @@ import LinkCard from '../../components/LinkCard'
 import LinkCardShimmer from '../../components/LinkCard/LinkCardShimmer'
 import useDebounceTimeout from '../../hooks/useDebounceTimeout'
 import FilterTags from '../../components/FilterTags'
+import { useAppDispatch, useAppSelector } from '../../app/store'
+
+interface ParamsType {
+  categoryId: string
+}
 
 function LinksPage() {
 
-  const links = useSelector(selectLinks)
-  const isLoading = useSelector(selectLoading)
-  const dispatch = useDispatch()
-  const loadingRef = useRef()
-  const { categoryId } = useParams()
+  const links = useAppSelector(selectLinks)
+  const isLoading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
+  const loadingRef = useRef<boolean | undefined>()
+  const { categoryId } = useParams<ParamsType>()
   const queryRef = useRef("")
   const [query, setQuery] = useState("")
 
@@ -40,7 +44,7 @@ function LinksPage() {
 
   useUpdateEffect(() => {
     if (!loadingRef.current && isVisible) {
-      dispatch(getNextLinksAsync(queryRef.current, categoryId))
+      dispatch(getNextLinksAsync(queryRef.current, Number(categoryId)))
     }
   }, [dispatch, isVisible, categoryId])
 
@@ -68,7 +72,7 @@ function LinksPage() {
         {links.map((link, index) => {
           if (index === links.length - 1) {
             return (
-              <div ref={setRef} key={link.id} className="w-full"  >
+              <div ref={setRef as any} key={link.id} className="w-full"  >
                 <LinkCard link={link} />
               </div>
             )
