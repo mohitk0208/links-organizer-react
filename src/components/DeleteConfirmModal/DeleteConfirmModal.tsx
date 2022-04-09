@@ -5,7 +5,7 @@ import Modal from "../utilComponents/Modal"
 
 interface DeleteConfirmModalProps {
   show: boolean,
-  text: string,
+  text: string | React.ReactNode,
   onClose: () => void,
   onDelete: () => void,
   loading: boolean
