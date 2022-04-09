@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import RoutingComp from './router';
 import { manageLoginAsync, selectIsLoggedIn } from './slices/authSlice';
 import Sidebar from './components/Sidebar';
@@ -9,14 +8,15 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { dequeueNotification, selectCurrentObject } from "./slices/globalNotificationSlice"
 import Alert from "./components/utilComponents/Alert"
 import { applyTheme } from "./utils/themeFunctions"
+import { useAppDispatch, useAppSelector } from './app/store';
 
 
 function App() {
 
-  const isLoggedIn = useSelector(selectIsLoggedIn)
-  const dispatch = useDispatch()
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const dispatch = useAppDispatch()
 
-  const alertCurrentObject = useSelector(selectCurrentObject)
+  const alertCurrentObject = useAppSelector(selectCurrentObject)
 
   useEffect(() => {
     applyTheme()

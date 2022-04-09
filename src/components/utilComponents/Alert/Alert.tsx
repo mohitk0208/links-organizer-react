@@ -67,7 +67,7 @@ const PLACEMENT = {
 
 
 interface AlertProps {
-  message: string,
+  message?: string,
   onClose: () => void,
   autoClose?: boolean,
   duration?: number,

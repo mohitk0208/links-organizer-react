@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import useDebounceTimeout from "../../hooks/useDebounceTimeout";
 import endpoints from "../../utils/endpoints";
@@ -100,7 +101,7 @@ function SearchImageModal({ isOpen, onClose, onSubmit }: SearchImageModalProps) 
       <div className="grid grid-cols-3 gap-1 flex-1 max-h-96 overflow-auto" >
         {isLoading ? (
           Array(9).fill(0).map((_, i) => (
-            <div className="w-full h-full aspect-[2/1.5] bg-gray-300 animate-pulse" />
+            <div key={i} className="w-full h-full aspect-[2/1.5] bg-gray-300 animate-pulse" />
           ))
         ) : (
 

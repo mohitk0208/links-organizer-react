@@ -1,11 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, RouteProps } from 'react-router-dom'
+import { useAppSelector } from '../app/store'
 import { selectIsLoggedIn } from '../slices/authSlice'
+import { routes } from '../utils/routeStrings'
 
-const PrivateRoute = ({component:Component,...rest}) => {
+const PrivateRoute = (props: RouteProps) => {
 
-  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   /**
    *            NEEDED FUNCTIONALITY
@@ -22,16 +23,12 @@ const PrivateRoute = ({component:Component,...rest}) => {
 
   //
 
+  if (isLoggedIn) {
+    return <Route {...props} />
+  }
 
+  return <Redirect to={routes.LOGIN} />
 
-  return  (
-    <Route
-    {...rest}
-    render={(props) => {
-      return isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
-    }}
-    ></Route>
-  )
 }
 
 
