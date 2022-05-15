@@ -61,7 +61,7 @@ function LinksPage() {
               setQuery(e.target.value)
               queryRef.current = e.target.value
             }}
-            className="w-full text-gray-500 focus:ring-2 focus:ring-purple-400 rounded "
+            className="w-full text-gray-500 focus:ring-2 focus:ring-purple-400 rounded"
             type="text"
             placeholder="Search"
           />
@@ -81,6 +81,12 @@ function LinksPage() {
           return <LinkCard link={link} key={link.id} />
 
         })}
+
+        {!isLoading && links.length === 0 && (
+          <div className="flex justify-center items-center py-32">
+            <p className='font-bold text-gray-400 text-lg' >No links Found</p>
+          </div>
+        )}
 
         {isLoading && (
           <>
