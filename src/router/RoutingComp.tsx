@@ -14,6 +14,7 @@ import Home from '../pages/Home'
 import LinksPage from '../pages/LinksPage'
 import AddLinkPage from '../pages/AddLinkPage'
 import EditLinkPage from '../pages/EditLinkPage'
+import CategorySettingsPage from '../pages/CategorySettingsPage'
 
 
 
@@ -24,6 +25,7 @@ const RoutingComp = () => {
       {/* private routes */}
       <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
       <PrivateRoute exact path={routes.HOME} component={Home} />
+      <PrivateRoute exact path={routes.CATEGORY_SETTINGS()} component={CategorySettingsPage} />
       {/* <PrivateRoute exact path={routes.CATEGORY()} component={CategoryPage} /> */}
       <PrivateRoute exact path={routes.ALL_LINKS} component={LinksPage} />
       <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} component={LinksPage} />
