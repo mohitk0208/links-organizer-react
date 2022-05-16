@@ -17,19 +17,31 @@ const validationSchema = Yup.object().shape({
   background_url: Yup.string().url('Invalid URL')
 })
 
+interface InitialValuesType {
+  name: string,
+  description: string,
+  background_url: string
+}
 
 interface CreateEditCategoryModalProps {
   show: boolean,
   onClose: () => void,
   isEdit: boolean,
   category?: CategoryType
+  onSubmit?: (values: InitialValuesType) => void
 }
 
-function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEditCategoryModalProps) {
+function CreateEditCategoryModal({ show, onClose, isEdit, category, onSubmit }: CreateEditCategoryModalProps) {
 
   const [isLoading, setIsLoading] = useState(false)
   const [isSearchImageModalOpen, setIsSearchImageModalOpen] = useState(false)
   const dispatch = useAppDispatch()
+
+  const initialValues: InitialValuesType = {
+    name: category?.name ? category.name : "",
+    description: category?.description ? category.description : '',
+    background_url: category?.background_url ? category.background_url : ''
+  }
 
   return (
     <Modal
@@ -40,20 +52,20 @@ function CreateEditCategoryModal({ show, onClose, isEdit, category }: CreateEdit
       size="xl"
     >
       <Formik
-        initialValues={{
-          name: category?.name ? category.name : '',
-          description: category?.description ? category.description : '',
-          background_url: category?.background_url ? category.background_url : ''
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          console.log(values)
           setIsLoading(true)
 
-          if (isEdit && category) {
-            await dispatch(updateCategoryAsync(category.id, values))
-          } else {
-            await dispatch(postCategoryAsync(values))
+          if (onSubmit !== undefined) {
+            await onSubmit(values)
+          }
+          else {
+            if (isEdit && category) {
+              await dispatch(updateCategoryAsync(category.id, values))
+            } else {
+              await dispatch(postCategoryAsync(values))
+            }
           }
 
           setIsLoading(false)

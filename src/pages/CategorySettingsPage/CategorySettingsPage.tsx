@@ -6,7 +6,7 @@ import CreateEditCategoryModal from "../../components/CreateEditCategoryModal";
 import Button from "../../components/utilComponents/Button";
 import ContentContainer from "../../components/utilComponents/ContentContainer";
 import NewsContainer from "../../components/utilComponents/NewsContainer";
-import { getSingleCategoryAsync, selectCategory, selectLoading } from "../../slices/categorySlice";
+import { getSingleCategoryAsync, selectCategory, selectLoading, updateCategoryAsync } from "../../slices/categorySlice";
 
 interface ParamsType {
   categoryId: string
@@ -56,6 +56,10 @@ function CategorySettingsPage() {
         onClose={() => setIsEditCategoryModalOpen(false)}
         category={category}
         isEdit
+        onSubmit={async (values) => {
+          console.log("Submit has been initiated")
+          await dispatch(updateCategoryAsync(category.id, values))
+        }}
       />
 
 
