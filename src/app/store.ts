@@ -5,6 +5,7 @@ import notificationReducer from '../slices/globalNotificationSlice'
 import categoriesReducer from '../slices/categoriesSlice'
 import linksReducer from '../slices/linksSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import categoryReducer from '../slices/categorySlice';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     categories: categoriesReducer,
-    links: linksReducer
+    links: linksReducer,
+    category: categoryReducer
   },
 });
 
