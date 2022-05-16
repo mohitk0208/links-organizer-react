@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
-import { CategoryType } from "../types/categoriesSliceTypes";
+import { CategoryType, postCategoryAsyncData } from "../types/categoriesSliceTypes";
 import { CategorySliceType } from "../types/categorySliceTypes";
 import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
@@ -33,12 +33,20 @@ const categorySlice = createSlice({
       state.background_url = action.payload.background_url
       state.created_at = action.payload.created_at
       state.updated_at = action.payload.updated_at
+    },
+
+    updateCategory: (state, action: PayloadAction<CategoryType>) => {
+      state.name = action.payload.name
+      state.description = action.payload.description
+      state.background_url = action.payload.background_url
+      state.updated_at = action.payload.updated_at
     }
+
   }
 })
 
 
-const { setLoading, setCategoryValues } = categorySlice.actions
+const { setLoading, setCategoryValues, updateCategory } = categorySlice.actions
 
 
 export const getSingleCategoryAsync = (id: number): AppThunk => async (dispatch, getState) => {
@@ -66,6 +74,36 @@ export const getSingleCategoryAsync = (id: number): AppThunk => async (dispatch,
   }
   finally {
     dispatch(setLoading(false))
+  }
+
+}
+
+
+export const updateCategoryAsync = (id: number, data: postCategoryAsyncData): AppThunk => async dispatch => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.put(`${endpoints.SINGLE_CATEGORY(id)}`, data, true)
+
+    const resData = await res.json()
+
+    if (res.ok) {
+      dispatch(updateCategory(resData))
+      dispatch(enqueueNotification({
+        msg: "Category updated",
+        type: "success",
+        duration: 3000
+      }))
+    }
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Could not update category",
+      type: "error",
+      duration: 3000
+    }))
   }
 
 }
