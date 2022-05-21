@@ -1,4 +1,4 @@
-import { CogIcon } from "@heroicons/react/solid";
+import { CogIcon, PencilIcon } from "@heroicons/react/solid";
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";
@@ -13,7 +13,7 @@ interface ParamsType {
 }
 
 function CategorySettingsPage() {
-  const loading = useAppSelector(selectLoading)
+  // const loading = useAppSelector(selectLoading)
   const category = useAppSelector(selectCategory)
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false)
 
@@ -29,21 +29,47 @@ function CategorySettingsPage() {
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
       <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white dark:bg-gray-800 min-h-screen ">
-        <h1 className="text-2xl font-bold pb-2 border-b mb-2 px-1 align-middle" >
-          <CogIcon className="inline h-6 w-6" /> Category Settings
+        <h1 className="text-3xl font-bold pb-2 border-b mb-3 px-1 flex items-center gap-1" >
+          <CogIcon className="inline h-7 w-7" />
+          <span>
+            Category Settings : {category.name}
+          </span>
         </h1>
 
-        <div className="" >
-          <Button className="flex items-center justify-center gap-1" onClick={() => setIsEditCategoryModalOpen(true)}>
-            <CogIcon className="h-5 w-5" />
-            <span className="text-lg" >
-              General Settings
-            </span>
-          </Button>
-        </div>
+        <div className="px-2" >
+          <div className="flex justify-between items-center pr-5 mb-1 pb-1">
+            <h1 className="text-xl font-bold" >Category Info</h1>
+            <Button className="flex items-center justify-center gap-1" onClick={() => setIsEditCategoryModalOpen(true)}>
+              <PencilIcon className="h-4 w-4" />
+              <span className="" >
+                {/* General Settings */}
+                Edit
+              </span>
+            </Button>
+          </div>
 
-        This is the settings page for category
-        {!loading ? category.name : "loading"}
+          <div className="grid grid-cols-2 gap-1" >
+            <p>Category Name</p>
+            <p>{category.name}</p>
+
+            <p>Category Description</p>
+            <p>{category.description}</p>
+
+            <p>Category Background</p>
+            <p>
+              <img src={category.background_url} className=" w-32 aspect-video object-cover" alt="category background" />
+            </p>
+
+            <p>Owner</p>
+            <p className="flex items-center gap-2">
+              <img src={category.owner_avatar} className="h-8 w-8 rounded-full" alt="owner avatar" />
+              {category.owner_username}
+            </p>
+
+          </div>
+
+
+        </div>
 
       </ContentContainer>
       <NewsContainer className="px-2" >

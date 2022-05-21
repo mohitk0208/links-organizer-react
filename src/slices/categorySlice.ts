@@ -120,16 +120,9 @@ export const updateCategoryAsync = (id: number, data: postCategoryAsyncData): Ap
 
 export const selectLoading = (state: RootState) => state.category.loading
 export const selectCategory = (state: RootState) => {
-  const { id, name, description, background_url, created_at, updated_at } = state.category
+  const { loading, ...category } = state.category
 
-  return {
-    id,
-    name,
-    description,
-    background_url,
-    created_at,
-    updated_at
-  }
+  return category
 
 }
 
