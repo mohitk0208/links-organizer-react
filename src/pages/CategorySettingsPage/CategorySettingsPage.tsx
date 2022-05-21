@@ -7,6 +7,7 @@ import Button from "../../components/utilComponents/Button";
 import ContentContainer from "../../components/utilComponents/ContentContainer";
 import NewsContainer from "../../components/utilComponents/NewsContainer";
 import { getSingleCategoryAsync, selectCategory, selectLoading, updateCategoryAsync } from "../../slices/categorySlice";
+import CategoryInfoGrid from "./CategoryInfoGrid";
 
 interface ParamsType {
   categoryId: string
@@ -48,25 +49,7 @@ function CategorySettingsPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 gap-1" >
-            <p>Category Name</p>
-            <p>{category.name}</p>
-
-            <p>Category Description</p>
-            <p>{category.description}</p>
-
-            <p>Category Background</p>
-            <p>
-              <img src={category.background_url} className=" w-32 aspect-video object-cover" alt="category background" />
-            </p>
-
-            <p>Owner</p>
-            <p className="flex items-center gap-2">
-              <img src={category.owner_avatar} className="h-8 w-8 rounded-full" alt="owner avatar" />
-              {category.owner_username}
-            </p>
-
-          </div>
+          <CategoryInfoGrid category={category} />
 
 
         </div>
