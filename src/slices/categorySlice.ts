@@ -13,6 +13,10 @@ const initialState: CategorySliceType = {
   name: "",
   description: "",
   background_url: "",
+  owner: -1,
+  owner_avatar: "",
+  owner_username: "",
+  parent_category: null,
   created_at: "",
   updated_at: ""
 }
@@ -31,6 +35,10 @@ const categorySlice = createSlice({
       state.name = action.payload.name
       state.description = action.payload.description
       state.background_url = action.payload.background_url
+      state.owner = action.payload.owner
+      state.owner_avatar = action.payload.owner_avatar
+      state.owner_username = action.payload.owner_username
+      state.parent_category = action.payload.parent_category
       state.created_at = action.payload.created_at
       state.updated_at = action.payload.updated_at
     },
