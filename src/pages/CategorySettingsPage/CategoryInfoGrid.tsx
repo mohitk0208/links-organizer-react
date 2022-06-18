@@ -3,7 +3,7 @@ import { CategoryType } from '../../types/categoriesSliceTypes'
 
 function CategoryInfoGrid({ category }: { category: CategoryType }) {
   return (
-    <div className="grid grid-cols-2 gap-1" >
+    <div className="grid grid-cols-2 gap-1.5 text-gray-600" >
       <p>Category Name</p>
       <p>{category.name}</p>
 

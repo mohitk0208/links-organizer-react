@@ -39,7 +39,7 @@ function CategorySettingsPage() {
 
         <div className="px-2" >
           <div className="flex justify-between items-center pr-5 mb-1 pb-1">
-            <h1 className="text-xl font-bold" >Category Info</h1>
+            <h1 className="text-2xl font-bold" >Category Info</h1>
             <Button className="flex items-center justify-center gap-1" onClick={() => setIsEditCategoryModalOpen(true)}>
               <PencilIcon className="h-4 w-4" />
               <span className="" >
@@ -50,6 +50,25 @@ function CategorySettingsPage() {
           </div>
 
           <CategoryInfoGrid category={category} />
+
+          <h1 className="text-2xl font-bold mt-5" >Shared Users</h1>
+          <div className="grid grid-cols-2"  >
+
+            <p className="font-bold text-lg">
+              User
+            </p>
+            <p className="font-bold text-lg">
+              Permission
+            </p>
+
+            <p className="flex items-center gap-1">
+              <img src={category.owner_avatar} className="w-8 rounded-full" alt="" />
+              <span>
+                {category.owner_username}
+              </span>
+            </p>
+            <p>some permission</p>
+          </div>
 
 
         </div>
