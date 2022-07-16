@@ -23,7 +23,7 @@ const benefits = [
 const LandingPageBenefitsSection = () => {
 
   return (
-    <section className='w-full my-5 flex flex-col items-center'>
+    <section className='w-full my-5 flex flex-col items-center pb-10 mb-10'>
       <h2 className='font-bold text-3xl my-5' >
         Benefits of Links Organizer
       </h2>
