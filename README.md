@@ -34,10 +34,11 @@
 
 ## About The Project
 
-<p align="center">
-    <!-- <img width="800px" src="https://user-images.githubusercontent.com/61026761/179017144-314ebda5-8035-47c5-a549-f478d83b9918.gif"><br><br> -->
-</p>
-This  is a platform to store and manage saved urls in different categories. Tags can also be attached to the saved urls, so as to provide better searching. You can find the application at [links Organizer](https://links-organizer-react.pages.dev/)
+<!-- <p align="center">
+    <img width="800px" src="https://user-images.githubusercontent.com/61026761/179017144-314ebda5-8035-47c5-a549-f478d83b9918.gif"><br><br>
+</p> -->
+
+This is a platform to store and manage saved urls in different categories. Tags can also be attached to the saved urls, so as to provide better searching. You can find the application at [Links Organizer](https://links-organizer-react.pages.dev/)
 
 Some features of this app:
 
