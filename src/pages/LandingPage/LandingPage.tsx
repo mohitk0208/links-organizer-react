@@ -1,6 +1,6 @@
 import React from 'react'
 import LandingPageNavbar from '../../components/LandingPageComponents/LandingPageNavbar'
-import LandingPageCover from '../../components/LandingPageComponents/LandingPageNavbar/LandingPageCover'
+import LandingPageCover from '../../components/LandingPageComponents/LandingPageCover'
 
 function LandingPage() {
   return (
