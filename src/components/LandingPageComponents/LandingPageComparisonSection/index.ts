@@ -1,0 +1,2 @@
+import LandingPageComparisonSection from "./LandingPageComparisonSection";
+export default LandingPageComparisonSection;
