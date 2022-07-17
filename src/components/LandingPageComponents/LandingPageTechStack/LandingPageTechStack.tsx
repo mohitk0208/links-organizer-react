@@ -45,7 +45,7 @@ const LandingPageTechStack = () => {
         Tech Stack of the Project
       </h2>
 
-      <div className="w-4/6">
+      <div className="w-3/6">
         <div>
           <h3 className="font-bold text-xl text-gray-700">
             Frontend tech

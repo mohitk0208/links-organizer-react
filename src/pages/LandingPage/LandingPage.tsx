@@ -5,6 +5,7 @@ import LandingPageBenefitsSection from '../../components/LandingPageComponents/L
 // import LandingPageContributeSection from '../../components/LandingPageComponents/LandingPageContributeSection'
 import LandingPageTechStack from '../../components/LandingPageComponents/LandingPageTechStack'
 import LandingPageComparisonSection from '../../components/LandingPageComponents/LandingPageComparisonSection'
+import LandingPageReportOrRequest from '../../components/LandingPageComponents/LandingPageReportOrRequest'
 
 function LandingPage() {
   return (
@@ -14,6 +15,7 @@ function LandingPage() {
       <LandingPageBenefitsSection />
       <LandingPageComparisonSection />
       <LandingPageTechStack />
+      <LandingPageReportOrRequest />
       {/* <LandingPageContributeSection /> */}
     </div>
   )
