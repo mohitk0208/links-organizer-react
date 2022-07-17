@@ -19,6 +19,7 @@ const LandingPageReportOrRequest = () => {
       <div className="w-3/6">
         <p className="text-center opacity-70 mb-10" >
           This is an Open Source Project and you can report any issue or request feature and contribute in making the product better.
+          Also find the repo at <a className="text-purple-500 hover:text-purple-700 transition-colors duration-200 ease-in-out" href="https://github.com/mohitk0208/links-organizer-react" target="_blank" rel="noreferrer" >Github</a>
         </p>
 
         <div className="flex justify-center gap-4" >
