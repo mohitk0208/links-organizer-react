@@ -27,7 +27,7 @@ const PrivateRoute = (props: RouteProps) => {
     return <Route {...props} />
   }
 
-  return <Redirect to={routes.LOGIN} />
+  return <Redirect to={routes.LANDING_PAGE} />
 
 }
 
