@@ -4,18 +4,18 @@ import BenefitCard from "./BenefitCard";
 
 const benefits = [
   {
-    title: "Organize your links 1",
-    description: "Organize your Links in a better way",
+    title: "Multiple Categories",
+    description: "You can create Multiple Categories and add links to them so as to better organize your links.",
     image: "https://picsum.photos/500"
   },
   {
-    title: "Organize your links 2",
-    description: "Organize your Links in a better way",
+    title: "Attach Tags",
+    description: "Attach Tags to the saved Urls so that you can easily find the links you are looking for.",
     image: "https://picsum.photos/500"
   },
   {
-    title: "Organize your links 3",
-    description: "Organize your Links in a better way",
+    title: "Category Background",
+    description: "Adding background to the categories not only make it look more appealing but also make it more easy to locate.",
     image: "https://picsum.photos/500"
   },
 ]
