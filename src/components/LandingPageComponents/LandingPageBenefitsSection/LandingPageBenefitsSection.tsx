@@ -4,17 +4,17 @@ import BenefitCard from "./BenefitCard";
 
 const benefits = [
   {
-    title: "Organize your links",
+    title: "Organize your links 1",
     description: "Organize your Links in a better way",
     image: "https://picsum.photos/500"
   },
   {
-    title: "Organize your links",
+    title: "Organize your links 2",
     description: "Organize your Links in a better way",
     image: "https://picsum.photos/500"
   },
   {
-    title: "Organize your links",
+    title: "Organize your links 3",
     description: "Organize your Links in a better way",
     image: "https://picsum.photos/500"
   },
@@ -32,7 +32,7 @@ const LandingPageBenefitsSection = () => {
 
 
         {benefits.map(benefit => (
-          <BenefitCard {...benefit} />
+          <BenefitCard key={benefit.title} {...benefit} />
         ))}
 
 

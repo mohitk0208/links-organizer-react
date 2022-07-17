@@ -3,7 +3,7 @@ import React from "react";
 const LandingPageContributeSection = () => {
 
   return (
-    <section className="w-full bg-purple-50/50 mt-5 flex flex-col items-center pt-10 pb-20 mb-10" >
+    <section className="w-full mt-5 flex flex-col items-center pt-10 pb-20 mb-10" >
       <h2 className="font-bold text-3xl my-5">
         Contribute to the project
       </h2>
