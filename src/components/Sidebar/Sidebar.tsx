@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { routes } from "../../utils/routeStrings"
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { NewspaperIcon, UserIcon, LinkIcon, PlusIcon } from "@heroicons/react/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
@@ -45,7 +45,9 @@ function Sidebar() {
           <div className="flex items-center justify-center px-5 py-2  shadow-md" >
             {/* <img className="h-10 w-auto" src={logoImg} alt="" /> */}
             {/* <img className="h-10 w-auto" src={TextImg} alt="" /> */}
-            <span>Links Organizer</span>
+            <Link to={routes.HOME} >
+              <span className="font-bold text-xl py-1" >Links Organizer</span>
+            </Link>
           </div>
 
           <div className="mt-5 flex-1 flex flex-col" >
@@ -91,7 +93,7 @@ function Sidebar() {
         {/* the logo and brand name */}
         <div className="flex items-center justify-center px-5 py-2  shadow-md" >
           {/* <img className="h-10 w-auto" src={logoImg} alt="" /> */}
-          <span>Links</span>
+          <span className='h-8 py-2' ></span>
         </div>
 
         <div className="mt-5 flex-1 flex flex-col" >
