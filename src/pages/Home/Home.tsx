@@ -88,8 +88,12 @@ function Home() {
 
 
       </ContentContainer>
-      <NewsContainer className="px-2" >
-        <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800">
+      <NewsContainer className=" px-2" >
+        <div className="h-full p-4 rounded shadow-lg bg-white dark:bg-gray-800 flex items-center justify-center">
+
+          <p className='opacity-60' >
+            No New Notifications
+          </p>
         </div>
       </NewsContainer>
 

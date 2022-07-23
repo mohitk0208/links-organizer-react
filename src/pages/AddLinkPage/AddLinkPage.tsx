@@ -12,6 +12,8 @@ import CreateTagModal from '../../components/CreateTagModal'
 import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { tag } from '../../types/tag'
+import { useHistory } from 'react-router-dom'
+import { routes } from '../../utils/routeStrings'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -34,6 +36,7 @@ function AddLinkPage() {
 
   const isLoading = useAppSelector(selectLoading)
   const dispatch = useAppDispatch()
+  const history = useHistory()
 
 
   useEffect(() => {
@@ -55,7 +58,7 @@ function AddLinkPage() {
         <Formik
           initialValues={initialState}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             if (!category) {
               setCategoryError("Category is required.")
               return
@@ -66,7 +69,11 @@ function AddLinkPage() {
               tags: tags.map(tag => tag.id)
             }
             console.log(data)
-            dispatch(postLinkAsync(data))
+            const isSuccess = await dispatch(postLinkAsync(data)) as unknown as boolean
+            if (isSuccess) {
+              history.push(routes.HOME)
+            }
+
 
           }}
           onReset={() => {
