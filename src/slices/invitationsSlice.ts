@@ -23,6 +23,23 @@ const categoryInvitations = createSlice({
     setCategoryInvitations: (state, action: PayloadAction<CategoryInvitationType[]>) => {
       state.value = action.payload
     },
+    acceptCategoryInvitation: (state, action: PayloadAction<number>) => {
+
+      state.value = state.value.map(invitation => {
+        if (invitation.id === action.payload) {
+          return { ...invitation, is_accepted: true }
+        }
+        return invitation
+      })
+    },
+    rejectCategoryInvitation: (state, action: PayloadAction<number>) => {
+      state.value = state.value.map(invitation => {
+        if (invitation.id === action.payload) {
+          return { ...invitation, is_accepted: false }
+        }
+        return invitation
+      })
+    },
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload
     },
@@ -36,7 +53,8 @@ const categoryInvitations = createSlice({
 })
 
 
-export const { setLoading, setCategoryInvitations, logoutResetCategoryInvitations, setTotalCount } = categoryInvitations.actions
+export const { setLoading, setCategoryInvitations, logoutResetCategoryInvitations, setTotalCount, acceptCategoryInvitation
+  , rejectCategoryInvitation } = categoryInvitations.actions
 
 export const getCategoryInvitationsAsync = (): AppThunk => async (dispatch, getState) => {
 
@@ -71,6 +89,53 @@ export const getCategoryInvitationsAsync = (): AppThunk => async (dispatch, getS
   }
 
 }
+
+
+
+export const acceptCategoryInvitationAsync = (categoryInvitationId: number): AppThunk => async (dispatch, getState) => {
+
+  try {
+    await dispatch(manageLoginAsync())
+
+    const res = await fetchWrapper.post(endpoints.ACCEPT_RECEIVED_INVITATION(categoryInvitationId), {}, true)
+
+
+    if (res.ok) {
+      dispatch(acceptCategoryInvitation(categoryInvitationId))
+    }
+
+  } catch (err) {
+    dispatch(enqueueNotification({
+      msg: "Responding to invitation Failed ",
+      type: "error",
+      duration: 2000
+    }))
+  }
+}
+
+
+
+export const rejectCategoryInvitationAsync = (categoryInvitationId: number): AppThunk => async (dispatch, getState) => {
+
+  try {
+    await dispatch(manageLoginAsync())
+
+    const res = await fetchWrapper.post(endpoints.REJECT_RECEIVED_INVITATION(categoryInvitationId), {}, true)
+
+
+    if (res.ok) {
+      dispatch(rejectCategoryInvitation(categoryInvitationId))
+    }
+
+  } catch (err) {
+    dispatch(enqueueNotification({
+      msg: "Responding to invitation Failed ",
+      type: "error",
+      duration: 2000
+    }))
+  }
+}
+
 
 
 
