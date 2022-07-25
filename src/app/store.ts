@@ -6,6 +6,7 @@ import categoriesReducer from '../slices/categoriesSlice'
 import linksReducer from '../slices/linksSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import categoryReducer from '../slices/categorySlice';
+import invitationsReducer from '../slices/invitationsSlice'
 
 const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
     user: userReducer,
     categories: categoriesReducer,
     links: linksReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    categoryInvitations: invitationsReducer
   },
 });
 

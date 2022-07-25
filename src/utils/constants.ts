@@ -1,4 +1,5 @@
-export const host = "https://links-organizer-api.herokuapp.com/"
+// export const host = "https://links-organizer-api.herokuapp.com/"
+export const host = "http://127.0.0.1:8000/"
 export const imageScrapperHost = "https://gentle-forest-22725.herokuapp.com/"
 
 export const breakpoints = {

@@ -30,6 +30,15 @@ const endpoints = {
 
   //images from yahoo
   GET_IMAGES: (query: string) => `${imageScrapperHost}api/images/yahoo/${query}`,
+
+  // category invitations
+  GET_INVITATIONS: `${endpointInitial}/category_invitations/`,
+  SEND_INVITATION: `${endpointInitial}/category_invitations/`,
+  GET_SENT_INVITATIONS: `${endpointInitial}/category_invitations/sent_invitations/`,
+  DELETE_SENT_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/`,
+  ACCEPT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/accept/`,
+  REJECT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/reject/`,
+
 } as const
 
 
