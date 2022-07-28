@@ -17,16 +17,16 @@ const endpoints = {
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
 
   // categories
-  GET_POST_CATEGORIES: `${endpointInitial}/categories`,
-  SINGLE_CATEGORY: (id: string | number) => `${endpointInitial}/categories/${id}`,
+  GET_POST_CATEGORIES: `${endpointInitial}/categories/`,
+  SINGLE_CATEGORY: (id: string | number) => `${endpointInitial}/categories/${id}/`,
 
   //links
-  GET_POST_LINKS: `${endpointInitial}/links`,
-  SINGLE_LINK: (id: number | string) => `${endpointInitial}/links/${id}`,
+  GET_POST_LINKS: `${endpointInitial}/links/`,
+  SINGLE_LINK: (id: number | string) => `${endpointInitial}/links/${id}/`,
 
   //tags
-  GET_POST_TAGS: `${endpointInitial}/tags`,
-  SINGLE_TAG: (id: number | string) => `${endpointInitial}/tags/${id}`,
+  GET_POST_TAGS: `${endpointInitial}/tags/`,
+  SINGLE_TAG: (id: number | string) => `${endpointInitial}/tags/${id}/`,
 
   //images from yahoo
   GET_IMAGES: (query: string) => `${imageScrapperHost}api/images/yahoo/${query}`,
