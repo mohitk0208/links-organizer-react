@@ -25,10 +25,6 @@ interface initialStateType {
   description: string,
 }
 
-interface paramsType {
-  linkId: string
-}
-
 function AddLinkPage() {
 
   const [category, setCategory] = useState<number | null>(null)
@@ -40,7 +36,7 @@ function AddLinkPage() {
   const isLoading = useAppSelector(selectLoading)
   const [isUpdating, setIsUpdating] = useState(false)
   const dispatch = useAppDispatch()
-  const { linkId } = useParams<paramsType>()
+  const { linkId } = useParams()
   const currentLink = useAppSelector(selectCurrentLink)
 
 

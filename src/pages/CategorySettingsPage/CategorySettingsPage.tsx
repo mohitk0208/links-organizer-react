@@ -6,19 +6,15 @@ import CreateEditCategoryModal from "../../components/CreateEditCategoryModal";
 import Button from "../../components/utilComponents/Button";
 import ContentContainer from "../../components/utilComponents/ContentContainer";
 import NewsContainer from "../../components/utilComponents/NewsContainer";
-import { getSingleCategoryAsync, selectCategory, selectLoading, updateCategoryAsync } from "../../slices/categorySlice";
+import { getSingleCategoryAsync, selectCategory, updateCategoryAsync } from "../../slices/categorySlice";
 import CategoryInfoGrid from "./CategoryInfoGrid";
-
-interface ParamsType {
-  categoryId: string
-}
 
 function CategorySettingsPage() {
   // const loading = useAppSelector(selectLoading)
   const category = useAppSelector(selectCategory)
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false)
 
-  const { categoryId } = useParams<ParamsType>()
+  const { categoryId } = useParams()
   const dispatch = useAppDispatch()
 
   useEffect(() => {

@@ -10,17 +10,13 @@ import CategoryCardShimmer from '../../components/CategoryCard/CategoryCardShimm
 import { routes } from '../../utils/routeStrings'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 
-interface ParamTypes {
-  categoryId: string
-}
-
 function CategoryPage() {
 
   const subCategories = useAppSelector(selectCategories)
   const isLoading = useAppSelector(selectLoading)
   const dispatch = useAppDispatch()
   const loadingRef = useRef<boolean>()
-  const { categoryId } = useParams<ParamTypes>()
+  const { categoryId } = useParams()
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
 
