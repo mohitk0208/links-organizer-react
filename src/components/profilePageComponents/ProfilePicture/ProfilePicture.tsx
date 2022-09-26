@@ -124,7 +124,7 @@ function ProfilePicture({ avatar, setAvatar }: ProfilePictureProps) {
 
         <div className="flex px-2 rounded-md my-3" >
 
-          <select className="rounded-l-md flex-[1] w-full" value={dicebearSprite} onChange={(e) => setDicebearSprite(e.target.value)} >
+          <select className="rounded-l-md flex-[1] w-full" value={dicebearSprite} onChange={(e) => setDicebearSprite(`${e.target.value}`)} >
             {sprites.map(sprite => {
 
               return (<option key={sprite} className="" value={sprite} >{sprite}</option>)
@@ -132,7 +132,7 @@ function ProfilePicture({ avatar, setAvatar }: ProfilePictureProps) {
             })}
           </select>
 
-          <input className="rounded-r-md flex-[3] w-full " type="text" placeholder="SEED" value={dicebearSeed} onChange={(e) => setDicebearSeed(e.target.value)} />
+          <input className="rounded-r-md flex-[3] w-full " type="text" placeholder="SEED" value={dicebearSeed} onChange={(e) => setDicebearSeed(`${e.target.value}`)} />
         </div>
 
 
