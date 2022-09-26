@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Redirect } from 'react-router-dom'
+import { Switch, Redirect, Route } from 'react-router-dom'
 import LandingPage from '../pages/LandingPage'
 import Login from '../pages/Login'
 import ProfilePage from '../pages/ProfilePage'
@@ -23,26 +23,26 @@ const RoutingComp = () => {
   return (
     <Switch>
       {/* private routes */}
-      <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
-      <PrivateRoute exact path={routes.HOME} component={Home} />
-      <PrivateRoute exact path={routes.CATEGORY_SETTINGS()} component={CategorySettingsPage} />
+      <PrivateRoute exact path={routes.PROFILE} children={<ProfilePage />} />
+      <PrivateRoute exact path={routes.HOME} children={<Home />} />
+      <PrivateRoute exact path={routes.CATEGORY_SETTINGS()} children={<CategorySettingsPage />} />
       {/* <PrivateRoute exact path={routes.CATEGORY()} component={CategoryPage} /> */}
-      <PrivateRoute exact path={routes.ALL_LINKS} component={LinksPage} />
-      <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} component={LinksPage} />
-      <PrivateRoute exact path={routes.ADD_LINK} component={AddLinkPage} />
-      <PrivateRoute exact path={routes.EDIT_LINK()} component={EditLinkPage} />
+      <PrivateRoute exact path={routes.ALL_LINKS} children={<LinksPage />} />
+      <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} children={<LinksPage />} />
+      <PrivateRoute exact path={routes.ADD_LINK} children={<AddLinkPage />} />
+      <PrivateRoute exact path={routes.EDIT_LINK()} children={<EditLinkPage />} />
 
       {/* landing page */}
-      <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />
+      <PublicRoute exact path={routes.LANDING_PAGE} children={<LandingPage />} />
 
       {/* authentication routes */}
-      <PublicRoute exact path={routes.LOGIN} component={Login} />
-      <PublicRoute exact path={routes.SIGNUP} component={Signup} />
+      <PublicRoute exact path={routes.LOGIN} children={<Login />} />
+      <PublicRoute exact path={routes.SIGNUP} children={<Signup />} />
 
-      <PublicRoute exact path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
-      <PublicRoute exact path={routes.RESET_PASSWORD} component={ResetPassword} />
+      <PublicRoute exact path={routes.SEND_RESET_TOKEN} children={<SendResetToken />} />
+      <PublicRoute exact path={routes.RESET_PASSWORD} children={<ResetPassword />} />
 
-      <Redirect from="*" to={routes.HOME} />
+      <Route path="*" render={() => <Redirect to={routes.HOME} />} />
     </Switch>
   )
 }

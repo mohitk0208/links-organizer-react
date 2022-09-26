@@ -10,7 +10,7 @@ const PublicRoute = (props: RouteProps) => {
 
 
   if (isLoggedIn) {
-    return <Redirect to={routes.HOME} />
+    return <Route path="*" render={() => <Redirect to={routes.HOME} />} />
   }
 
   return <Route {...props} />
