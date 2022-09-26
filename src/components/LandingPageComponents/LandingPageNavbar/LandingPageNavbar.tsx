@@ -1,11 +1,11 @@
 import React from "react"
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { routes } from "../../../utils/routeStrings"
 import Button from "../../utilComponents/Button"
 
 const LandingPageNavbar = () => {
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   return (
     <nav className='flex items-center justify-between px-5 py-3 shadow-md z-10 fixed top-0 left-0 right-0 bg-white'>
@@ -16,10 +16,10 @@ const LandingPageNavbar = () => {
       </div>
       <div className='flex gap-3' >
 
-        <Button variant="primary" onClick={() => history.push(routes.LOGIN)} >
+        <Button variant="primary" onClick={() => navigate(routes.LOGIN)} >
           Login
         </Button>
-        <Button variant="outline-secondary" onClick={() => history.push(routes.SIGNUP)}>
+        <Button variant="outline-secondary" onClick={() => navigate(routes.SIGNUP)}>
           Signup
         </Button>
       </div>

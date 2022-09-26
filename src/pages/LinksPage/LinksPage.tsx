@@ -12,24 +12,20 @@ import useDebounceTimeout from '../../hooks/useDebounceTimeout'
 import FilterTags from '../../components/FilterTags'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 
-interface ParamsType {
-  categoryId: string
-}
-
 function LinksPage() {
 
   const links = useAppSelector(selectLinks)
   const isLoading = useAppSelector(selectLoading)
   const dispatch = useAppDispatch()
   const loadingRef = useRef<boolean | undefined>()
-  const { categoryId } = useParams<ParamsType>()
+  const { categoryId } = useParams()
   const queryRef = useRef("")
   const [query, setQuery] = useState("")
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.5 })
 
   useDebounceTimeout(() => {
-    dispatch(getLinksAsync(queryRef.current, categoryId))
+    dispatch(getLinksAsync(queryRef.current, categoryId!))
 
   }, 1000, [query])
 
@@ -39,7 +35,7 @@ function LinksPage() {
   }, [isLoading])
 
   useEffect(() => {
-    dispatch(getLinksAsync(queryRef.current, categoryId))
+    dispatch(getLinksAsync(queryRef.current, categoryId!))
   }, [categoryId, dispatch])
 
   useUpdateEffect(() => {
