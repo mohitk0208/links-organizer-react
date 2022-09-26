@@ -12,7 +12,7 @@ import CreateTagModal from '../../components/CreateTagModal'
 import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { tag } from '../../types/tag'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 
 const validationSchema = Yup.object().shape({
@@ -36,7 +36,7 @@ function AddLinkPage() {
 
   const isLoading = useAppSelector(selectLoading)
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -71,7 +71,7 @@ function AddLinkPage() {
             console.log(data)
             const isSuccess = await dispatch(postLinkAsync(data)) as unknown as boolean
             if (isSuccess) {
-              history.push(routes.HOME)
+              navigate(routes.HOME)
             }
 
 

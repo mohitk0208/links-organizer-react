@@ -1,50 +1,51 @@
 import React from 'react'
-import { Switch, Redirect, Route } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import LandingPage from '../pages/LandingPage'
 import Login from '../pages/Login'
 import ProfilePage from '../pages/ProfilePage'
 import Signup from '../pages/Signup'
 import { routes } from '../utils/routeStrings'
-import PrivateRoute from './PrivateRoute'
-import PublicRoute from './PublicRoute'
 import SendResetToken from '../pages/SendResetToken'
 import ResetPassword from '../pages/ResetPassword'
 import Home from '../pages/Home'
-// import CategoryPage from '../pages/CategoryPage'
 import LinksPage from '../pages/LinksPage'
 import AddLinkPage from '../pages/AddLinkPage'
 import EditLinkPage from '../pages/EditLinkPage'
 import CategorySettingsPage from '../pages/CategorySettingsPage'
+import CategoryPage from '../pages/CategoryPage'
+import RequireAuth from './RequireAuth'
+import RequireNoAuth from './RequireNoAuth'
+
 
 
 
 const RoutingComp = () => {
-
   return (
-    <Switch>
-      {/* private routes */}
-      <PrivateRoute exact path={routes.PROFILE} children={<ProfilePage />} />
-      <PrivateRoute exact path={routes.HOME} children={<Home />} />
-      <PrivateRoute exact path={routes.CATEGORY_SETTINGS()} children={<CategorySettingsPage />} />
-      {/* <PrivateRoute exact path={routes.CATEGORY()} component={CategoryPage} /> */}
-      <PrivateRoute exact path={routes.ALL_LINKS} children={<LinksPage />} />
-      <PrivateRoute exact path={routes.LINKS_BY_CATEGORY()} children={<LinksPage />} />
-      <PrivateRoute exact path={routes.ADD_LINK} children={<AddLinkPage />} />
-      <PrivateRoute exact path={routes.EDIT_LINK()} children={<EditLinkPage />} />
+    <Routes>
+      <Route path={routes.PROFILE} element={<RequireAuth ><ProfilePage /></RequireAuth>} />
+      <Route path={routes.HOME} element={<RequireAuth ><Home /></RequireAuth>} />
+
+      <Route path={routes.CATEGORY_SETTINGS()} element={<RequireAuth><CategorySettingsPage /></RequireAuth>} />
+      <Route path={routes.CATEGORY()} element={<RequireAuth ><CategoryPage /></RequireAuth>} />
+      <Route path={routes.ALL_LINKS} element={<RequireAuth ><LinksPage /></RequireAuth>} />
+      <Route path={routes.LINKS_BY_CATEGORY()} element={<RequireAuth ><LinksPage /></RequireAuth>} />
+      <Route path={routes.ADD_LINK} element={<RequireAuth ><AddLinkPage /></RequireAuth>} />
+      <Route path={routes.EDIT_LINK()} element={<RequireAuth ><EditLinkPage /></RequireAuth>} />
 
       {/* landing page */}
-      <PublicRoute exact path={routes.LANDING_PAGE} children={<LandingPage />} />
+      <Route path={routes.LANDING_PAGE} element={<RequireNoAuth><LandingPage /></RequireNoAuth>} />
 
       {/* authentication routes */}
-      <PublicRoute exact path={routes.LOGIN} children={<Login />} />
-      <PublicRoute exact path={routes.SIGNUP} children={<Signup />} />
+      <Route path={routes.LOGIN} element={<RequireNoAuth><Login /></RequireNoAuth>} />
+      <Route path={routes.SIGNUP} element={<RequireNoAuth><Signup /></RequireNoAuth>} />
 
-      <PublicRoute exact path={routes.SEND_RESET_TOKEN} children={<SendResetToken />} />
-      <PublicRoute exact path={routes.RESET_PASSWORD} children={<ResetPassword />} />
 
-      <Route path="*" render={() => <Redirect to={routes.HOME} />} />
-    </Switch>
-  )
+      <Route path={routes.SEND_RESET_TOKEN} element={<RequireNoAuth><SendResetToken /></RequireNoAuth>} />
+      <Route path={routes.RESET_PASSWORD} element={<RequireNoAuth><ResetPassword /></RequireNoAuth>} />
+
+      <Route path="*" element={<Navigate to={routes.HOME} />} />
+
+    </Routes>)
 }
 
 export default RoutingComp
