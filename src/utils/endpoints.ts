@@ -17,19 +17,28 @@ const endpoints = {
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
 
   // categories
-  GET_POST_CATEGORIES: `${endpointInitial}/categories`,
-  SINGLE_CATEGORY: (id: string | number) => `${endpointInitial}/categories/${id}`,
+  GET_POST_CATEGORIES: `${endpointInitial}/categories/`,
+  SINGLE_CATEGORY: (id: string | number) => `${endpointInitial}/categories/${id}/`,
 
   //links
-  GET_POST_LINKS: `${endpointInitial}/links`,
-  SINGLE_LINK: (id: number | string) => `${endpointInitial}/links/${id}`,
+  GET_POST_LINKS: `${endpointInitial}/links/`,
+  SINGLE_LINK: (id: number | string) => `${endpointInitial}/links/${id}/`,
 
   //tags
-  GET_POST_TAGS: `${endpointInitial}/tags`,
-  SINGLE_TAG: (id: number | string) => `${endpointInitial}/tags/${id}`,
+  GET_POST_TAGS: `${endpointInitial}/tags/`,
+  SINGLE_TAG: (id: number | string) => `${endpointInitial}/tags/${id}/`,
 
   //images from yahoo
   GET_IMAGES: (query: string) => `${imageScrapperHost}api/images/yahoo/${query}`,
+
+  // category invitations
+  GET_INVITATIONS: `${endpointInitial}/category_invitations/`,
+  SEND_INVITATION: `${endpointInitial}/category_invitations/`,
+  GET_SENT_INVITATIONS: `${endpointInitial}/category_invitations/sent_invitations/`,
+  DELETE_SENT_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/`,
+  ACCEPT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/accept/`,
+  REJECT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/reject/`,
+
 } as const
 
 

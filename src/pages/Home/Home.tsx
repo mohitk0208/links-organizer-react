@@ -11,6 +11,7 @@ import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import Button from '../../components/utilComponents/Button'
 import useDebounceTimeout from '../../hooks/useDebounceTimeout'
 import { useAppDispatch, useAppSelector } from '../../app/store'
+import InvitationsContainer from '../../components/InvitationsConatiner'
 
 function Home() {
 
@@ -88,8 +89,9 @@ function Home() {
 
 
       </ContentContainer>
-      <NewsContainer className="px-2" >
-        <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800">
+      <NewsContainer className=" px-2" >
+        <div className="h-full p-4 rounded shadow-lg bg-white dark:bg-gray-800">
+          <InvitationsContainer />
         </div>
       </NewsContainer>
 

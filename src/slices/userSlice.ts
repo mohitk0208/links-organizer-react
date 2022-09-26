@@ -104,6 +104,7 @@ export const updateUserAsync = (profile: updateUserAsyncData): AppThunk => async
         type: "success",
         duration: 3000
       }))
+      dispatch(setIsEditMode(false))
     }
 
   } catch (error) {

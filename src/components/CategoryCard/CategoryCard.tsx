@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { PencilIcon, TrashIcon } from "@heroicons/react/solid"
+import { CogIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid"
 import DeleteConfirmModal from '../DeleteConfirmModal'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCategoryAsync } from '../../slices/categoriesSlice'
 import CreateEditCategoryModal from '../CreateEditCategoryModal'
 import { CategoryType } from '../../types/categoriesSliceTypes'
+import { routes } from '../../utils/routeStrings'
 
 
 interface CategoryCardProps {
@@ -37,6 +38,9 @@ function CategoryCard({ category, onClick, showControls, navigateTo }: CategoryC
     >
       {showControls && (
         <div className="group-hover:opacity-100 flex opacity-0 transition duration-200 ease-in-out absolute right-0 top-0 pr-2 pt-1 " >
+          <Link to={routes.CATEGORY_SETTINGS(category.id)}>
+            <CogIcon className='h-6 w-6 text-purple-400 m-1 hover:text-purple-700 hover:scale-110 transition-transform duration-150 ease-in-out' />
+          </Link>
           <PencilIcon className="h-6 w-6 text-purple-400 m-1 hover:text-purple-700 hover:scale-110 transition-transform duration-150 ease-in-out" onClick={() => setIsEditCategoryModalOpen(true)} />
           <TrashIcon className="h-6 w-6 text-red-400 m-1 hover:text-red-600 hover:scale-110 transition-transform duration-150 ease-in-out" onClick={() => setShowDeleteModal(true)} />
         </div>

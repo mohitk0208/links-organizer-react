@@ -11,4 +11,5 @@ export const routes = {
   LINKS_BY_CATEGORY: (categoryId?: number | string) => `/links/${categoryId ? categoryId : ":categoryId"}`,
   ADD_LINK: '/link/add',
   EDIT_LINK: (linkId?: number | string) => `/link/${linkId ? linkId : ":linkId"}/edit`,
+  CATEGORY_SETTINGS: (categoryId?: number | string) => `/category/${categoryId ? categoryId : ":categoryId"}/settings`,
 }

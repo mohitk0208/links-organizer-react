@@ -165,6 +165,7 @@ export const getNextLinksAsync = (searchQuery: string, category: number): AppThu
 export const postLinkAsync = (data: postLinkAsyncData): AppThunk => async (dispatch, getState) => {
 
   dispatch(setLoading(true));
+  let returnState = false
 
   try {
 
@@ -180,6 +181,7 @@ export const postLinkAsync = (data: postLinkAsyncData): AppThunk => async (dispa
         type: "success",
         duration: 3000
       }))
+      returnState = true
     }
 
   }
@@ -190,10 +192,12 @@ export const postLinkAsync = (data: postLinkAsyncData): AppThunk => async (dispa
       type: "error",
       duration: 3000
     }))
+    returnState = false
   }
   finally {
     dispatch(setLoading(false))
   }
+  return returnState
 }
 
 export const deleteLinkAsync = (id: number): AppThunk => async (dispatch) => {
