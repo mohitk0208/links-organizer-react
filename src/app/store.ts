@@ -22,8 +22,8 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>()
+export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
+export type AppThunk = ThunkAction<void, RootState, undefined, Action<string>>;
 
 export default store
