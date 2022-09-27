@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
-import { useDispatch, useSelector } from 'react-redux'
 import { selectIsEditMode, setIsEditMode, selectUser, updateUserAsync, selectLoading } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
@@ -9,6 +8,7 @@ import { joinClassNames } from "../../../utils/functions"
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import ProfilePicture from '../ProfilePicture'
 import Button from '../../utilComponents/Button'
+import { useAppDispatch, useAppSelector } from '../../../app/store'
 
 
 
@@ -22,10 +22,10 @@ const validationSchema = Yup.object().shape({
 
 function Profile() {
 
-  const isEditMode = useSelector(selectIsEditMode)
-  const user = useSelector(selectUser)
-  const isLoading = useSelector(selectLoading)
-  const dispatch = useDispatch()
+  const isEditMode = useAppSelector(selectIsEditMode)
+  const user = useAppSelector(selectUser)
+  const isLoading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
 
   const [avatar, setAvatar] = useState(user.avatar)
 
