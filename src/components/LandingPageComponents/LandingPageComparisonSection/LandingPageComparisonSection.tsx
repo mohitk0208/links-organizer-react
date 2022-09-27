@@ -1,5 +1,5 @@
 import React from "react"
-import { CheckIcon, XIcon } from "@heroicons/react/solid"
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid"
 
 
 interface RowProps {
@@ -12,22 +12,22 @@ const comparisonPoints = [
   {
     col1: "Make Multiple Categories",
     col2: <CheckIcon className="text-green-500 w-6 m-auto " />,
-    col3: <XIcon className="text-red-500 w-6 m-auto " />
+    col3: <XMarkIcon className="text-red-500 w-6 m-auto " />
   },
   {
     col1: "Attach tags to saved Urls ",
     col2: <CheckIcon className="text-green-500 w-6 m-auto " />,
-    col3: <XIcon className="text-red-500 w-6 m-auto " />
+    col3: <XMarkIcon className="text-red-500 w-6 m-auto " />
   },
   {
     col1: "Filtering Urls based on multiple parameters such as tags/categories ",
     col2: <CheckIcon className="text-green-500 w-6 m-auto " />,
-    col3: <XIcon className="text-red-500 w-6 m-auto " />
+    col3: <XMarkIcon className="text-red-500 w-6 m-auto " />
   },
   {
     col1: "Search Functionality",
     col2: <CheckIcon className="text-green-500 w-6 m-auto " />,
-    col3: <XIcon className="text-red-500 w-6 m-auto " />
+    col3: <XMarkIcon className="text-red-500 w-6 m-auto " />
   }
 
 ]

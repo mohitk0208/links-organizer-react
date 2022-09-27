@@ -5,7 +5,7 @@ import useIsOnScreen from "../../hooks/useIsOnScreen"
 import CategoryCard from '../CategoryCard'
 import CategoryCardShimmer from '../CategoryCard/CategoryCardShimmer'
 import { joinClassNames } from '../../utils/functions'
-import { InformationCircleIcon } from "@heroicons/react/outline"
+import { InformationCircleIcon } from "@heroicons/react/24/outline"
 import useDebounceTimeout from "../../hooks/useDebounceTimeout"
 import { useAppDispatch, useAppSelector } from '../../app/store'
 

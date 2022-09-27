@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 import Button from '../Button'
-import { XIcon } from '@heroicons/react/solid'
+import { XMarkIcon } from '@heroicons/react/24/solid'
 
 const MODAL_WIDTH = {
   "sm": "max-w-md",
@@ -66,7 +66,7 @@ function Modal({ className = "", size = "md", ...props }: ModalProps) {
                   <span>
                     {props.headline}
                   </span>
-                  <XIcon className='w-7 h-7 opacity-70 hover:opacity-100 cursor-pointer transition-colors ease-in-out duration-200' onClick={() => props.onCancel()} />
+                  <XMarkIcon className='w-7 h-7 opacity-70 hover:opacity-100 cursor-pointer transition-colors ease-in-out duration-200' onClick={() => props.onCancel()} />
                 </Dialog.Title>
 
                 <div className={className}>

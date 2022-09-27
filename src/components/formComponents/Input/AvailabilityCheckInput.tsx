@@ -1,7 +1,7 @@
 import { useField } from "formik"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import TextError from "../TextError/TextError"
-import { CheckIcon, XIcon } from "@heroicons/react/solid"
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import LoadingSpinner from "../../utilComponents/LoadingSpinner"
 import endpoints from "../../../utils/endpoints"
 import { classes } from "./index"
@@ -97,11 +97,11 @@ export default function AvailabilityCheckInput({ label, labelClassName, labelSpa
       <span className={`capitalize ${labelSpanClassName}`} >{label}</span>
       <div className="flex mt-1">
         <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} ${className} w-full rounded-l`} onChange={changeHandler} />
-        <span className="block p-1 w-12 shadow-sm dark:bg-gray-700 dark:focus:bg-gray-600 rounded-r flex items-center justify-center border-2 dark:border-gray-600/80" >
+        <span className="p-1 w-12 shadow-sm dark:bg-gray-700 dark:focus:bg-gray-600 rounded-r flex items-center justify-center border-2 dark:border-gray-600/80" >
 
           {currentInputState === INPUT_STATES.AVAILABLE && <CheckIcon className="w-6 text-green-400" />}
 
-          {currentInputState === INPUT_STATES.UNAVAILABLE && <XIcon className="w-6 text-red-500" />}
+          {currentInputState === INPUT_STATES.UNAVAILABLE && <XMarkIcon className="w-6 text-red-500" />}
 
           {currentInputState === INPUT_STATES.CHECKING && <LoadingSpinner className="w-6 h-6" />}
 

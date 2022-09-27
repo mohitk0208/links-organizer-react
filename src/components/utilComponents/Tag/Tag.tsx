@@ -1,6 +1,6 @@
 import React from 'react'
 import { joinClassNames } from '../../../utils/functions'
-import { XCircleIcon } from "@heroicons/react/solid"
+import { XCircleIcon } from "@heroicons/react/24/solid"
 import { tag } from '../../../types/tag'
 
 interface TagProps {
