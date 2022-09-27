@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectIsEditMode } from '../../../slices/userSlice'
-import { PencilIcon } from "@heroicons/react/solid"
+import { PencilIcon } from "@heroicons/react/24/solid"
 import Modal from '../../utilComponents/Modal'
 import { Transition } from '@headlessui/react'
 

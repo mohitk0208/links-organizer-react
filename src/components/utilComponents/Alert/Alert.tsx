@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { XIcon } from "@heroicons/react/solid"
+import { XMarkIcon } from "@heroicons/react/24/solid"
 
 const VARIANTS = {
   "error": "bg-red-500/90",
@@ -169,7 +169,7 @@ function Alert({ variant = "error", corners = "light-curve", placement = "top-mi
         </span>
         {!autoClose && (
           <span className="w-2/12 md:w-1/12 align-middle p-1 flex items-center justify-center" onClick={handleOnClose} >
-            <XIcon className="w-5 hover:text-gray-900 hover:cursor-pointer" />
+            <XMarkIcon className="w-5 hover:text-gray-900 hover:cursor-pointer" />
           </span>
         )}
 

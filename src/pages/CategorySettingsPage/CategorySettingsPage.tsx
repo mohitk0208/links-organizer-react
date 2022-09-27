@@ -1,4 +1,4 @@
-import { CogIcon, PencilIcon } from "@heroicons/react/solid";
+import { CogIcon, PencilIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";

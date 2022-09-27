@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PencilIcon } from "@heroicons/react/solid"
+import { PencilIcon } from "@heroicons/react/24/solid"
 import { selectIsEditMode, setIsEditMode, selectUser, updateUserAsync, selectLoading } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"

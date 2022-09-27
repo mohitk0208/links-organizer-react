@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CogIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid"
+import { CogIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid"
 import DeleteConfirmModal from '../DeleteConfirmModal'
 import { Link } from 'react-router-dom'
 import { deleteCategoryAsync } from '../../slices/categoriesSlice'

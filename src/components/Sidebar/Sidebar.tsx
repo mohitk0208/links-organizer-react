@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { routes } from "../../utils/routeStrings"
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { NewspaperIcon, UserIcon, LinkIcon, PlusIcon } from "@heroicons/react/outline"
+import { NewspaperIcon, UserIcon, LinkIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
 import { getUserAsync, selectAvatar, selectFullName } from '../../slices/userSlice'
