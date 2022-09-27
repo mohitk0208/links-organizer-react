@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { CogIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid"
 import DeleteConfirmModal from '../DeleteConfirmModal'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { deleteCategoryAsync } from '../../slices/categoriesSlice'
 import CreateEditCategoryModal from '../CreateEditCategoryModal'
 import { CategoryType } from '../../types/categoriesSliceTypes'
 import { routes } from '../../utils/routeStrings'
+import { useAppDispatch } from '../../app/store'
 
 
 interface CategoryCardProps {
@@ -21,7 +21,7 @@ function CategoryCard({ category, onClick, showControls, navigateTo }: CategoryC
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false)
 
   const {

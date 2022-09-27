@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
 import { ShareIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline"
-// import { format, isToday, isYesterday } from 'date-fns'
 import Modal from '../utilComponents/Modal'
 import DeleteConfirmModal from '../DeleteConfirmModal'
-import { useDispatch } from 'react-redux'
 import { deleteLinkAsync } from '../../slices/linksSlice'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import { LinkType } from '../../types/linksSliceType'
+import { useAppDispatch } from '../../app/store'
 
 // function formatCreatedAt(date) {
 
@@ -33,7 +32,7 @@ function LinkCard({ link }: LinkCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const {
     id,

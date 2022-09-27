@@ -5,10 +5,10 @@ import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { routes } from '../../utils/routeStrings'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField } from '../../components/formComponents/Input'
-import { useDispatch, useSelector } from 'react-redux'
 import { selectLoading, selectSignupError, setSignupError, signupAsync } from '../../slices/authSlice'
 import Alert from '../../components/utilComponents/Alert'
 import Button from '../../components/utilComponents/Button'
+import { useAppDispatch, useAppSelector } from '../../app/store'
 
 
 interface initialValuesType {
@@ -57,9 +57,9 @@ const validationSchema = Yup.object().shape({
 
 function Signup() {
 
-  const SignupError = useSelector(selectSignupError)
-  const loading = useSelector(selectLoading)
-  const dispatch = useDispatch()
+  const SignupError = useAppSelector(selectSignupError)
+  const loading = useAppSelector(selectLoading)
+  const dispatch = useAppDispatch()
 
 
   return (

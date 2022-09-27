@@ -4,8 +4,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { NewspaperIcon, UserIcon, LinkIcon, PlusIcon } from "@heroicons/react/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
-import { useDispatch, useSelector } from 'react-redux'
 import { getUserAsync, selectAvatar, selectFullName } from '../../slices/userSlice'
+import { useAppDispatch, useAppSelector } from '../../app/store'
 
 function joinClassNames(...classes: string[]): string {
   return classes.join(" ")
@@ -14,9 +14,9 @@ function joinClassNames(...classes: string[]): string {
 function Sidebar() {
 
   const location = useLocation()
-  const fullName = useSelector(selectFullName)
-  const avatar = useSelector(selectAvatar)
-  const dispatch = useDispatch()
+  const fullName = useAppSelector(selectFullName)
+  const avatar = useAppSelector(selectAvatar)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getUserAsync())
