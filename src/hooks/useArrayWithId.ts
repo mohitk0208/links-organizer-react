@@ -35,11 +35,11 @@ export default function useArrayWithId<T>(initialValue: T[] = []) {
   }, [])
 
 
-  const remove = useCallback((id) => {
+  const remove = useCallback((id: string) => {
     setArr(prev => ([...prev].filter(v => v.id !== id)))
   }, [])
 
-  const removeByIndex = useCallback((index) => {
+  const removeByIndex = useCallback((index: number) => {
     setArr(prev => [...prev].filter((v, i) => i !== index))
   }, [])
 
