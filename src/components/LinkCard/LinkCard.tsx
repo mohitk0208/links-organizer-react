@@ -9,17 +9,6 @@ import { routes } from '../../utils/routeStrings'
 import { LinkType } from '../../types/linksSliceType'
 import { useAppDispatch } from '../../app/store'
 
-// function formatCreatedAt(date) {
-
-//   const d = new Date(date)
-
-//   if (isToday(d)) return `Created Today`
-
-//   if (isYesterday(d)) return `Created Yesterday`
-
-//   return `${format(d, 'do MMMM, yyyy ')}`
-
-// }
 
 interface LinkCardProps {
   link: LinkType,
