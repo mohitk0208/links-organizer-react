@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import Select from "react-select/async"
 import { FilterTagsOptionType } from "."
 import { tag } from "../../types/tag"
@@ -16,36 +16,52 @@ type FilterTagsProps = {
 
 function FilterTags({ tags, onChange }: FilterTagsProps) {
 
+  const timerRef = useRef<number>()
 
-  async function loadOptions(inputValue: string, callback: (options: FilterTagsOptionType[]) => void) {
 
-    try {
-      const res = await fetchWrapper.get(`${endpoints.GET_POST_TAGS}?name=${inputValue}&limit=10`, true)
 
-      const resData = await res.json()
+  function loadOptions(inputValue: string, callback: (options: FilterTagsOptionType[]) => void) {
 
-      if (res.ok) {
-        return (resData.results as tag[] || []).map(t => ({ label: t.name, value: t }))
-      }
-    } catch (error) {
-      console.log(error)
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
     }
 
-    return []
+    timerRef.current = setTimeout(async () => {
+
+      try {
+        const res = await fetchWrapper.get(`${endpoints.GET_POST_TAGS}?name=${inputValue}&limit=10`, true)
+
+        const resData = await res.json()
+
+        if (res.ok) {
+          const results = (resData.results as tag[] || []).map(t => ({ label: t.name, value: t }))
+          console.log(results)
+          callback(results)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }, 500)
+
   }
+
+
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current)
+  }, [])
+
+
+
 
 
 
   return (
-    <div className="" >
-      <div>
-        <h2>Tags</h2>
-      </div>
-      <Select isMulti value={tags} onChange={(newValue) => {
-        console.log(newValue)
-        onChange(newValue as FilterTagsOptionType[])
-      }} loadOptions={loadOptions} placeholder="Filter tags..." />
-    </div>
+    <Select
+      isMulti
+      value={tags}
+      onChange={(newValue) => onChange(newValue as FilterTagsOptionType[])}
+      loadOptions={loadOptions}
+      placeholder="Filter tags..." />
   )
 
 }

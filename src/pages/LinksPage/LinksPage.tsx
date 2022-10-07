@@ -52,7 +52,7 @@ function LinksPage() {
 
         <h1 className="px-2 text-xl font-bold mt-2 pb-2 border-b " > Links </h1>
 
-        <div className="pb-4">
+        <div className="pb-2">
           <input
             value={query}
             onChange={(e) => {
@@ -64,11 +64,16 @@ function LinksPage() {
             placeholder="Search"
           />
         </div>
+        <div>
+          <h2>
+            Filters
+          </h2>
+          <FilterTags tags={tags} onChange={(newTags) => {
+            setTags(newTags)
+            tagIdsRef.current = newTags.map(o => o.value.id)
+          }} />
+        </div>
 
-        <FilterTags tags={tags} onChange={(newTags) => {
-          setTags(newTags)
-          tagIdsRef.current = newTags.map(o => o.value.id)
-        }} />
 
         {links.map((link, index) => {
           if (index === links.length - 1) {
