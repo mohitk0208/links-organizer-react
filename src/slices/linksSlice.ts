@@ -81,7 +81,7 @@ export const {
   updateLink
 } = linksSlice.actions
 
-export const getLinksAsync = (searchQuery: string, category: string | number): AppThunk => async (dispatch) => {
+export const getLinksAsync = (searchQuery?: string, category?: string | number, tagIds?: string[] | number[]): AppThunk => async (dispatch) => {
 
   const queryParams = []
   queryParams.push(`offset=${0}`)
@@ -89,6 +89,7 @@ export const getLinksAsync = (searchQuery: string, category: string | number): A
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
   if (searchQuery) queryParams.push(`search=${searchQuery}`)
+  if (tagIds && tagIds.length !== 0) queryParams.push(`tags=${tagIds.join(",")}`)
 
   await dispatch(logoutResetLinks())
 
@@ -121,7 +122,7 @@ export const getLinksAsync = (searchQuery: string, category: string | number): A
 
 }
 
-export const getNextLinksAsync = (searchQuery: string, category: number): AppThunk => async (dispatch, getState) => {
+export const getNextLinksAsync = (searchQuery?: string, category?: string | number, tagIds?: string[] | number[]): AppThunk => async (dispatch, getState) => {
 
   const { value, totalCount } = getState().links
 
@@ -133,6 +134,7 @@ export const getNextLinksAsync = (searchQuery: string, category: number): AppThu
   queryParams.push(`limit=${10}`)
   if (category) queryParams.push(`category=${category}`)
   if (searchQuery) queryParams.push(`search=${searchQuery}`)
+  if (tagIds && tagIds.length !== 0) queryParams.push(`tags=${tagIds.join(",")}`)
 
   dispatch(setLoading(true));
 

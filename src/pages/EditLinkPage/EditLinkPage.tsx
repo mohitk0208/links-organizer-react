@@ -9,11 +9,10 @@ import Button from '../../components/utilComponents/Button'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import { getSingleLinkAsync, selectCurrentLink, selectLoading, updateSingleLinkAsync } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
-import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
 import { useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../../app/store'
-import { tag } from '../../types/tag'
+import SelectCreateTags, { SelectCreateOptionType } from '../../components/SelectCreateTags'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -30,7 +29,7 @@ function AddLinkPage() {
   const [category, setCategory] = useState<number | null>(null)
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
-  const [tags, setTags] = useState<tag[]>([])
+  const [tags, setTags] = useState<SelectCreateOptionType[]>([])
   const [isCreateTagModalOpen, setIsCreateTagModalOpen] = useState(false)
 
   const isLoading = useAppSelector(selectLoading)
@@ -58,7 +57,7 @@ function AddLinkPage() {
   useEffect(() => {
     if (currentLink) {
       setCategory(currentLink.category)
-      setTags(currentLink.tags)
+      setTags(currentLink.tags.map(t => ({ label: t.name, value: t })))
     }
   }, [currentLink])
 
@@ -93,7 +92,7 @@ function AddLinkPage() {
               const data = {
                 ...values,
                 category: category,
-                tags: tags.map(tag => tag.id)
+                tags: tags.map(o => o.value.id)
               }
               console.log(data)
               setIsUpdating(true)
@@ -109,7 +108,7 @@ function AddLinkPage() {
 
               <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows={4} />
 
-              <SelectTags tags={tags} setTags={setTags} />
+              <SelectCreateTags tags={tags} onChange={(newValue) => setTags(newValue)} setTags={setTags} />
 
               <p className="text-xs text-gray-400">  Attach tags, they help us search better.</p>
 
