@@ -9,11 +9,10 @@ import Button from '../../components/utilComponents/Button'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import { postLinkAsync, selectLoading } from '../../slices/linksSlice'
 import CreateTagModal from '../../components/CreateTagModal'
-import SelectTags from '../../components/LinkAddEditComponents/SelectTags'
 import { useAppDispatch, useAppSelector } from '../../app/store'
-import { tag } from '../../types/tag'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
+import SelectCreateTags, { SelectCreateOptionType } from '../../components/SelectCreateTags'
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -31,7 +30,7 @@ function AddLinkPage() {
   const [category, setCategory] = useState<number | null>(null)
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
-  const [tags, setTags] = useState<tag[]>([])
+  const [tags, setTags] = useState<SelectCreateOptionType[]>([])
   const [isCreateTagModalOpen, setIsCreateTagModalOpen] = useState(false)
 
   const isLoading = useAppSelector(selectLoading)
@@ -48,6 +47,8 @@ function AddLinkPage() {
     url: '',
     description: '',
   }
+
+  console.log(tags)
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
@@ -66,7 +67,7 @@ function AddLinkPage() {
             const data = {
               ...values,
               category: category,
-              tags: tags.map(tag => tag.id)
+              tags: tags.map(o => o.value.id)
             }
             console.log(data)
             const isSuccess = await dispatch(postLinkAsync(data)) as unknown as boolean
@@ -89,7 +90,8 @@ function AddLinkPage() {
 
             <TextAreaField label="description" name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" placeholder="Brief description about the URL..." rows={4} />
 
-            <SelectTags tags={tags} setTags={setTags} />
+            {/* <SelectTags tags={tags} setTags={setTags} /> */}
+            <SelectCreateTags tags={tags} onChange={(newValue) => setTags(newValue)} setTags={setTags} />
 
 
             <p className="text-xs text-gray-400">  Attach tags, they help us search better.</p>
