@@ -1,46 +1,53 @@
-import React from 'react'
-import { tag } from '../../types/tag'
-import AsyncSelect from '../formComponents/AsyncSelect'
-import Button from '../utilComponents/Button'
-import Tag from '../utilComponents/Tag'
+import React from "react"
+import Select from "react-select/async"
+import { FilterTagsOptionType } from "."
+import { tag } from "../../types/tag"
+import endpoints from "../../utils/endpoints"
+import { fetchWrapper } from "../../utils/fetchWrapper"
 
 
-function FilterTags() {
-  const [tags, setTags] = React.useState<tag[]>([])
 
-  const handleSubmit = (tag: tag) => {
-    setTags(prev => ([...prev, tag]))
-  }
 
-  const handleFilter = (results: tag[]) => {
+type FilterTagsProps = {
+  tags: FilterTagsOptionType[],
+  onChange: (newTags: FilterTagsOptionType[]) => void
+}
 
-    const currentTags = new Set(tags.map(t => t.id))
 
-    return results.filter(tag => !currentTags.has(tag.id))
+function FilterTags({ tags, onChange }: FilterTagsProps) {
+
+
+  async function loadOptions(inputValue: string, callback: (options: FilterTagsOptionType[]) => void) {
+
+    try {
+      const res = await fetchWrapper.get(`${endpoints.GET_POST_TAGS}?name=${inputValue}&limit=10`, true)
+
+      const resData = await res.json()
+
+      if (res.ok) {
+        return (resData.results as tag[] || []).map(t => ({ label: t.name, value: t }))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    return []
   }
 
 
 
   return (
-    <div className='flex gap-1' >
-      <AsyncSelect onSubmit={handleSubmit} resultFilter={handleFilter} />
-      <div className='flex-1 flex overflow-x-scroll keep-scrolling items-center'>
-        {tags.map(tag => {
-
-          const onTagClick = () => {
-
-          }
-
-          const onTagDelete = () => {
-            setTags(prev => prev.filter(t => t.id !== tag.id))
-          }
-
-          return <Tag key={tag.id} tag={tag} faded={false} onClick={onTagClick} editMode={true} onDelete={onTagDelete} />
-        })}
+    <div className="" >
+      <div>
+        <h2>Tags</h2>
       </div>
-      <Button type="button" >clear filter</Button>
+      <Select isMulti value={tags} onChange={(newValue) => {
+        console.log(newValue)
+        onChange(newValue as FilterTagsOptionType[])
+      }} loadOptions={loadOptions} placeholder="Filter tags..." />
     </div>
   )
+
 }
 
 export default FilterTags
