@@ -16,6 +16,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.0",
     "react-select": "^5.4.0",
+    "react-social-icons": "^5.15.0",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
 import { ShareIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline"
-import Modal from '../utilComponents/Modal'
 import DeleteConfirmModal from '../DeleteConfirmModal'
 import { deleteLinkAsync } from '../../slices/linksSlice'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import { LinkType } from '../../types/linksSliceType'
 import { useAppDispatch } from '../../app/store'
+import ShareLinkModal from '../ShareLinkModal'
 
 
 interface LinkCardProps {
@@ -99,19 +99,12 @@ function LinkCard({ link }: LinkCardProps) {
         </>}
       />
 
+      <ShareLinkModal
+        show={isShareModalOpen}
+        url={url}
+        onClose={() => setIsShareModalOpen(false)}
+        m- />
 
-      <Modal show={isShareModalOpen} onCancel={() => setIsShareModalOpen(false)}
-        headline="Share Idea"
-        onSubmit={() => null}
-      >
-
-        <div className="border">
-          <input value={"something"} className="border" />
-          <button type="button" className="border"  >
-            copy to clipboard
-          </button>
-        </div>
-      </Modal>
 
 
     </div>
