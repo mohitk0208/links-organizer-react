@@ -7,7 +7,7 @@ import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";
 
-const initialState: CategorySliceType = {
+const initialState: CategorySliceType = Object.freeze({
   loading: false,
   id: -1,
   name: "",
@@ -19,7 +19,7 @@ const initialState: CategorySliceType = {
   parent_category: null,
   created_at: "",
   updated_at: ""
-}
+})
 
 
 const categorySlice = createSlice({
@@ -48,13 +48,28 @@ const categorySlice = createSlice({
       state.description = action.payload.description
       state.background_url = action.payload.background_url
       state.updated_at = action.payload.updated_at
-    }
+    },
+
+    /**
+     * here either change values of state in following way
+     *    state.something = something
+     *      OR
+     * return the completely changed state that will be assigned to the state
+     *    (state) => newState
+     *
+     * state = initialState // does not work
+     */
+    logoutResetCategory: (state) => initialState
 
   }
 })
 
 
-const { setLoading, setCategoryValues, updateCategory } = categorySlice.actions
+const { setLoading, setCategoryValues, updateCategory, logoutResetCategory } = categorySlice.actions
+
+export const resetCurrentCategory = (): AppThunk => (dispatch) => {
+  dispatch(logoutResetCategory())
+}
 
 
 export const getSingleCategoryAsync = (id: number): AppThunk => async (dispatch, getState) => {

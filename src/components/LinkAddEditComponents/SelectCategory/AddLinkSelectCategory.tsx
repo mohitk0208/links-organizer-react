@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../slices/categoriesSlice'
-import useUpdateEffect from "../../hooks/useUpdateEffect"
-import useIsOnScreen from "../../hooks/useIsOnScreen"
-import CategoryCard from '../CategoryCard'
-import CategoryCardShimmer from '../CategoryCard/CategoryCardShimmer'
-import { joinClassNames } from '../../utils/functions'
 import { InformationCircleIcon } from "@heroicons/react/24/outline"
-import useDebounceTimeout from "../../hooks/useDebounceTimeout"
-import { useAppDispatch, useAppSelector } from '../../app/store'
+import { useAppDispatch, useAppSelector } from '../../../app/store'
+import { getCategoriesAsync, getNextCategoriesAsync, selectCategories, selectLoading } from '../../../slices/categoriesSlice'
+import useIsOnScreen from '../../../hooks/useIsOnScreen'
+import useUpdateEffect from "../../../hooks/useUpdateEffect"
+import CategoryCard from '../../CategoryCard'
+import CategoryCardShimmer from '../../CategoryCard/CategoryCardShimmer'
+import useDebounceTimeout from '../../../hooks/useDebounceTimeout'
+import { joinClassNames } from '../../../utils/functions'
+import { AddLinkSelectCategoryProps } from '.'
 
-interface SelectCategoryProps {
-  selectedCategory: number | null,
-  setSelectedCategory: React.Dispatch<React.SetStateAction<number | null>>,
-  error: string
-}
 
-function SelectCategory({ selectedCategory, setSelectedCategory, error }: SelectCategoryProps) {
+
+
+
+
+
+function AddLinkSelectCategory({ selectedCategory, onChange, error }: AddLinkSelectCategoryProps) {
 
   const categories = useAppSelector(selectCategories)
   const isLoading = useAppSelector(selectLoading)
@@ -86,7 +87,7 @@ function SelectCategory({ selectedCategory, setSelectedCategory, error }: Select
                   "w-full cursor-pointer",
                   selectedCategory === category.id ? "ring-2 ring-purple-500/70 ring-offset-2 font-bold" : " opacity-50"
                 )}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => onChange(category.id)}
               >
                 <CategoryCard category={category} />
               </div>
@@ -100,7 +101,7 @@ function SelectCategory({ selectedCategory, setSelectedCategory, error }: Select
                 "w-full cursor-pointer",
                 selectedCategory === category.id ? "ring-2 ring-purple-500/70 ring-offset-2 font-bold" : " opacity-50"
               )}
-              onClick={() => setSelectedCategory(category.id)}
+              onClick={() => onChange(category.id)}
             >
               <CategoryCard category={category} />
             </div>
@@ -118,4 +119,4 @@ function SelectCategory({ selectedCategory, setSelectedCategory, error }: Select
   )
 }
 
-export default SelectCategory
+export default AddLinkSelectCategory

@@ -4,7 +4,7 @@ import NewsContainer from '../../components/utilComponents/NewsContainer'
 import { Form, Formik } from 'formik'
 import { InputField, TextAreaField } from '../../components/formComponents/Input'
 import * as Yup from 'yup'
-import SelectCategory from '../../components/LinkAddEditComponents/SelectCategory'
+import SelectCategory from '../../components/LinkAddEditComponents/SelectCategory/index'
 import Button from '../../components/utilComponents/Button'
 import CreateEditCategoryModal from '../../components/CreateEditCategoryModal'
 import { getSingleLinkAsync, selectCurrentLink, selectLoading, updateSingleLinkAsync } from '../../slices/linksSlice'
@@ -129,7 +129,10 @@ function AddLinkPage() {
           <Button variant="outline-primary" type="button" onClick={() => setIsCreateCategoryModalOpen(true)}  >Create</Button>
         </div>
 
-        <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} error={categoryError} />
+        {category && (
+          <SelectCategory initiallySelected selectedCategory={category} onChange={(newCategoryId) => setCategory(newCategoryId)} error={categoryError} />
+        )}
+
       </NewsContainer>
 
       <CreateEditCategoryModal
