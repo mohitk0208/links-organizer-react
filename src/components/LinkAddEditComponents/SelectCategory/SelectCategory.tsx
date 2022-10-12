@@ -1,13 +1,22 @@
+import { lazy, Suspense } from "react";
 import { SelectCategoryProps } from ".";
-import AddLinkSelectCategory from "./AddLinkSelectCategory";
-import EditLinkSelectCategory from "./EditLinkSelectCategory.";
+import SuspenseFallback from "../../SuspenseFallback";
+const AddLinkSelectCategory = lazy(() => import("./AddLinkSelectCategory"));
+const EditLinkSelectCategory = lazy(() => import("./EditLinkSelectCategory"));
 
 function SelectCategory(props: SelectCategoryProps) {
-  if (props.initiallySelected) {
-    return <EditLinkSelectCategory {...props} />
-  }
 
-  return <AddLinkSelectCategory {...props} />
+
+  return (
+    <Suspense fallback={<SuspenseFallback />} >
+      {props.initiallySelected ? (
+        <EditLinkSelectCategory {...props} />
+      ) : (
+        <AddLinkSelectCategory {...props} />
+      )}
+
+    </Suspense>
+  )
 }
 
 export default SelectCategory
