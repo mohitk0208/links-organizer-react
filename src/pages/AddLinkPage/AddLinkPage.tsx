@@ -48,8 +48,6 @@ function AddLinkPage() {
     description: '',
   }
 
-  console.log(tags)
-
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
       <ContentContainer className="flex flex-col overflow-y-auto keep-scrolling py-5 mx-2 bg-white min-h-screen ">
