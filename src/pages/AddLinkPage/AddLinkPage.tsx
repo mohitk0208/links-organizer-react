@@ -14,7 +14,6 @@ import SelectCreateTags, { SelectCreateOptionType } from '../../components/Selec
 import SuspenseFallback from '../../components/SuspenseFallback'
 
 const CreateEditCategoryModal = lazy(() => import('../../components/CreateEditCategoryModal'))
-const CreateTagModal = lazy(() => import('../../components/CreateTagModal'))
 
 const validationSchema = Yup.object().shape({
   url: Yup.string().url("The string must be a URL.").required("URL is required.").max(200, "URL must be less than 200 characters."),
@@ -33,7 +32,6 @@ function AddLinkPage() {
   const [categoryError, setCategoryError] = useState("")
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false)
   const [tags, setTags] = useState<SelectCreateOptionType[]>([])
-  const [isCreateTagModalOpen, setIsCreateTagModalOpen] = useState(false)
 
   const isLoading = useAppSelector(selectLoading)
   const dispatch = useAppDispatch()
@@ -124,11 +122,6 @@ function AddLinkPage() {
           show={isCreateCategoryModalOpen}
           onClose={() => setIsCreateCategoryModalOpen(false)}
           isEdit={false}
-        />
-
-        <CreateTagModal
-          show={isCreateTagModalOpen}
-          onClose={() => setIsCreateTagModalOpen(false)}
         />
       </Suspense>
 
