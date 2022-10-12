@@ -113,7 +113,7 @@ function AddLinkPage() {
           <Button variant="outline-primary" type="button" onClick={() => setIsCreateCategoryModalOpen(true)}  >Create</Button>
         </div>
 
-        <SelectCategory selectedCategory={category} setSelectedCategory={setCategory} error={categoryError} />
+        <SelectCategory selectedCategory={category} onChange={(newCategoryId) => setCategory(newCategoryId)} error={categoryError} />
       </NewsContainer>
 
       <CreateEditCategoryModal
