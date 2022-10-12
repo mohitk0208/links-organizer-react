@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import SuspenseFallback from '../components/SuspenseFallback'
 import { routes } from '../utils/routeStrings'
 // import LandingPage from '../pages/LandingPage'
 
@@ -25,7 +26,7 @@ const LandingPage = lazy(() => import("../pages/LandingPage"))
 
 const RoutingComp = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SuspenseFallback />}>
       <Routes>
         <Route path={routes.PROFILE} element={<RequireAuth ><ProfilePage /></RequireAuth>} />
         <Route path={routes.HOME} element={<RequireAuth ><Home /></RequireAuth>} />
