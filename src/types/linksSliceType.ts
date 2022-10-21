@@ -5,10 +5,10 @@ export interface LinkType {
   url: string,
   description: string,
   category: number,
-  category__background_url: string,
+  category_background_url: string,
   owner: number,
-  owner__username: string,
-  owner__avatar: string,
+  owner_username: string,
+  owner_avatar: string,
   tags: tag[],
   created_at: string,
   updated_at: string
