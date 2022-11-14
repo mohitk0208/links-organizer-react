@@ -28,3 +28,14 @@ export interface updateUserAsyncData {
   email: string,
   avatar: string
 }
+
+export type publicUserType = {
+  id: number,
+  username: string,
+  first_name: string,
+  last_name: string,
+  email: string
+  avatar: string,
+  last_login: string,
+  date_joined: string
+}

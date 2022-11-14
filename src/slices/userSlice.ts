@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { AppThunk, RootState } from "../app/store";
-import { setUserStateAction, updateUserAsyncData, userSliceType } from "../types/useSliceTypes";
+import { setUserStateAction, updateUserAsyncData, userSliceType } from "../types/userSliceTypes";
 import endpoints from "../utils/endpoints";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";

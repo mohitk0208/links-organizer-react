@@ -8,6 +8,7 @@ import ContentContainer from "../../components/utilComponents/ContentContainer";
 import NewsContainer from "../../components/utilComponents/NewsContainer";
 import { getSingleCategoryAsync, selectCategory, updateCategoryAsync } from "../../slices/categorySlice";
 import CategoryInfoGrid from "./CategoryInfoGrid";
+import CategorySharedUsers from "./CategorySharedUsers";
 
 function CategorySettingsPage() {
   // const loading = useAppSelector(selectLoading)
@@ -47,25 +48,7 @@ function CategorySettingsPage() {
 
           <CategoryInfoGrid category={category} />
 
-          <h1 className="text-2xl font-bold mt-5" >Shared Users</h1>
-          <div className="grid grid-cols-2"  >
-
-            <p className="font-bold text-lg">
-              User
-            </p>
-            <p className="font-bold text-lg">
-              Permission
-            </p>
-
-            <p className="flex items-center gap-1">
-              <img src={category.owner_avatar} className="w-8 rounded-full" alt="" />
-              <span>
-                {category.owner_username}
-              </span>
-            </p>
-            <p>some permission</p>
-          </div>
-
+          <CategorySharedUsers category={category} />
 
         </div>
 

@@ -60,7 +60,7 @@ function Modal({ className = "", size = "md", ...props }: ModalProps) {
             leaveFrom="opacity-100 translate-y-0 scale-100"
             leaveTo="opacity-0 -translate-y-8 sm-translate-y-0 sm:scale-95"
           >
-            <div className={`inline-block w-full ${MODAL_WIDTH[size]} p-4 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg`}>
+            <div className={`inline-block w-full ${MODAL_WIDTH[size]} p-4 my-8 overflow-visible text-left align-middle transition-all transform bg-white shadow-xl rounded-lg`}>
               <div>
                 <Dialog.Title as="h3" className="text-lg leading-3 font-medium py-2 text-gray-900 flex justify-between items-center">
                   <span>
@@ -85,7 +85,7 @@ function Modal({ className = "", size = "md", ...props }: ModalProps) {
 
                   {props.btn && (
                     typeof (props.btn) === "string" ? (
-                      <Button className="my-1" variant="success" type="button" onClick={props.onSubmit}  >{props.btn}</Button>
+                      <Button className="my-1" variant="primary" type="button" onClick={props.onSubmit}  >{props.btn}</Button>
                     ) : props.btn
 
                   )}

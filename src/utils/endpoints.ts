@@ -12,6 +12,7 @@ const endpoints = {
   OBTAIN_RESET_TOKEN: `${endpointInitial}/accounts/password/reset`,
   VALIDATE_RESET_TOKEN: (uidb64: string, token: string) => `${endpointInitial}/accounts/password/reset/${uidb64}/${token}`,
   RESET_NEW_PASSWORD: (uidb64: string, token: string) => `${endpointInitial}/accounts/password/reset/${uidb64}/${token}`,
+  SEARCH_USER: `${endpointInitial}/accounts/users/search`,
 
   //user
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
@@ -38,6 +39,15 @@ const endpoints = {
   DELETE_SENT_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/`,
   ACCEPT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/accept/`,
   REJECT_RECEIVED_INVITATION: (invitationId: number | string) => `${endpointInitial}/category_invitations/${invitationId}/reject/`,
+
+
+
+  // sender category invitations
+  GET_POST_SENDER_CATEGORY_INVITATIONS: `${endpointInitial}/sender_category_invitations/`,
+  SINGLE_SENDER_CATEGORY_INVITATION: (invitationId: number | string) => `${endpointInitial}/sender_category_invitations/${invitationId}`
+
+
+
 
 } as const
 

@@ -1,0 +1,2 @@
+import SendCategoryInvitationModal from "./SendCategoryInvitationModal";
+export default SendCategoryInvitationModal
